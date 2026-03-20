@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Viraj Joshi — Game & Level Designer</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Nunito',sans-serif;background:#0d0d18;color:#e2e0d8;overflow-x:hidden;position:relative;}
+
+/* ── BG ICONS ── */
+.bg-icons{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.bg-icons span{position:absolute;font-size:2.8rem;opacity:0.07;user-select:none;animation:floatIcon 7s ease-in-out infinite;}
+.bg-icons span:nth-child(odd){animation-direction:alternate;}
+.bg-icons span:nth-child(even){animation-direction:alternate-reverse;animation-duration:9s;}
+.bg-icons span:nth-child(3n){animation-duration:11s;}
+@keyframes floatIcon{0%{transform:translateY(0) rotate(0deg);}100%{transform:translateY(-14px) rotate(5deg);}}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 3rem;background:rgba(13,13,24,0.92);backdrop-filter:blur(14px);border-bottom:1px solid rgba(130,100,255,0.15);}
+.nav-name{font-weight:800;font-size:1.1rem;color:#e2e0d8;text-decoration:none;}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{color:#888;text-decoration:none;font-weight:600;font-size:0.9rem;transition:color .2s;}
+.nav-links a:hover,.nav-links a.active{color:#8b7ff0;}
+
+/* ── SCROLL TOP ── */
+#scrollTop{position:fixed;bottom:1.5rem;right:1.5rem;z-index:200;width:40px;height:40px;border-radius:50%;background:#6c63ff;color:#fff;border:none;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(108,99,255,.4);opacity:0;transition:opacity .3s,transform .2s;}
+#scrollTop:hover{transform:translateY(-2px);}
+
+/* ── SECTIONS ── */
+section{position:relative;z-index:1;padding:5rem 0;}
+.container{max-width:1100px;margin:0 auto;padding:0 2.5rem;}
+.section-tag{text-align:center;font-size:.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#8b7ff0;margin-bottom:.5rem;}
+.section-title{text-align:center;font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;color:#e2e0d8;margin-bottom:3rem;}
+
+/* ── HERO ── */
+#home{min-height:100vh;display:flex;align-items:center;padding:6rem 0 3rem;}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;}
+.hero-left{position:relative;}
+.hero-social{position:absolute;left:-2.5rem;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:1rem;}
+.hero-social a{width:36px;height:36px;border-radius:8px;background:rgba(108,99,255,.15);display:flex;align-items:center;justify-content:center;color:#8b7ff0;text-decoration:none;font-size:.85rem;font-weight:700;transition:background .2s,transform .2s;border:1px solid rgba(108,99,255,.2);}
+.hero-social a:hover{background:#6c63ff;color:#fff;transform:translateX(3px);}
+.hero-greeting{font-size:1.1rem;font-weight:600;color:#666;margin-bottom:.4rem;}
+.hero-name{font-size:clamp(2.5rem,5vw,3.8rem);font-weight:800;line-height:1.1;color:#e2e0d8;margin-bottom:.7rem;}
+.hero-role{font-size:1.05rem;font-weight:700;color:#8b7ff0;margin-bottom:1rem;}
+.hero-desc{font-size:.93rem;color:#888;line-height:1.75;max-width:420px;margin-bottom:2rem;}
+.hero-btn{display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 2rem;border-radius:10px;background:#6c63ff;color:#fff;font-family:'Nunito',sans-serif;font-weight:700;font-size:.95rem;border:none;cursor:pointer;text-decoration:none;box-shadow:0 6px 22px rgba(108,99,255,.35);transition:background .2s,transform .2s;}
+.hero-btn:hover{background:#5a52e0;transform:translateY(-2px);}
+.hero-scroll{margin-top:2.5rem;display:flex;align-items:center;gap:.6rem;font-size:.82rem;color:#555;cursor:pointer;}
+.scroll-mouse{width:20px;height:32px;border:2px solid #444;border-radius:10px;position:relative;display:flex;justify-content:center;}
+.scroll-mouse::after{content:'';width:3px;height:6px;background:#666;border-radius:2px;position:absolute;top:5px;animation:scrollDot 1.5s ease infinite;}
+@keyframes scrollDot{0%,100%{opacity:1;top:5px}50%{opacity:.3;top:12px}}
+.hero-photo-wrap{display:flex;justify-content:center;align-items:center;}
+.hero-photo{width:300px;height:300px;border-radius:50%;background:rgba(108,99,255,.1);display:flex;align-items:center;justify-content:center;overflow:hidden;border:3px solid rgba(108,99,255,.25);}
+.hero-photo img{width:100%;height:100%;object-fit:cover;}
+.hero-photo-ph{display:flex;flex-direction:column;align-items:center;gap:.7rem;color:#444;font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-align:center;}
+
+/* ── ABOUT ── */
+#about{background:rgba(255,255,255,.02);}
+.about-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:4rem;align-items:start;}
+.about-photo-box{width:100%;aspect-ratio:3/4;background:rgba(108,99,255,.07);display:flex;align-items:center;justify-content:center;border-radius:16px;overflow:hidden;border:1px solid rgba(108,99,255,.15);}
+.about-photo-box img{width:100%;height:100%;object-fit:cover;border-radius:16px;}
+.about-photo-ph{display:flex;flex-direction:column;align-items:center;gap:.8rem;color:#333;font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;}
+.about-label{font-size:.72rem;font-weight:700;color:#8b7ff0;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.4rem;}
+.about-title{font-size:2rem;font-weight:800;color:#e2e0d8;margin-bottom:1.2rem;}
+.about-bio{font-size:.93rem;color:#888;line-height:1.82;margin-bottom:1.5rem;}
+.about-stats{display:flex;gap:1.2rem;margin-bottom:2rem;flex-wrap:wrap;}
+.stat-box{background:rgba(255,255,255,.04);border-radius:12px;padding:1rem 1.3rem;text-align:center;border:1px solid rgba(108,99,255,.15);flex:1;min-width:80px;}
+.stat-box .num{font-size:1.8rem;font-weight:800;color:#8b7ff0;}
+.stat-box .lbl{font-size:.68rem;color:#666;font-weight:700;}
+.tag-pill{background:rgba(108,99,255,.15);color:#8b7ff0;padding:.3rem .7rem;border-radius:6px;font-size:.78rem;font-weight:700;border:1px solid rgba(108,99,255,.2);}
+
+/* ── SKILLS ── */
+.skills-accordion{max-width:800px;margin:0 auto;}
+.acc-item{background:rgba(255,255,255,.03);border-radius:14px;margin-bottom:1rem;border:1px solid rgba(108,99,255,.12);overflow:hidden;}
+.acc-header{display:flex;align-items:center;justify-content:space-between;padding:1.2rem 1.5rem;cursor:pointer;transition:background .2s;}
+.acc-header:hover{background:rgba(108,99,255,.06);}
+.acc-title-wrap{display:flex;align-items:center;gap:.9rem;}
+.acc-icon{width:36px;height:36px;border-radius:8px;background:rgba(108,99,255,.15);display:flex;align-items:center;justify-content:center;font-size:1rem;}
+.acc-title{font-size:1rem;font-weight:700;color:#e2e0d8;}
+.acc-arrow{font-size:.75rem;color:#8b7ff0;transition:transform .3s;}
+.acc-item.open .acc-arrow{transform:rotate(180deg);}
+.acc-body{display:none;padding:0 1.5rem 1.5rem;}
+.acc-item.open .acc-body{display:block;}
+.acc-list{list-style:none;display:flex;flex-direction:column;gap:.7rem;}
+.acc-list li{display:flex;align-items:flex-start;gap:.7rem;font-size:.88rem;color:#888;line-height:1.55;}
+.acc-list li::before{content:'⊕';color:#8b7ff0;font-size:.82rem;flex-shrink:0;margin-top:1px;}
+
+/* ── CAROUSELS ── */
+.carousel-section{margin-bottom:4.5rem;}
+.carousel-label{font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#8b7ff0;text-align:center;margin-bottom:.4rem;}
+.carousel-title{font-size:1.8rem;font-weight:800;color:#e2e0d8;text-align:center;margin-bottom:2rem;}
+.carousel-wrap{position:relative;}
+.carousel-row{display:flex;gap:1.5rem;align-items:center;padding:0 3.5rem;}
+.carousel-track{display:flex;gap:1.5rem;overflow:hidden;flex:1;}
+.carousel-track .slide{flex:0 0 100%;display:flex;gap:2.5rem;align-items:center;background:rgba(255,255,255,.03);border-radius:16px;padding:2rem;border:1px solid rgba(108,99,255,.12);}
+.slide-img{width:210px;height:210px;flex-shrink:0;border-radius:12px;overflow:hidden;background:rgba(108,99,255,.08);display:flex;align-items:center;justify-content:center;}
+.slide-img img{width:100%;height:100%;object-fit:cover;border-radius:12px;}
+.slide-img-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;color:rgba(139,127,240,.35);text-align:center;padding:.8rem;}
+.slide-content{flex:1;}
+.slide-type{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8b7ff0;margin-bottom:.5rem;}
+.slide-name{font-size:1.35rem;font-weight:800;color:#e2e0d8;margin-bottom:.75rem;}
+.slide-desc{font-size:.88rem;color:#777;line-height:1.72;margin-bottom:1.4rem;}
+.slide-btn{display:inline-flex;align-items:center;gap:.5rem;padding:.65rem 1.4rem;border-radius:10px;background:#6c63ff;color:#fff;font-family:'Nunito',sans-serif;font-weight:700;font-size:.83rem;border:none;cursor:pointer;text-decoration:none;transition:background .2s,transform .2s;}
+.slide-btn:hover{background:#5a52e0;transform:translateY(-1px);}
+.carousel-btn{width:42px;height:42px;border-radius:50%;flex-shrink:0;background:rgba(108,99,255,.15);color:#8b7ff0;border:1px solid rgba(108,99,255,.2);cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.carousel-btn:hover{background:#6c63ff;color:#fff;border-color:#6c63ff;}
+.carousel-dots{display:flex;justify-content:center;gap:.5rem;margin-top:1.2rem;}
+.c-dot{width:8px;height:8px;border-radius:50%;background:rgba(108,99,255,.2);border:none;cursor:pointer;padding:0;transition:all .2s;}
+.c-dot.active{background:#6c63ff;transform:scale(1.3);}
+
+/* ── EDUCATION ── */
+#education{background:rgba(255,255,255,.02);}
+.tl-wrap{max-width:780px;margin:0 auto;}
+.tl-line{position:relative;padding-left:2rem;}
+.tl-line::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,#6c63ff,rgba(108,99,255,.05));}
+.tl-item{position:relative;margin-bottom:2rem;background:rgba(255,255,255,.03);border-radius:14px;padding:1.4rem;border:1px solid rgba(108,99,255,.12);}
+.tl-item::before{content:'';position:absolute;left:-2.55rem;top:1.5rem;width:10px;height:10px;border-radius:50%;background:#6c63ff;border:2px solid #0d0d18;}
+.tl-date{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#8b7ff0;margin-bottom:.4rem;}
+.tl-title{font-size:1.05rem;font-weight:800;color:#e2e0d8;margin-bottom:.2rem;}
+.tl-sub{font-size:.83rem;color:#666;margin-bottom:.4rem;}
+.tl-detail{font-size:.82rem;color:#555;}
+
+/* ── CONTACT ── */
+.contact-headline{font-size:clamp(1.4rem,2.8vw,2rem);font-weight:800;color:#e2e0d8;text-align:center;margin-bottom:.4rem;}
+.contact-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:3rem;align-items:start;margin-top:3rem;}
+.contact-info{display:flex;flex-direction:column;gap:1.4rem;}
+.contact-item{display:flex;align-items:flex-start;gap:1rem;}
+.contact-item-icon{width:40px;height:40px;border-radius:10px;background:rgba(108,99,255,.12);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;border:1px solid rgba(108,99,255,.18);}
+.contact-item-label{font-size:.7rem;font-weight:700;color:#666;margin-bottom:.2rem;}
+.contact-item-val{font-size:.93rem;font-weight:600;color:#c0bdb5;}
+.contact-form{display:flex;flex-direction:column;gap:1rem;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.form-input,.form-textarea{width:100%;padding:.85rem 1rem;background:rgba(255,255,255,.05);border:1px solid rgba(108,99,255,.18);border-radius:10px;font-family:'Nunito',sans-serif;font-size:.88rem;color:#e2e0d8;outline:none;transition:border-color .2s;}
+.form-input:focus,.form-textarea:focus{border-color:#6c63ff;}
+.form-input::placeholder,.form-textarea::placeholder{color:#444;}
+.form-textarea{resize:vertical;min-height:120px;}
+.form-btn{display:inline-flex;align-items:center;gap:.5rem;padding:.9rem 2rem;border-radius:10px;background:#6c63ff;color:#fff;font-family:'Nunito',sans-serif;font-weight:700;font-size:.92rem;border:none;cursor:pointer;align-self:center;box-shadow:0 6px 22px rgba(108,99,255,.35);transition:background .2s,transform .2s;}
+.form-btn:hover{background:#5a52e0;transform:translateY(-1px);}
+
+/* ── FOOTER ── */
+footer{background:#6c63ff;color:#fff;padding:2.5rem;position:relative;z-index:1;}
+.footer-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;}
+.footer-name{font-size:1.2rem;font-weight:800;}
+.footer-role{font-size:.78rem;opacity:.75;margin-top:.2rem;}
+.footer-nav{display:flex;gap:2rem;list-style:none;}
+.footer-nav a{color:rgba(255,255,255,.75);text-decoration:none;font-weight:600;font-size:.88rem;transition:opacity .2s;}
+.footer-nav a:hover{opacity:1;}
+.footer-icons{display:flex;gap:.7rem;}
+.footer-icon{width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:#fff;text-decoration:none;font-size:.8rem;font-weight:700;transition:background .2s;}
+.footer-icon:hover{background:rgba(255,255,255,.28);}
+.footer-copy{width:100%;text-align:center;font-size:.78rem;opacity:.65;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  nav{padding:1rem 1.5rem;}
+  .nav-links{display:none;}
+  .hero-grid{grid-template-columns:1fr;text-align:center;}
+  .hero-social{display:none;}
+  .hero-desc{margin:0 auto 2rem;}
+  .about-grid{grid-template-columns:1fr;}
+  .about-photo-box{aspect-ratio:1/1;}
+  .contact-grid{grid-template-columns:1fr;}
+  .form-row{grid-template-columns:1fr;}
+  .carousel-row{padding:0 2.5rem;}
+  .slide{flex-direction:column;}
+  .slide-img{width:100%;height:180px;}
+  section{padding:3.5rem 0;}
+}
+</style>
+</head>
+<body>
+
+<!-- BG ICONS -->
+<div class="bg-icons">
+  <span style="top:4%;left:2%">🎮</span>
+  <span style="top:10%;left:15%">⚔️</span>
+  <span style="top:6%;left:32%">🏰</span>
+  <span style="top:13%;right:22%">🗺️</span>
+  <span style="top:5%;right:4%">🎯</span>
+  <span style="top:28%;left:1%">🌿</span>
+  <span style="top:33%;right:2%">💎</span>
+  <span style="top:42%;left:7%">🔥</span>
+  <span style="top:48%;right:7%">❤️</span>
+  <span style="top:58%;left:2%">⭐</span>
+  <span style="top:63%;right:3%">🏆</span>
+  <span style="top:23%;left:87%">🎲</span>
+  <span style="top:68%;left:87%">🌙</span>
+  <span style="top:78%;left:4%">🗡️</span>
+  <span style="top:80%;right:5%">🛡️</span>
+  <span style="top:88%;left:18%">🎪</span>
+  <span style="top:86%;right:17%">🌟</span>
+  <span style="top:73%;left:42%">👾</span>
+  <span style="top:18%;left:74%">🕹️</span>
+  <span style="top:52%;left:91%">🗝️</span>
+  <span style="top:38%;left:50%">🧩</span>
+  <span style="top:95%;left:55%">🎭</span>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#home" class="nav-name">Viraj Joshi</a>
+  <ul class="nav-links">
+    <li><a href="#home" class="active">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<!-- ═══ HERO ═══ -->
+<section id="home">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-left">
+        <div class="hero-social">
+          <a href="https://www.linkedin.com/in/viraj-joshi-a92b80202/" target="_blank" title="LinkedIn">in</a>
+          <a href="https://virajtheleveldesigner.itch.io/" target="_blank" title="itch.io">🎮</a>
+          <a href="mailto:viraj.joshi717@gmail.com" title="Email">✉</a>
+        </div>
+        <div class="hero-greeting">Hi, I'm</div>
+        <div class="hero-name">Viraj Joshi</div>
+        <div class="hero-role">Level Designer · Game Designer</div>
+        <p class="hero-desc">Level & Game Designer with 1 year of professional experience across PC and Mobile titles using Unity and Unreal Engine. Contributed to a shipped Steam title and currently active across two indie studios.</p>
+        <a href="#contact" class="hero-btn">Hire Me ▶</a>
+        <div class="hero-scroll" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">
+          <div class="scroll-mouse"></div>
+          Read About Me ↓
+        </div>
+      </div>
+      <div class="hero-photo-wrap">
+        <div class="hero-photo">
+          <!--
+            ADD YOUR PHOTO:
+            1. Upload photo.jpg to GitHub alongside index.html
+            2. Delete the .hero-photo-ph div
+            3. Add: <img src="photo.jpg" alt="Viraj Joshi"/>
+          -->
+          <div class="hero-photo-ph">
+            <svg width="58" height="58" viewBox="0 0 24 24" fill="none" stroke="rgba(139,127,240,.3)" stroke-width="1.2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            <span>Add your photo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ABOUT ═══ -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-photo-box">
+        <!--
+          ADD ABOUT PHOTO:
+          Replace .about-photo-ph with: <img src="photo.jpg" alt="Viraj Joshi"/>
+        -->
+        <div class="about-photo-ph">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(108,99,255,.25)" stroke-width="1.2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          <span>Your photo here</span>
+        </div>
+      </div>
+      <div>
+        <div class="about-label">Who Am I?</div>
+        <div class="about-title">Viraj Joshi</div>
+        <p class="about-bio">
+          Level & Game Designer with 1 year of professional experience across PC and Mobile titles using Unity and Unreal Engine.
+          Contributed to a shipped Steam title and currently active across two indie studios as Lead Game Designer and Level Designer.
+          Passionate about crafting immersive player experiences through strong level composition, gameplay systems, and cross-team collaboration.
+        </p>
+        <div class="about-stats">
+          <div class="stat-box"><div class="num">1+</div><div class="lbl">Yrs Experience</div></div>
+          <div class="stat-box"><div class="num">1</div><div class="lbl">Shipped Title</div></div>
+          <div class="stat-box"><div class="num">2</div><div class="lbl">Active Studios</div></div>
+          <div class="stat-box"><div class="num">3+</div><div class="lbl">Projects</div></div>
+        </div>
+        <div class="about-label" style="margin-bottom:.7rem;">Tools I Use</div>
+        <div style="display:flex;flex-wrap:wrap;gap:.5rem;">
+          <span class="tag-pill">Unity 2D / 3D</span>
+          <span class="tag-pill">Unreal Engine 5</span>
+          <span class="tag-pill">Unreal Blueprints</span>
+          <span class="tag-pill">ProBuilder</span>
+          <span class="tag-pill">Autodesk Maya</span>
+          <span class="tag-pill">Substance Painter</span>
+          <span class="tag-pill">Photoshop</span>
+          <span class="tag-pill">GitHub</span>
+          <span class="tag-pill">Diversion</span>
+          <span class="tag-pill">Miro</span>
+          <span class="tag-pill">Notion</span>
+          <span class="tag-pill">Trello</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SKILLS ═══ -->
+<section id="skills">
+  <div class="container">
+    <div class="section-tag">What I Can Do</div>
+    <div class="section-title">SKILLS</div>
+    <div class="skills-accordion">
+
+      <div class="acc-item open">
+        <div class="acc-header" onclick="toggleAcc(this)">
+          <div class="acc-title-wrap"><div class="acc-icon">🧠</div><span class="acc-title">Game Design Skills</span></div>
+          <span class="acc-arrow">▼</span>
+        </div>
+        <div class="acc-body"><ul class="acc-list">
+          <li>Conceptualization — developing game concepts from brief through to final design documentation.</li>
+          <li>GDD Creation — writing and maintaining Game Design Documents and Level Design Documents.</li>
+          <li>Gameplay Mechanics design and Mechanism Testing across PC and mobile titles.</li>
+          <li>Translate design intent into practical wireframes and flow diagrams using Miro.</li>
+        </ul></div>
+      </div>
+
+      <div class="acc-item">
+        <div class="acc-header" onclick="toggleAcc(this)">
+          <div class="acc-title-wrap"><div class="acc-icon">🗺️</div><span class="acc-title">Level Design Skills</span></div>
+          <span class="acc-arrow">▼</span>
+        </div>
+        <div class="acc-body"><ul class="acc-list">
+          <li>2D Layout, Blockout, and Final Asset Placement pipelines in Unity and Unreal Engine.</li>
+          <li>Terrain Sculpting and Player Flow design for engaging, readable level spaces.</li>
+          <li>Environment Storytelling — using spatial design and lighting to direct player emotion and flow.</li>
+          <li>Lighting &amp; Post-Processing to set atmosphere and visual tone.</li>
+          <li>Level geometry construction using ProBuilder (Unity) and Modeling Mode (Unreal).</li>
+        </ul></div>
+      </div>
+
+      <div class="acc-item">
+        <div class="acc-header" onclick="toggleAcc(this)">
+          <div class="acc-title-wrap"><div class="acc-icon">{}</div><span class="acc-title">Development Tools</span></div>
+          <span class="acc-arrow">▼</span>
+        </div>
+        <div class="acc-body"><ul class="acc-list">
+          <li>Unity 2D &amp; 3D — full development pipeline, scripting support, ProBuilder level geometry.</li>
+          <li>Unreal Engine 5 — level building, Blueprints scripting, Modeling Mode, lighting, post-processing.</li>
+          <li>Source Control — GitHub and Diversion for version control and team collaboration.</li>
+          <li>Optimization — Unity 3D and Unreal Engine build and performance optimization.</li>
+        </ul></div>
+      </div>
+
+      <div class="acc-item">
+        <div class="acc-header" onclick="toggleAcc(this)">
+          <div class="acc-title-wrap"><div class="acc-icon">⚙️</div><span class="acc-title">General Tools</span></div>
+          <span class="acc-arrow">▼</span>
+        </div>
+        <div class="acc-body"><ul class="acc-list">
+          <li>Notion, Google Docs &amp; Sheets — documentation, GDDs, design specs, and team collaboration.</li>
+          <li>Trello — project and sprint management.</li>
+          <li>Miro — visual brainstorming, layout planning, and design documentation.</li>
+          <li>Discord — remote team communication and coordination.</li>
+        </ul></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PORTFOLIO ═══ -->
+<section id="portfolio">
+  <div class="container">
+    <div class="section-tag">My Work</div>
+    <div class="section-title">PORTFOLIO</div>
+
+    <!-- PERSONAL PROJECTS -->
+    <div class="carousel-section">
+      <div class="carousel-label">Games I've Made</div>
+      <div class="carousel-title">PERSONAL PROJECTS</div>
+      <div class="carousel-wrap">
+        <div class="carousel-row">
+          <button class="carousel-btn" onclick="moveCarousel('games',-1)">&#8249;</button>
+          <div class="carousel-track" id="games-track">
+
+            <!-- To add image: upload file to GitHub, replace slide-img-ph with <img src="filename.jpg" alt="..."/> -->
+            <div class="slide">
+              <div class="slide-img"><div class="slide-img-ph">PRISON ESCAPE 3D</div></div>
+              <div class="slide-content">
+                <div class="slide-type">Unity · Windows · Stealth / Escape · Team of 2</div>
+                <div class="slide-name">Prison Escape 3D</div>
+                <p class="slide-desc">3D stealth-escape game — players navigate dark dungeons, evade guards, collect badges, and unlock gates. Full level design pipeline: layout, blockout, asset placement, lighting, and environment composition. Created the GDD and led all game design decisions.</p>
+                <a href="#" class="slide-btn">View Details ↗</a>
+              </div>
+            </div>
+
+            <div class="slide">
+              <div class="slide-img"><div class="slide-img-ph">COVERT TAKEDOWN</div></div>
+              <div class="slide-content">
+                <div class="slide-type">Unreal Engine 5.4 · PC · Tactical Stealth Shooter · Team of 3</div>
+                <div class="slide-name">Covert Takedown</div>
+                <p class="slide-desc">Tactical third-person stealth shooter set in a semi-arid Middle Eastern environment. Designed level layouts and blockouts for a fortified enemy compound. Reduced build size from 3GB+ to 1.75GB through careful optimization without sacrificing visual quality.</p>
+                <a href="#" class="slide-btn">View Details ↗</a>
+              </div>
+            </div>
+
+          </div>
+          <button class="carousel-btn" onclick="moveCarousel('games',1)">&#8250;</button>
+        </div>
+        <div class="carousel-dots" id="games-dots"></div>
+      </div>
+    </div>
+
+    <!-- PROFESSIONAL WORK -->
+    <div class="carousel-section">
+      <div class="carousel-label">Studio Work</div>
+      <div class="carousel-title">PROFESSIONAL PROJECTS</div>
+      <div class="carousel-wrap">
+        <div class="carousel-row">
+          <button class="carousel-btn" onclick="moveCarousel('pro',-1)">&#8249;</button>
+          <div class="carousel-track" id="pro-track">
+
+            <div class="slide">
+              <div class="slide-img"><div class="slide-img-ph">HAVE YOU SEEN THIS MAN?</div></div>
+              <div class="slide-content">
+                <div class="slide-type">Shipped Steam Title · Unity · PC · Cosmic Sabbath (U.K.)</div>
+                <div class="slide-name">Have You Seen This Man?</div>
+                <p class="slide-desc">Designed the Forest Area and Bathroom Area — environmental composition, lighting and spatial design to direct player flow and create tension. Ran multi-build QA testing and documented level bugs, lighting issues, and pathing problems that shipped clean.</p>
+                <a href="https://virajtheleveldesigner.itch.io/" target="_blank" class="slide-btn">View on itch.io ↗</a>
+              </div>
+            </div>
+
+            <div class="slide">
+              <div class="slide-img"><div class="slide-img-ph">TOASTED STUDIO</div></div>
+              <div class="slide-content">
+                <div class="slide-type">Lead Game Designer · Unity · PC · Jul 2025 – Present</div>
+                <div class="slide-name">Toasted Studio — Current Project</div>
+                <p class="slide-desc">Own the full level design pipeline — 2D layouts, blockouts, and final asset placement in Unity. Lead and coordinate the design team across milestones, keeping output aligned with the creative vision. Drive cross-department collaboration with Art, Dev, and QA.</p>
+                <a href="#contact" class="slide-btn">Get In Touch ↗</a>
+              </div>
+            </div>
+
+          </div>
+          <button class="carousel-btn" onclick="moveCarousel('pro',1)">&#8250;</button>
+        </div>
+        <div class="carousel-dots" id="pro-dots"></div>
+      </div>
+    </div>
+
+    <!-- ENVIRONMENT DESIGN -->
+    <div class="carousel-section">
+      <div class="carousel-label">Visual Work</div>
+      <div class="carousel-title">ENVIRONMENT DESIGN</div>
+      <div class="carousel-wrap">
+        <div class="carousel-row">
+          <button class="carousel-btn" onclick="moveCarousel('env',-1)">&#8249;</button>
+          <div class="carousel-track" id="env-track">
+
+            <div class="slide">
+              <div class="slide-img"><div class="slide-img-ph">EGYPTIAN TOMB</div></div>
+              <div class="slide-content">
+                <div class="slide-type">Environment Design · Unreal Engine 5</div>
+                <div class="slide-name">Egyptian Tomb</div>
+                <p class="slide-desc">Atmospheric underground tomb — dramatic lighting, ancient architecture, and volumetric fog for deep immersion.</p>
+                <a href="#" class="slide-btn">View Details ↗</a>
+              </div>
+            </div>
+
+            <div class="slide">
+              <div class="slide-img"><div class="slide-img-ph">TREASURE ISLAND</div></div>
+              <div class="slide-content">
+                <div class="slide-type">Environment Design · Unreal Engine 5</div>
+                <div class="slide-name">Treasure Island — The Lost Sailor's Tale</div>
+                <p class="slide-desc">Tropical island environment with ocean shaders, dynamic lighting, and dense foliage. Focused on environmental storytelling.</p>
+                <a href="#" class="slide-btn">View Details ↗</a>
+              </div>
+            </div>
+
+            <div class="slide">
+              <div class="slide-img"><div class="slide-img-ph">MYSTICAL MOUNTAINS</div></div>
+              <div class="slide-content">
+                <div class="slide-type">Environment Design · Unreal Engine 5</div>
+                <div class="slide-name">Mystical Mountains</div>
+                <p class="slide-desc">Fantasy mountain landscape — terrain sculpting, volumetric fog, and custom skybox for an otherworldly feel.</p>
+                <a href="#" class="slide-btn">View Details ↗</a>
+              </div>
+            </div>
+
+            <div class="slide">
+              <div class="slide-img"><div class="slide-img-ph">STARRY NIGHT ON MOTORWAY</div></div>
+              <div class="slide-content">
+                <div class="slide-type">Environment Design · Unreal Engine 5</div>
+                <div class="slide-name">Starry Night on Motorway</div>
+                <p class="slide-desc">Cinematic night road scene — realistic materials, star-filled sky, and dramatic atmospheric post-processing.</p>
+                <a href="#" class="slide-btn">View Details ↗</a>
+              </div>
+            </div>
+
+            <div class="slide">
+              <div class="slide-img"><div class="slide-img-ph">SEMI ARID LANDSCAPE</div></div>
+              <div class="slide-content">
+                <div class="slide-type">Environment Design · Unreal Engine 5</div>
+                <div class="slide-name">Semi Arid Landscape</div>
+                <p class="slide-desc">Realistic arid terrain — detailed ground materials, sparse vegetation, and heat haze post-processing effects.</p>
+                <a href="#" class="slide-btn">View Details ↗</a>
+              </div>
+            </div>
+
+          </div>
+          <button class="carousel-btn" onclick="moveCarousel('env',1)">&#8250;</button>
+        </div>
+        <div class="carousel-dots" id="env-dots"></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ EDUCATION ═══ -->
+<section id="education">
+  <div class="container">
+    <div class="section-tag">Academic Background</div>
+    <div class="section-title">EDUCATION</div>
+    <div class="tl-wrap">
+      <div class="tl-line">
+
+        <div class="tl-item">
+          <div class="tl-date">🗓 2021 – 2024</div>
+          <div class="tl-title">B.Sc. in Game Art and Design</div>
+          <div class="tl-sub">Tilak Maharashtra Vidyapeeth, Pune</div>
+          <div class="tl-detail">Grade: A+</div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-date">🗓 2021</div>
+          <div class="tl-title">H.S.C. — 12th Arts</div>
+          <div class="tl-sub">Sarhad College of Arts, Commerce & Science, Pune</div>
+          <div class="tl-detail">72%</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACT ═══ -->
+<section id="contact">
+  <div class="container">
+    <div class="section-tag">Get In Touch</div>
+    <div class="contact-headline">Let's Turn Your Awesome Game Ideas Into Awesome Games.</div>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="contact-item-icon">📞</div>
+          <div>
+            <div class="contact-item-label">Call me</div>
+            <div class="contact-item-val">+91 9765012704</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">✉</div>
+          <div>
+            <div class="contact-item-label">Email</div>
+            <div class="contact-item-val">viraj.joshi717@gmail.com</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">📍</div>
+          <div>
+            <div class="contact-item-label">Location</div>
+            <div class="contact-item-val">Pune, India</div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form">
+        <div class="form-row">
+          <input class="form-input" type="text" placeholder="Full Name"/>
+          <input class="form-input" type="email" placeholder="Your Email Address"/>
+        </div>
+        <input class="form-input" type="text" placeholder="Subject"/>
+        <textarea class="form-textarea" placeholder="Your message"></textarea>
+        <button class="form-btn">Send Message ▶</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-name">Viraj Joshi</div>
+      <div class="footer-role">Level Designer · Game Designer</div>
+    </div>
+    <ul class="footer-nav">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="footer-icons">
+      <!-- Update these with your real links -->
+      <a href="https://www.linkedin.com/in/viraj-joshi-a92b80202/" target="_blank" class="footer-icon">in</a>
+      <a href="https://virajtheleveldesigner.itch.io/" target="_blank" class="footer-icon">🎮</a>
+      <a href="mailto:viraj.joshi717@gmail.com" class="footer-icon">✉</a>
+    </div>
+    <div class="footer-copy">© Viraj Joshi. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+/* CAROUSELS */
+const carousels={};
+function initCarousel(id){
+  const track=document.getElementById(id+'-track');
+  const slides=track.querySelectorAll('.slide');
+  const dotsEl=document.getElementById(id+'-dots');
+  carousels[id]={cur:0,total:slides.length};
+  dotsEl.innerHTML='';
+  slides.forEach((_,i)=>{
+    const d=document.createElement('button');
+    d.className='c-dot'+(i===0?' active':'');
+    d.onclick=()=>goSlide(id,i);
+    dotsEl.appendChild(d);
+    slides[i].style.display=i===0?'flex':'none';
+  });
+}
+function goSlide(id,n){
+  const track=document.getElementById(id+'-track');
+  const slides=track.querySelectorAll('.slide');
+  const c=carousels[id];
+  slides[c.cur].style.display='none';
+  c.cur=(n+c.total)%c.total;
+  slides[c.cur].style.display='flex';
+  document.querySelectorAll('#'+id+'-dots .c-dot').forEach((d,i)=>d.classList.toggle('active',i===c.cur));
+}
+function moveCarousel(id,dir){goSlide(id,carousels[id].cur+dir);}
+initCarousel('games');
+initCarousel('pro');
+initCarousel('env');
+
+/* ACCORDION */
+function toggleAcc(h){h.parentElement.classList.toggle('open');}
+
+/* SCROLL TOP */
+window.addEventListener('scroll',()=>{
+  document.getElementById('scrollTop').style.opacity=window.scrollY>300?'1':'0';
+});
+
+/* NAV ACTIVE */
+const secs=document.querySelectorAll('section[id]');
+const navAs=document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  secs.forEach(s=>{if(window.scrollY>=s.offsetTop-110)cur=s.id;});
+  navAs.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));
+});
+</script>
+</body>
+</html>
