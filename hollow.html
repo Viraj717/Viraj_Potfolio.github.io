@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The Hollow Streets — Viraj Joshi</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Nunito',sans-serif;background:#080c10;color:#c8d4e0;overflow-x:hidden;}
+
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 3rem;background:rgba(8,12,16,0.95);backdrop-filter:blur(14px);border-bottom:1px solid rgba(60,120,180,0.2);}
+.nav-back{display:flex;align-items:center;gap:.6rem;color:#c8d4e0;text-decoration:none;font-weight:700;font-size:.9rem;transition:color .2s;}
+.nav-back:hover{color:#5a9fd4;}
+.nav-title{font-weight:800;font-size:1rem;color:#445;}
+
+.gallery-nav{position:sticky;top:57px;z-index:99;display:flex;justify-content:center;gap:.5rem;padding:.7rem 2rem;background:rgba(8,12,16,0.92);backdrop-filter:blur(10px);border-bottom:1px solid #101820;flex-wrap:wrap;}
+.gnav-btn{padding:.45rem 1.1rem;border-radius:20px;border:1px solid #1a2430;background:transparent;color:#556;cursor:pointer;font-family:'Nunito',sans-serif;font-size:.78rem;font-weight:700;transition:all .2s;text-decoration:none;}
+.gnav-btn:hover,.gnav-btn.active{background:#5a9fd4;color:#080c10;border-color:#5a9fd4;}
+
+.hero{position:relative;width:100%;min-height:85vh;display:flex;align-items:flex-end;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#080c14,#080c10);}
+.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,12,16,1) 0%,rgba(8,12,16,.55) 40%,rgba(8,12,16,.05) 100%);}
+.hero-content{position:relative;z-index:2;padding:3rem;max-width:900px;}
+.hero-tag{font-size:.7rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#5a9fd4;margin-bottom:.8rem;}
+.hero-title{font-size:clamp(2.5rem,6vw,5.5rem);font-weight:800;line-height:.95;color:#e8f0f8;margin-bottom:.5rem;text-shadow:0 2px 20px rgba(0,0,0,.9);}
+.hero-undisclosed{font-size:1rem;font-weight:700;color:#445;margin-bottom:1rem;font-style:italic;}
+.hero-sub{font-size:.95rem;color:#889;line-height:1.7;max-width:580px;margin-bottom:2rem;}
+.hero-tags{display:flex;flex-wrap:wrap;gap:.5rem;}
+.htag{padding:.3rem .8rem;border-radius:6px;font-size:.73rem;font-weight:700;border:1px solid rgba(90,159,212,.4);color:#5a9fd4;background:rgba(90,159,212,.1);}
+
+.container{max-width:1000px;margin:0 auto;padding:0 2.5rem;}
+
+.overview-strip{background:#0c1218;border-top:1px solid #101820;border-bottom:1px solid #101820;padding:2rem 0;}
+.overview-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;}
+.ov-item{text-align:center;}
+.ov-label{font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#2a3844;margin-bottom:.4rem;}
+.ov-val{font-size:1rem;font-weight:800;color:#c8d4e0;}
+
+.section{padding:4rem 0;}
+.section.alt{background:#060a0e;}
+.sec-tag{font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#5a9fd4;margin-bottom:.5rem;}
+.sec-title{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:#e8f0f8;margin-bottom:1rem;}
+.sec-divider{width:40px;height:3px;background:#5a9fd4;margin-bottom:2rem;border-radius:2px;}
+.body-text{font-size:.93rem;color:#778;line-height:1.88;margin-bottom:1.2rem;}
+.body-text strong{color:#a8b8c8;font-weight:700;}
+
+.feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:1.5rem;}
+.feat-item{display:flex;align-items:flex-start;gap:.65rem;font-size:.87rem;color:#778;line-height:1.5;background:#0c1218;border:1px solid #1a2430;border-radius:8px;padding:.7rem .9rem;}
+.feat-item::before{content:'▸';color:#5a9fd4;flex-shrink:0;margin-top:2px;}
+
+.role-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:1rem;}
+.role-card{background:#0c1218;border:1px solid #1a2430;border-radius:12px;padding:1.3rem;}
+.role-icon{font-size:1.4rem;margin-bottom:.6rem;}
+.role-title{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#5a9fd4;margin-bottom:.4rem;}
+.role-desc{font-size:.83rem;color:#668;line-height:1.6;}
+
+.gallery-section{padding:4rem 0;}
+.gallery-section.alt{background:#060a0e;}
+.gallery-header{margin-bottom:2rem;}
+.gallery-number{font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#1e2c3a;margin-bottom:.3rem;}
+.gallery-tag{font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#5a9fd4;margin-bottom:.4rem;}
+.gallery-title{font-size:1.6rem;font-weight:800;color:#e8f0f8;margin-bottom:.5rem;}
+.gallery-desc{font-size:.85rem;color:#3a4c5e;line-height:1.7;}
+.gallery-divider{width:40px;height:3px;background:#5a9fd4;margin:1rem 0 2rem;border-radius:2px;}
+
+.img-full{width:100%;border-radius:12px;overflow:hidden;margin-bottom:1rem;background:#0c1218;border:1px solid #1a2430;}
+.img-full img{width:100%;display:block;object-fit:cover;max-height:520px;}
+.img-2col{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+.img-3col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1rem;}
+.img-box{border-radius:10px;overflow:hidden;background:#0c1218;border:1px solid #1a2430;}
+.img-box img{width:100%;height:100%;object-fit:cover;display:block;}
+.img-caption{font-size:.73rem;color:#2a3844;text-align:center;margin-bottom:2rem;font-style:italic;}
+
+.note-banner{background:rgba(90,159,212,.06);border:1px solid rgba(90,159,212,.2);border-radius:12px;padding:1.2rem 1.5rem;display:flex;align-items:flex-start;gap:.8rem;margin-bottom:2rem;}
+.note-icon{font-size:1.1rem;flex-shrink:0;margin-top:2px;}
+.note-text{font-size:.85rem;color:#778;line-height:1.6;}
+.note-text strong{color:#5a9fd4;}
+
+.closing-box{background:#060a0e;border:1px solid #1a2430;border-radius:16px;padding:3rem;text-align:center;margin:2rem 0;}
+.closing-icon{font-size:2.5rem;margin-bottom:1rem;}
+.closing-title{font-size:1.6rem;font-weight:800;color:#e8f0f8;margin-bottom:1rem;}
+.closing-text{font-size:.92rem;color:#668;line-height:1.8;max-width:600px;margin:0 auto;}
+
+footer{background:#060a0e;border-top:1px solid #101820;padding:2rem 3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.footer-left{font-size:.8rem;color:#2a3844;}
+.footer-right{display:flex;gap:1rem;}
+.footer-link{color:#3a4c5e;text-decoration:none;font-size:.8rem;font-weight:700;transition:color .2s;}
+.footer-link:hover{color:#5a9fd4;}
+
+#scrollTop{position:fixed;bottom:1.5rem;right:1.5rem;z-index:200;width:38px;height:38px;border-radius:50%;background:#5a9fd4;color:#080c10;border:none;font-size:.9rem;cursor:pointer;opacity:0;transition:opacity .3s,transform .2s;display:flex;align-items:center;justify-content:center;}
+#scrollTop:hover{transform:translateY(-2px);}
+
+@media(max-width:768px){
+  nav{padding:1rem 1.5rem;}.nav-title{display:none;}
+  .container{padding:0 1.5rem;}.hero-content{padding:2rem 1.5rem;}
+  .overview-grid,.feat-grid,.role-grid{grid-template-columns:1fr 1fr;}
+  .img-2col,.img-3col{grid-template-columns:1fr 1fr;}
+  footer{padding:1.5rem;}
+}
+
+
+/* ── PULSE GLOW on role cards and overview ── */
+@keyframes cardPulse{
+  0%{box-shadow:0 0 0 0 rgba(108,99,255,.4),0 0 10px rgba(108,99,255,.1);}
+  50%{box-shadow:0 0 0 8px rgba(108,99,255,0),0 0 22px rgba(108,99,255,.25);}
+  100%{box-shadow:0 0 0 0 rgba(108,99,255,.4),0 0 10px rgba(108,99,255,.1);}
+}
+@keyframes ovPulse{
+  0%{box-shadow:0 0 0 0 rgba(108,99,255,.3);}
+  50%{box-shadow:0 0 0 6px rgba(108,99,255,0);}
+  100%{box-shadow:0 0 0 0 rgba(108,99,255,.3);}
+}
+.role-card{animation:cardPulse 3s ease-in-out infinite;}
+.role-card:nth-child(2){animation-delay:.5s;}
+.role-card:nth-child(3){animation-delay:1s;}
+.ov-item{animation:ovPulse 3s ease-in-out infinite;}
+.ov-item:nth-child(2){animation-delay:.4s;}
+.ov-item:nth-child(3){animation-delay:.8s;}
+.ov-item:nth-child(4){animation-delay:1.2s;}
+.mech-card{animation:cardPulse 3s ease-in-out infinite;}
+.mech-card:nth-child(2){animation-delay:.3s;}
+.mech-card:nth-child(3){animation-delay:.6s;}
+.mech-card:nth-child(4){animation-delay:.9s;}
+.mech-card:nth-child(5){animation-delay:1.2s;}
+.mech-card:nth-child(6){animation-delay:1.5s;}
+.credit-card.highlight{animation:cardPulse 2s ease-in-out infinite;}
+
+/* ── GLOW EFFECTS ── */
+.role-card{transition:box-shadow .3s,transform .3s !important;}
+.role-card:hover{box-shadow:0 0 28px rgba(108,99,255,.3) !important;transform:translateY(-3px) !important;}
+.nav-yt,.nav-play,.nav-btn,.hbtn,.yt-btn,.avail-btn,.action-card-btn{transition:box-shadow .3s,transform .2s !important;}
+.nav-yt:hover,.nav-play:hover{box-shadow:0 0 22px rgba(192,57,43,.6) !important;transform:translateY(-2px) !important;}
+.hbtn-play:hover,.yt-btn:hover,.avail-btn:hover,.action-card.play .action-card-btn:hover{box-shadow:0 0 22px rgba(232,100,80,.6) !important;}
+.hbtn-gdd:hover,.action-card.gdd .action-card-btn:hover{box-shadow:0 0 22px rgba(108,99,255,.5) !important;}
+.mech-card,.tech-card,.role-card,.credit-card,.feat-item{transition:box-shadow .3s,transform .3s;}
+.mech-card:hover,.tech-card:hover,.credit-card:hover{box-shadow:0 0 22px rgba(108,99,255,.25);transform:translateY(-3px);}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-back">← Back to Portfolio</a>
+  <span class="nav-title">The Hollow Streets · Akiyam Solutions</span>
+</nav>
+
+<div class="gallery-nav">
+  <a href="#section-about" class="gnav-btn active">📋 About</a>
+  <a href="#section-gallery" class="gnav-btn">🏙 Gallery</a>
+</div>
+
+<!-- HERO — image 1 as banner -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774114335/1_w9wyro.png" class="hero-img" alt="The Hollow Streets"/>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Professional Work · Internship · Akiyam Solutions Pvt. Ltd.</div>
+    <div class="hero-title">The Hollow<br/>Streets</div>
+    <div class="hero-undisclosed">⚠ Name Undisclosed — Work Project</div>
+    <p class="hero-sub">A hauntingly abandoned city prototype built in Unreal Engine 5 — where nature has reclaimed the streets and only the wind and crumbling buildings break the void.</p>
+    <div class="hero-tags">
+      <span class="htag">Unreal Engine 5</span>
+      <span class="htag">Environment Design</span>
+      <span class="htag">Road Splines</span>
+      <span class="htag">Level Design</span>
+      <span class="htag">Professional</span>
+    </div>
+  </div>
+</div>
+
+<!-- OVERVIEW -->
+<div class="overview-strip">
+  <div class="container">
+    <div class="overview-grid">
+      <div class="ov-item"><div class="ov-label">Engine</div><div class="ov-val">Unreal Engine 5</div></div>
+      <div class="ov-item"><div class="ov-label">Studio</div><div class="ov-val">Akiyam Solutions</div></div>
+      <div class="ov-item"><div class="ov-label">Type</div><div class="ov-val">Level Design</div></div>
+      <div class="ov-item"><div class="ov-label">Status</div><div class="ov-val">Prototype · WIP</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="section" id="section-about">
+  <div class="container">
+
+    <div class="note-banner">
+      <div class="note-icon">⚠</div>
+      <div class="note-text">This is a <strong>professional work project</strong> undertaken during my internship at Akiyam Solutions Pvt. Ltd. The game title remains undisclosed. This is an evolving prototype and a work-in-progress.</div>
+    </div>
+
+    <div class="sec-tag">The World</div>
+    <div class="sec-title">About This Project</div>
+    <div class="sec-divider"></div>
+    <p class="body-text">This prototype presents a <strong>hauntingly abandoned city</strong>, where the echoes of civilization linger in decayed structures and desolate roads. Overrun by nature, the once-thriving streets now lie in silence, with only the wind and distant creaks of crumbling buildings breaking the void.</p>
+    <p class="body-text">Created in <strong>Unreal Engine 5</strong>, this environment showcases intricate level design and atmospheric storytelling, immersing players in a world reclaimed by time and neglect.</p>
+
+    <div class="sec-tag" style="margin-top:2rem;">Features</div>
+    <div class="sec-title">Key Features</div>
+    <div class="sec-divider"></div>
+    <div class="feat-grid">
+      <div class="feat-item">Large-scale abandoned city environment</div>
+      <div class="feat-item">Road spline system for natural road placement</div>
+      <div class="feat-item">Realistic lighting and post-processing effects</div>
+      <div class="feat-item">Optimized asset placement for performance</div>
+      <div class="feat-item">Dynamic level composition for immersion</div>
+      <div class="feat-item">Atmospheric environmental storytelling</div>
+    </div>
+
+    <div class="sec-tag" style="margin-top:2rem;">Contribution</div>
+    <div class="sec-title">My Role</div>
+    <div class="sec-divider"></div>
+    <div class="role-grid">
+      <div class="role-card">
+        <div class="role-icon">🏙</div>
+        <div class="role-title">Level Design</div>
+        <div class="role-desc">Structuring the city layout and placement of all environmental elements to create believable urban decay.</div>
+      </div>
+      <div class="role-card">
+        <div class="role-icon">⚡</div>
+        <div class="role-title">Optimization</div>
+        <div class="role-desc">Ensuring performance efficiency while maintaining full visual fidelity across the large-scale environment.</div>
+      </div>
+      <div class="role-card">
+        <div class="role-icon">🛣</div>
+        <div class="role-title">Road Splines</div>
+        <div class="role-desc">Implementing a road spline system for natural road flow and realistic street placement throughout the city.</div>
+      </div>
+      <div class="role-card">
+        <div class="role-icon">💡</div>
+        <div class="role-title">Lighting & Post-Processing</div>
+        <div class="role-desc">Crafting the mood and atmosphere through lighting techniques and post-processing to reinforce the desolate tone.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GALLERY -->
+<div class="gallery-section alt" id="section-gallery">
+  <div class="container">
+    <div class="gallery-header">
+      <div class="gallery-number">Gallery</div>
+      <div class="gallery-tag">Screenshots</div>
+      <div class="gallery-title">Environment Showcase</div>
+      <div class="gallery-divider"></div>
+      <div class="gallery-desc">All screenshots from the final Unreal Engine 5 build — showcasing street composition, lighting, atmosphere, and the desolate beauty of The Hollow Streets.</div>
+    </div>
+
+    <!-- 1 + 2 side by side -->
+    <div class="img-2col">
+      <div class="img-box" style="height:270px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774114335/1_w9wyro.png" alt="Hollow Streets 1"/></div>
+      <div class="img-box" style="height:270px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774114376/2_sugrwr.png" alt="Hollow Streets 2"/></div>
+    </div>
+    <div class="img-caption">Street-level overview — abandoned roads and desolate atmosphere</div>
+
+    <!-- 3 full width -->
+    <div class="img-full">
+      <img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774114348/3_kdxqnb.png" alt="Hollow Streets 3"/>
+    </div>
+    <div class="img-caption">Wide establishing shot — the hollow city in full</div>
+
+    <!-- 4 + 5 + 6 -->
+    <div class="img-3col">
+      <div class="img-box" style="height:210px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774114382/4_xnpzfd.png" alt="Hollow Streets 4"/></div>
+      <div class="img-box" style="height:210px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774114364/5_ya8fz2.png" alt="Hollow Streets 5"/></div>
+      <div class="img-box" style="height:210px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774114397/6_th3xjx.png" alt="Hollow Streets 6"/></div>
+    </div>
+    <div class="img-caption">Street details — road splines, vegetation overgrowth, and debris placement</div>
+
+    <!-- 7 full width -->
+    <div class="img-full">
+      <img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774114346/7_v3mqv4.png" alt="Hollow Streets 7"/>
+    </div>
+    <div class="img-caption">Atmospheric lighting — post-processing and mood crafting</div>
+
+    <!-- 8 + 9 -->
+    <div class="img-2col">
+      <div class="img-box" style="height:270px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774114349/8_gkdx2a.png" alt="Hollow Streets 8"/></div>
+      <div class="img-box" style="height:270px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774114361/9_wst4yb.png" alt="Hollow Streets 9"/></div>
+    </div>
+
+    <!-- 10 + 11 + 12 -->
+    <div class="img-3col">
+      <div class="img-box" style="height:210px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774114355/10_sjnhjs.png" alt="Hollow Streets 10"/></div>
+      <div class="img-box" style="height:210px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774114371/11_rxyc6v.png" alt="Hollow Streets 11"/></div>
+      <div class="img-box" style="height:210px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774114398/12_xwtfb4.png" alt="Hollow Streets 12"/></div>
+    </div>
+    <div class="img-caption">Environmental storytelling — decay, neglect, and the beauty of a lost world</div>
+
+  </div>
+</div>
+
+<!-- CLOSING -->
+<div class="section">
+  <div class="container">
+    <div class="closing-box">
+      <div class="closing-icon">🏙</div>
+      <div class="closing-title">World-Building Through Design</div>
+      <p class="closing-text">The Hollow Streets demonstrates a blend of large-scale world-building and immersive environmental storytelling — using lighting, road splines, and careful asset placement to tell the story of a city lost to time, without a single word of dialogue.</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-left">© Viraj Joshi · Level Designer & Game Designer</div>
+  <div class="footer-right">
+    <a href="index.html" class="footer-link">← Back to Portfolio</a>
+    <a href="https://www.linkedin.com/in/viraj-joshi-a92b80202/" target="_blank" class="footer-link">LinkedIn</a>
+    <a href="https://virajtheleveldesigner.itch.io/" target="_blank" class="footer-link">itch.io</a>
+  </div>
+</footer>
+
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+window.addEventListener('scroll',()=>{document.getElementById('scrollTop').style.opacity=window.scrollY>300?'1':'0';});
+const gnavBtns=document.querySelectorAll('.gnav-btn');
+const galSecs=document.querySelectorAll('[id^="section-"]');
+window.addEventListener('scroll',()=>{
+  let current='';
+  galSecs.forEach(s=>{if(window.scrollY>=s.offsetTop-120)current=s.id;});
+  gnavBtns.forEach(b=>b.classList.toggle('active',b.getAttribute('href')==='#'+current));
+});
+</script>
+</body>
+</html>

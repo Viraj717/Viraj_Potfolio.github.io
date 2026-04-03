@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Egyptian Tomb — Viraj Joshi</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Nunito',sans-serif;background:#0a0906;color:#e8e0d0;overflow-x:hidden;}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 3rem;background:rgba(10,9,6,0.95);backdrop-filter:blur(14px);border-bottom:1px solid rgba(196,148,60,0.2);}
+.nav-back{display:flex;align-items:center;gap:.6rem;color:#e8e0d0;text-decoration:none;font-weight:700;font-size:.9rem;transition:color .2s;}
+.nav-back:hover{color:#c4943c;}
+.nav-title{font-weight:800;font-size:1rem;color:#888;}
+.nav-yt{display:flex;align-items:center;gap:.5rem;padding:.55rem 1.2rem;border-radius:8px;background:#c4943c;color:#0a0906;text-decoration:none;font-weight:700;font-size:.82rem;transition:background .2s;}
+.nav-yt:hover{background:#d4a44c;}
+
+/* ── GALLERY NAV ── */
+.gallery-nav{position:sticky;top:57px;z-index:99;display:flex;justify-content:center;gap:.5rem;padding:.7rem 2rem;background:rgba(10,9,6,0.92);backdrop-filter:blur(10px);border-bottom:1px solid #1a1610;flex-wrap:wrap;}
+.gnav-btn{padding:.45rem 1.1rem;border-radius:20px;border:1px solid #2a2418;background:transparent;color:#666;cursor:pointer;font-family:'Nunito',sans-serif;font-size:.78rem;font-weight:700;transition:all .2s;text-decoration:none;}
+.gnav-btn:hover,.gnav-btn.active{background:#c4943c;color:#0a0906;border-color:#c4943c;}
+
+/* ── HERO ── */
+.hero{position:relative;width:100%;min-height:85vh;display:flex;align-items:flex-end;overflow:hidden;}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,9,6,1) 0%,rgba(10,9,6,.5) 40%,rgba(10,9,6,.05) 100%);}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#1a1206,#0a0906);}
+.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;}
+.hero-content{position:relative;z-index:2;padding:3rem;max-width:900px;}
+.hero-tag{font-size:.7rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#c4943c;margin-bottom:.8rem;}
+.hero-title{font-size:clamp(2.5rem,6vw,5.5rem);font-weight:800;line-height:.95;color:#f0e8d8;margin-bottom:1rem;text-shadow:0 2px 20px rgba(0,0,0,.8);}
+.hero-sub{font-size:.95rem;color:#aaa;line-height:1.7;max-width:580px;margin-bottom:2rem;}
+.hero-tags{display:flex;flex-wrap:wrap;gap:.5rem;}
+.htag{padding:.3rem .8rem;border-radius:6px;font-size:.73rem;font-weight:700;border:1px solid rgba(196,148,60,.4);color:#c4943c;background:rgba(196,148,60,.1);}
+
+/* ── CONTAINER ── */
+.container{max-width:1000px;margin:0 auto;padding:0 2.5rem;}
+
+/* ── OVERVIEW STRIP ── */
+.overview-strip{background:#110e08;border-top:1px solid #1a1610;border-bottom:1px solid #1a1610;padding:2rem 0;}
+.overview-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;}
+.ov-item{text-align:center;}
+.ov-label{font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#554830;margin-bottom:.4rem;}
+.ov-val{font-size:1rem;font-weight:800;color:#e8e0d0;}
+
+/* ── SECTIONS ── */
+.section{padding:4rem 0;}
+.section.alt{background:#080705;}
+.sec-tag{font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#c4943c;margin-bottom:.5rem;}
+.sec-title{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:#f0e8d8;margin-bottom:1rem;}
+.sec-divider{width:40px;height:3px;background:#c4943c;margin-bottom:2rem;border-radius:2px;}
+.body-text{font-size:.93rem;color:#888;line-height:1.88;margin-bottom:1.2rem;}
+.body-text strong{color:#d4c8b0;font-weight:700;}
+
+/* ── TECH CARDS ── */
+.tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:1rem;}
+.tech-card{background:#110e08;border:1px solid #2a2418;border-radius:12px;padding:1.4rem;}
+.tech-card-icon{font-size:1.6rem;margin-bottom:.7rem;}
+.tech-card-title{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#c4943c;margin-bottom:.5rem;}
+.tech-card-desc{font-size:.83rem;color:#777;line-height:1.65;}
+
+/* ── VIDEO ── */
+.video-wrap{position:relative;width:100%;padding-bottom:56.25%;border-radius:12px;overflow:hidden;background:#110e08;border:1px solid #2a2418;margin-bottom:1rem;}
+.video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:none;}
+
+/* ── GALLERY ── */
+.gallery-section{padding:4rem 0;}
+.gallery-section.alt{background:#080705;}
+.gallery-header{margin-bottom:2rem;}
+.gallery-number{font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#3a3020;margin-bottom:.3rem;}
+.gallery-tag{font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#c4943c;margin-bottom:.4rem;}
+.gallery-title{font-size:1.6rem;font-weight:800;color:#f0e8d8;margin-bottom:.5rem;}
+.gallery-desc{font-size:.85rem;color:#554830;line-height:1.7;}
+.gallery-divider{width:40px;height:3px;background:#c4943c;margin:1rem 0 2rem;border-radius:2px;}
+
+/* ── IMAGE LAYOUTS ── */
+.img-full{width:100%;border-radius:12px;overflow:hidden;margin-bottom:1rem;background:#110e08;border:1px solid #2a2418;}
+.img-full img{width:100%;display:block;object-fit:cover;max-height:520px;}
+.img-2col{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+.img-3col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1rem;}
+.img-box{border-radius:10px;overflow:hidden;background:#110e08;border:1px solid #2a2418;}
+.img-box img{width:100%;height:100%;object-fit:cover;display:block;}
+.img-caption{font-size:.73rem;color:#3a3020;text-align:center;margin-bottom:2rem;font-style:italic;}
+
+/* ── CLOSING ── */
+.closing-box{background:#080705;border:1px solid #2a2418;border-radius:16px;padding:3rem;text-align:center;margin:2rem 0;}
+.closing-icon{font-size:2.5rem;margin-bottom:1rem;}
+.closing-title{font-size:1.6rem;font-weight:800;color:#f0e8d8;margin-bottom:1rem;}
+.closing-text{font-size:.92rem;color:#666;line-height:1.8;max-width:600px;margin:0 auto;}
+.yt-btn{display:inline-flex;align-items:center;gap:.5rem;padding:.9rem 2rem;border-radius:10px;background:#c4943c;color:#0a0906;font-family:'Nunito',sans-serif;font-weight:700;font-size:.9rem;text-decoration:none;margin-top:1.5rem;transition:background .2s,transform .2s;}
+.yt-btn:hover{background:#d4a44c;transform:translateY(-1px);}
+
+/* ── FOOTER ── */
+footer{background:#080705;border-top:1px solid #1a1610;padding:2rem 3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.footer-left{font-size:.8rem;color:#3a3020;}
+.footer-right{display:flex;gap:1rem;}
+.footer-link{color:#554830;text-decoration:none;font-size:.8rem;font-weight:700;transition:color .2s;}
+.footer-link:hover{color:#c4943c;}
+
+/* ── SCROLL TOP ── */
+#scrollTop{position:fixed;bottom:1.5rem;right:1.5rem;z-index:200;width:38px;height:38px;border-radius:50%;background:#c4943c;color:#0a0906;border:none;font-size:.9rem;cursor:pointer;opacity:0;transition:opacity .3s,transform .2s;display:flex;align-items:center;justify-content:center;}
+#scrollTop:hover{transform:translateY(-2px);}
+
+@media(max-width:768px){
+  nav{padding:1rem 1.5rem;} .nav-title{display:none;}
+  .container{padding:0 1.5rem;} .hero-content{padding:2rem 1.5rem;}
+  .overview-grid{grid-template-columns:repeat(2,1fr);}
+  .tech-grid{grid-template-columns:1fr;}
+  .img-2col,.img-3col{grid-template-columns:1fr 1fr;}
+  footer{padding:1.5rem;}
+}
+
+
+/* ── PULSE GLOW on role cards and overview ── */
+@keyframes cardPulse{
+  0%{box-shadow:0 0 0 0 rgba(108,99,255,.4),0 0 10px rgba(108,99,255,.1);}
+  50%{box-shadow:0 0 0 8px rgba(108,99,255,0),0 0 22px rgba(108,99,255,.25);}
+  100%{box-shadow:0 0 0 0 rgba(108,99,255,.4),0 0 10px rgba(108,99,255,.1);}
+}
+@keyframes ovPulse{
+  0%{box-shadow:0 0 0 0 rgba(108,99,255,.3);}
+  50%{box-shadow:0 0 0 6px rgba(108,99,255,0);}
+  100%{box-shadow:0 0 0 0 rgba(108,99,255,.3);}
+}
+.role-card{animation:cardPulse 3s ease-in-out infinite;}
+.role-card:nth-child(2){animation-delay:.5s;}
+.role-card:nth-child(3){animation-delay:1s;}
+.ov-item{animation:ovPulse 3s ease-in-out infinite;}
+.ov-item:nth-child(2){animation-delay:.4s;}
+.ov-item:nth-child(3){animation-delay:.8s;}
+.ov-item:nth-child(4){animation-delay:1.2s;}
+.mech-card{animation:cardPulse 3s ease-in-out infinite;}
+.mech-card:nth-child(2){animation-delay:.3s;}
+.mech-card:nth-child(3){animation-delay:.6s;}
+.mech-card:nth-child(4){animation-delay:.9s;}
+.mech-card:nth-child(5){animation-delay:1.2s;}
+.mech-card:nth-child(6){animation-delay:1.5s;}
+.credit-card.highlight{animation:cardPulse 2s ease-in-out infinite;}
+
+/* ── GLOW EFFECTS ── */
+.role-card{transition:box-shadow .3s,transform .3s !important;}
+.role-card:hover{box-shadow:0 0 28px rgba(108,99,255,.3) !important;transform:translateY(-3px) !important;}
+.nav-yt,.nav-play,.nav-btn,.hbtn,.yt-btn,.avail-btn,.action-card-btn{transition:box-shadow .3s,transform .2s !important;}
+.nav-yt:hover,.nav-play:hover{box-shadow:0 0 22px rgba(192,57,43,.6) !important;transform:translateY(-2px) !important;}
+.hbtn-play:hover,.yt-btn:hover,.avail-btn:hover,.action-card.play .action-card-btn:hover{box-shadow:0 0 22px rgba(232,100,80,.6) !important;}
+.hbtn-gdd:hover,.action-card.gdd .action-card-btn:hover{box-shadow:0 0 22px rgba(108,99,255,.5) !important;}
+.mech-card,.tech-card,.role-card,.credit-card,.feat-item{transition:box-shadow .3s,transform .3s;}
+.mech-card:hover,.tech-card:hover,.credit-card:hover{box-shadow:0 0 22px rgba(108,99,255,.25);transform:translateY(-3px);}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-back">← Back to Portfolio</a>
+  <span class="nav-title">Egyptian Tomb — Environment Design</span>
+  <a href="https://youtu.be/qZydSQcWExk?si=Y0PTI8bikbt7RXF6" target="_blank" class="nav-yt">▶ Watch on YouTube</a>
+</nav>
+
+<!-- GALLERY NAV -->
+<div class="gallery-nav">
+  <a href="#section-about" class="gnav-btn active">📖 About</a>
+  <a href="#section-gallery" class="gnav-btn">🏺 Gallery</a>
+  <a href="#section-video" class="gnav-btn">▶ Video Walkthrough</a>
+</div>
+
+<!-- HERO — Tomb_1 as banner -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774112365/Tomb_1_c8oc8j.png" class="hero-img" alt="Egyptian Tomb"/>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Environment Design · Solo Project · Unreal Engine 5</div>
+    <div class="hero-title">Egyptian<br/>Tomb</div>
+    <p class="hero-sub">A solo environment design project — an immersive, atmospheric ancient Egyptian tomb built in Unreal Engine 5 with Lumen lighting, high-quality assets, and cinematic post-processing.</p>
+    <div class="hero-tags">
+      <span class="htag">Unreal Engine 5</span>
+      <span class="htag">Lumen Lighting</span>
+      <span class="htag">Environment Design</span>
+      <span class="htag">Post Processing</span>
+      <span class="htag">Solo Project</span>
+    </div>
+  </div>
+</div>
+
+<!-- OVERVIEW STRIP -->
+<div class="overview-strip">
+  <div class="container">
+    <div class="overview-grid">
+      <div class="ov-item"><div class="ov-label">Engine</div><div class="ov-val">Unreal Engine 5</div></div>
+      <div class="ov-item"><div class="ov-label">Lighting</div><div class="ov-val">Lumen</div></div>
+      <div class="ov-item"><div class="ov-label">Type</div><div class="ov-val">Environment Design</div></div>
+      <div class="ov-item"><div class="ov-label">Project</div><div class="ov-val">Solo</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="section" id="section-about">
+  <div class="container">
+    <div class="sec-tag">The Story</div>
+    <div class="sec-title">About This Project</div>
+    <div class="sec-divider"></div>
+    <p class="body-text">The scene opens with a lone explorer venturing into a <strong>shadowy, ancient cave</strong> rumored to house the lost tomb of a powerful Egyptian king. Carefully making his way through the narrow stone passage, his footsteps echo in the silence. The air is thick with mystery as he moves deeper into the cave, where strange hieroglyphs and carved symbols hint at the treasures that lie ahead.</p>
+    <p class="body-text">As he turns a corner, he finds himself standing in an <strong>immense chamber filled with breathtaking riches</strong>. Stacks of gold coins, sparkling jewels, and priceless artifacts litter the floor, creating a mesmerizing display of wealth. The explorer is overwhelmed by the sheer opulence of the king's long-forgotten era — a glistening testament to a powerful legacy.</p>
+    <p class="body-text">Drawn further by wonder and curiosity, he ventures deeper into the tomb. Finally, he reaches the <strong>central chamber where the king's sarcophagus lies</strong>, flanked by towering statues and intricate carvings that celebrate his reign. The explorer feels the weight of history and reverence in this sacred space — sensing that he has uncovered something more profound than treasure.</p>
+
+    <!-- TECHNICAL DETAILS -->
+    <div class="sec-tag" style="margin-top:2.5rem;">Technical Details</div>
+    <div class="sec-title">How It Was Built</div>
+    <div class="sec-divider"></div>
+    <div class="tech-grid">
+      <div class="tech-card">
+        <div class="tech-card-icon">💡</div>
+        <div class="tech-card-title">Engine & Lighting</div>
+        <div class="tech-card-desc">Built in Unreal Engine 5 using <strong style="color:#c4943c;">Lumen</strong> for realistic, dynamic illumination. Subtle natural light filters through cracks in the cave, casting deep atmospheric shadows that enhance the mystery as players navigate the ancient tomb.</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-card-icon">🏺</div>
+        <div class="tech-card-title">3D Assets</div>
+        <div class="tech-card-desc">High-quality 3D assets from curated packs on <strong style="color:#c4943c;">Unreal Fab</strong> — towering statues, carved stone pillars, treasure piles, and the ornate sarcophagus. All inspired by authentic Egyptian architecture for a visually cohesive world.</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-card-icon">✨</div>
+        <div class="tech-card-title">Post-Processing</div>
+        <div class="tech-card-desc">Ambient occlusion, bloom, and color grading add depth and texture — giving chambers a dusty, shadowed look. <strong style="color:#c4943c;">Dust particles</strong> drifting through light beams create an ethereal atmosphere and deep immersion.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GALLERY -->
+<div class="gallery-section alt" id="section-gallery">
+  <div class="container">
+    <div class="gallery-header">
+      <div class="gallery-number">Gallery</div>
+      <div class="gallery-tag">Screenshots</div>
+      <div class="gallery-title">Environment Showcase</div>
+      <div class="gallery-divider"></div>
+      <div class="gallery-desc">All screenshots taken from the final Unreal Engine 5 build — showcasing lighting, atmosphere, asset placement, and environment composition.</div>
+    </div>
+
+    <!-- Tomb_1 already used as hero — start from Tomb_2 -->
+
+    <!-- Tomb_2 + Tomb_3 — side by side -->
+    <div class="img-2col">
+      <div class="img-box" style="height:280px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774112381/Tomb_2_gta3xa.png" alt="Egyptian Tomb 2"/></div>
+      <div class="img-box" style="height:280px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774112371/Tomb_3_kmnuxf.png" alt="Egyptian Tomb 3"/></div>
+    </div>
+    <div class="img-caption">Cave entrance and early passages</div>
+
+    <!-- Tomb_4 — full width -->
+    <div class="img-full">
+      <img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774112380/Tomb_4_a2ej7f.png" alt="Egyptian Tomb 4"/>
+    </div>
+    <div class="img-caption">Main treasure chamber — wide establishing shot</div>
+
+    <!-- Tomb_5 + Tomb_6 — side by side -->
+    <div class="img-2col">
+      <div class="img-box" style="height:280px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774112379/Tomb_5_exfb12.png" alt="Egyptian Tomb 5"/></div>
+      <div class="img-box" style="height:280px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774112381/Tomb_6_f0bnmo.png" alt="Egyptian Tomb 6"/></div>
+    </div>
+    <div class="img-caption">Treasure details and artifact placement</div>
+
+    <!-- Tomb_7 — full width -->
+    <div class="img-full">
+      <img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774112367/Tomb_7_dbbefh.png" alt="Egyptian Tomb 7"/>
+    </div>
+    <div class="img-caption">Sarcophagus chamber — king's resting place</div>
+
+    <!-- Tomb_8 + Tomb_9 + Tomb_10 — 3 col -->
+    <div class="img-3col">
+      <div class="img-box" style="height:210px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774112370/Tomb_8_r1v7bc.png" alt="Egyptian Tomb 8"/></div>
+      <div class="img-box" style="height:210px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774112372/Tomb_9_n80tek.png" alt="Egyptian Tomb 9"/></div>
+      <div class="img-box" style="height:210px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774112374/Tomb_10_zbfrbx.png" alt="Egyptian Tomb 10"/></div>
+    </div>
+    <div class="img-caption">Atmospheric lighting details, Lumen shadows, and post-processing effects</div>
+
+  </div>
+</div>
+
+<!-- VIDEO -->
+<div class="section" id="section-video">
+  <div class="container">
+    <div class="sec-tag">Walkthrough</div>
+    <div class="sec-title">Video Demo</div>
+    <div class="sec-divider"></div>
+    <p class="body-text" style="margin-bottom:1.5rem;">A full walkthrough of the Egyptian Tomb environment — showing the complete explorer journey from cave entrance through the treasure chambers to the king's sarcophagus.</p>
+    <div class="video-wrap">
+      <iframe src="https://www.youtube.com/embed/qZydSQcWExk" title="Egyptian Tomb — Environment Design" allowfullscreen></iframe>
+    </div>
+    <div class="img-caption">Egyptian Tomb — Full Environment Walkthrough</div>
+  </div>
+</div>
+
+<!-- CLOSING -->
+<div class="section alt">
+  <div class="container">
+    <div class="closing-box">
+      <div class="closing-icon">🏺</div>
+      <div class="closing-title">A Solo Environment Challenge</div>
+      <p class="closing-text">This project was a personal deep-dive into environment design — pushing the boundaries of Unreal Engine 5's Lumen lighting system and post-processing pipeline to create a cinematic, atmospheric ancient world entirely from scratch.</p>
+      <a href="https://youtu.be/qZydSQcWExk?si=Y0PTI8bikbt7RXF6" target="_blank" class="yt-btn">▶ Watch Full Walkthrough</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">© Viraj Joshi · Level Designer & Game Designer</div>
+  <div class="footer-right">
+    <a href="index.html" class="footer-link">← Back to Portfolio</a>
+    <a href="https://www.linkedin.com/in/viraj-joshi-a92b80202/" target="_blank" class="footer-link">LinkedIn</a>
+    <a href="https://virajtheleveldesigner.itch.io/" target="_blank" class="footer-link">itch.io</a>
+  </div>
+</footer>
+
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+window.addEventListener('scroll',()=>{
+  document.getElementById('scrollTop').style.opacity=window.scrollY>300?'1':'0';
+});
+const gnavBtns=document.querySelectorAll('.gnav-btn');
+const galSecs=document.querySelectorAll('[id^="section-"]');
+window.addEventListener('scroll',()=>{
+  let current='';
+  galSecs.forEach(s=>{if(window.scrollY>=s.offsetTop-120)current=s.id;});
+  gnavBtns.forEach(b=>b.classList.toggle('active',b.getAttribute('href')==='#'+current));
+});
+</script>
+</body>
+</html>

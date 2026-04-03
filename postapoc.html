@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Post-Apocalyptic — Viraj Joshi</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Nunito',sans-serif;background:#080a06;color:#d8e0c8;overflow-x:hidden;}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 3rem;background:rgba(8,10,6,0.95);backdrop-filter:blur(14px);border-bottom:1px solid rgba(80,160,60,0.2);}
+.nav-back{display:flex;align-items:center;gap:.6rem;color:#d8e0c8;text-decoration:none;font-weight:700;font-size:.9rem;transition:color .2s;}
+.nav-back:hover{color:#6abf4b;}
+.nav-title{font-weight:800;font-size:1rem;color:#556;}
+.nav-yt{display:flex;align-items:center;gap:.5rem;padding:.55rem 1.2rem;border-radius:8px;background:#6abf4b;color:#080a06;text-decoration:none;font-weight:700;font-size:.82rem;transition:background .2s;}
+.nav-yt:hover{background:#7acf5b;}
+
+/* ── GALLERY NAV ── */
+.gallery-nav{position:sticky;top:57px;z-index:99;display:flex;justify-content:center;gap:.5rem;padding:.7rem 2rem;background:rgba(8,10,6,0.92);backdrop-filter:blur(10px);border-bottom:1px solid #121810;flex-wrap:wrap;}
+.gnav-btn{padding:.45rem 1.1rem;border-radius:20px;border:1px solid #1e2418;background:transparent;color:#556;cursor:pointer;font-family:'Nunito',sans-serif;font-size:.78rem;font-weight:700;transition:all .2s;text-decoration:none;}
+.gnav-btn:hover,.gnav-btn.active{background:#6abf4b;color:#080a06;border-color:#6abf4b;}
+
+/* ── HERO ── */
+.hero{position:relative;width:100%;min-height:85vh;display:flex;align-items:flex-end;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#0c1208,#080a06);}
+.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,10,6,1) 0%,rgba(8,10,6,.55) 40%,rgba(8,10,6,.05) 100%);}
+.hero-content{position:relative;z-index:2;padding:3rem;max-width:900px;}
+.hero-tag{font-size:.7rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#6abf4b;margin-bottom:.8rem;}
+.hero-title{font-size:clamp(2.5rem,6vw,5.5rem);font-weight:800;line-height:.95;color:#e8f0d8;margin-bottom:.5rem;text-shadow:0 2px 20px rgba(0,0,0,.9);}
+.hero-undisclosed{font-size:1rem;font-weight:700;color:#445;margin-bottom:1rem;font-style:italic;}
+.hero-sub{font-size:.95rem;color:#889;line-height:1.7;max-width:580px;margin-bottom:2rem;}
+.hero-tags{display:flex;flex-wrap:wrap;gap:.5rem;}
+.htag{padding:.3rem .8rem;border-radius:6px;font-size:.73rem;font-weight:700;border:1px solid rgba(106,191,75,.4);color:#6abf4b;background:rgba(106,191,75,.1);}
+
+/* ── CONTAINER ── */
+.container{max-width:1000px;margin:0 auto;padding:0 2.5rem;}
+
+/* ── OVERVIEW STRIP ── */
+.overview-strip{background:#0c100a;border-top:1px solid #121810;border-bottom:1px solid #121810;padding:2rem 0;}
+.overview-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;}
+.ov-item{text-align:center;}
+.ov-label{font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#334430;margin-bottom:.4rem;}
+.ov-val{font-size:1rem;font-weight:800;color:#d8e0c8;}
+
+/* ── SECTIONS ── */
+.section{padding:4rem 0;}
+.section.alt{background:#060806;}
+.sec-tag{font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#6abf4b;margin-bottom:.5rem;}
+.sec-title{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:#e8f0d8;margin-bottom:1rem;}
+.sec-divider{width:40px;height:3px;background:#6abf4b;margin-bottom:2rem;border-radius:2px;}
+.body-text{font-size:.93rem;color:#778;line-height:1.88;margin-bottom:1.2rem;}
+.body-text strong{color:#b8c8a8;font-weight:700;}
+
+/* ── FEATURE LIST ── */
+.feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:1.5rem;}
+.feat-item{display:flex;align-items:flex-start;gap:.65rem;font-size:.87rem;color:#778;line-height:1.5;background:#0c100a;border:1px solid #1e2418;border-radius:8px;padding:.7rem .9rem;}
+.feat-item::before{content:'▸';color:#6abf4b;flex-shrink:0;margin-top:2px;}
+
+/* ── MECHANICS ── */
+.mech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1rem;}
+.mech-card{background:#0c100a;border:1px solid #1e2418;border-radius:12px;padding:1.3rem;}
+.mech-icon{font-size:1.5rem;margin-bottom:.6rem;}
+.mech-title{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#6abf4b;margin-bottom:.4rem;}
+.mech-desc{font-size:.82rem;color:#668;line-height:1.6;}
+
+/* ── GALLERY SECTIONS ── */
+.gallery-section{padding:4rem 0;}
+.gallery-section.alt{background:#060806;}
+.gallery-header{margin-bottom:2rem;}
+.gallery-number{font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#2a3020;margin-bottom:.3rem;}
+.gallery-tag{font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#6abf4b;margin-bottom:.4rem;}
+.gallery-title{font-size:1.6rem;font-weight:800;color:#e8f0d8;margin-bottom:.5rem;}
+.gallery-desc{font-size:.85rem;color:#445;line-height:1.7;}
+.gallery-divider{width:40px;height:3px;background:#6abf4b;margin:1rem 0 2rem;border-radius:2px;}
+
+/* ── IMAGE LAYOUTS ── */
+.img-full{width:100%;border-radius:12px;overflow:hidden;margin-bottom:1rem;background:#0c100a;border:1px solid #1e2418;}
+.img-full img{width:100%;display:block;object-fit:cover;max-height:520px;}
+.img-2col{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+.img-3col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1rem;}
+.img-4col{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:.8rem;margin-bottom:1rem;}
+.img-box{border-radius:10px;overflow:hidden;background:#0c100a;border:1px solid #1e2418;}
+.img-box img{width:100%;height:100%;object-fit:cover;display:block;}
+.img-caption{font-size:.73rem;color:#334430;text-align:center;margin-bottom:2rem;font-style:italic;}
+
+/* ── VIDEO ── */
+.video-wrap{position:relative;width:100%;padding-bottom:56.25%;border-radius:12px;overflow:hidden;background:#0c100a;border:1px solid #1e2418;margin-bottom:1rem;}
+.video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:none;}
+
+/* ── NOTE BANNER ── */
+.note-banner{background:rgba(106,191,75,.06);border:1px solid rgba(106,191,75,.2);border-radius:12px;padding:1.2rem 1.5rem;display:flex;align-items:flex-start;gap:.8rem;margin-bottom:2rem;}
+.note-icon{font-size:1.1rem;flex-shrink:0;margin-top:2px;}
+.note-text{font-size:.85rem;color:#778;line-height:1.6;}
+.note-text strong{color:#6abf4b;}
+
+/* ── CLOSING ── */
+.closing-box{background:#060806;border:1px solid #1e2418;border-radius:16px;padding:3rem;text-align:center;margin:2rem 0;}
+.closing-icon{font-size:2.5rem;margin-bottom:1rem;}
+.closing-title{font-size:1.6rem;font-weight:800;color:#e8f0d8;margin-bottom:1rem;}
+.closing-text{font-size:.92rem;color:#668;line-height:1.8;max-width:600px;margin:0 auto;}
+.yt-btn{display:inline-flex;align-items:center;gap:.5rem;padding:.9rem 2rem;border-radius:10px;background:#6abf4b;color:#080a06;font-family:'Nunito',sans-serif;font-weight:700;font-size:.9rem;text-decoration:none;margin-top:1.5rem;transition:background .2s,transform .2s;}
+.yt-btn:hover{background:#7acf5b;transform:translateY(-1px);}
+
+/* ── FOOTER ── */
+footer{background:#060806;border-top:1px solid #121810;padding:2rem 3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.footer-left{font-size:.8rem;color:#334430;}
+.footer-right{display:flex;gap:1rem;}
+.footer-link{color:#445;text-decoration:none;font-size:.8rem;font-weight:700;transition:color .2s;}
+.footer-link:hover{color:#6abf4b;}
+
+#scrollTop{position:fixed;bottom:1.5rem;right:1.5rem;z-index:200;width:38px;height:38px;border-radius:50%;background:#6abf4b;color:#080a06;border:none;font-size:.9rem;cursor:pointer;opacity:0;transition:opacity .3s,transform .2s;display:flex;align-items:center;justify-content:center;}
+#scrollTop:hover{transform:translateY(-2px);}
+
+@media(max-width:768px){
+  nav{padding:1rem 1.5rem;}.nav-title{display:none;}
+  .container{padding:0 1.5rem;}.hero-content{padding:2rem 1.5rem;}
+  .overview-grid{grid-template-columns:repeat(2,1fr);}
+  .mech-grid{grid-template-columns:1fr 1fr;}
+  .feat-grid{grid-template-columns:1fr;}
+  .img-2col,.img-3col,.img-4col{grid-template-columns:1fr 1fr;}
+  footer{padding:1.5rem;}
+}
+
+
+/* ── PULSE GLOW on role cards and overview ── */
+@keyframes cardPulse{
+  0%{box-shadow:0 0 0 0 rgba(108,99,255,.4),0 0 10px rgba(108,99,255,.1);}
+  50%{box-shadow:0 0 0 8px rgba(108,99,255,0),0 0 22px rgba(108,99,255,.25);}
+  100%{box-shadow:0 0 0 0 rgba(108,99,255,.4),0 0 10px rgba(108,99,255,.1);}
+}
+@keyframes ovPulse{
+  0%{box-shadow:0 0 0 0 rgba(108,99,255,.3);}
+  50%{box-shadow:0 0 0 6px rgba(108,99,255,0);}
+  100%{box-shadow:0 0 0 0 rgba(108,99,255,.3);}
+}
+.role-card{animation:cardPulse 3s ease-in-out infinite;}
+.role-card:nth-child(2){animation-delay:.5s;}
+.role-card:nth-child(3){animation-delay:1s;}
+.ov-item{animation:ovPulse 3s ease-in-out infinite;}
+.ov-item:nth-child(2){animation-delay:.4s;}
+.ov-item:nth-child(3){animation-delay:.8s;}
+.ov-item:nth-child(4){animation-delay:1.2s;}
+.mech-card{animation:cardPulse 3s ease-in-out infinite;}
+.mech-card:nth-child(2){animation-delay:.3s;}
+.mech-card:nth-child(3){animation-delay:.6s;}
+.mech-card:nth-child(4){animation-delay:.9s;}
+.mech-card:nth-child(5){animation-delay:1.2s;}
+.mech-card:nth-child(6){animation-delay:1.5s;}
+.credit-card.highlight{animation:cardPulse 2s ease-in-out infinite;}
+
+/* ── GLOW EFFECTS ── */
+.role-card{transition:box-shadow .3s,transform .3s !important;}
+.role-card:hover{box-shadow:0 0 28px rgba(108,99,255,.3) !important;transform:translateY(-3px) !important;}
+.nav-yt,.nav-play,.nav-btn,.hbtn,.yt-btn,.avail-btn,.action-card-btn{transition:box-shadow .3s,transform .2s !important;}
+.nav-yt:hover,.nav-play:hover{box-shadow:0 0 22px rgba(192,57,43,.6) !important;transform:translateY(-2px) !important;}
+.hbtn-play:hover,.yt-btn:hover,.avail-btn:hover,.action-card.play .action-card-btn:hover{box-shadow:0 0 22px rgba(232,100,80,.6) !important;}
+.hbtn-gdd:hover,.action-card.gdd .action-card-btn:hover{box-shadow:0 0 22px rgba(108,99,255,.5) !important;}
+.mech-card,.tech-card,.role-card,.credit-card,.feat-item{transition:box-shadow .3s,transform .3s;}
+.mech-card:hover,.tech-card:hover,.credit-card:hover{box-shadow:0 0 22px rgba(108,99,255,.25);transform:translateY(-3px);}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-back">← Back to Portfolio</a>
+  <span class="nav-title">Post-Apocalyptic · Akiyam Solutions</span>
+  <a href="https://youtu.be/PU6zv5QxVYM?si=VXb6j3kYsbg9QAU1" target="_blank" class="nav-yt">▶ Watch on YouTube</a>
+</nav>
+
+<div class="gallery-nav">
+  <a href="#section-about" class="gnav-btn active">📋 About</a>
+  <a href="#section-layout" class="gnav-btn">🗺️ Layout</a>
+  <a href="#section-blockout" class="gnav-btn">🧱 Blockout</a>
+  <a href="#section-assets" class="gnav-btn">✨ Final Asset Placement</a>
+  <a href="#section-video" class="gnav-btn">▶ Video</a>
+</div>
+
+<!-- HERO — using asset placement image 1 as banner -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774113261/1_ss60gg.png" class="hero-img" alt="Post-Apocalyptic"/>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Professional Work · Internship · Akiyam Solutions Pvt. Ltd.</div>
+    <div class="hero-title">Post-Apocalyptic</div>
+    <div class="hero-undisclosed">⚠ Name Undisclosed — Work Project</div>
+    <p class="hero-sub">An immersive post-apocalyptic world prototype built in Unreal Engine 5 — an abandoned city overtaken by nature, with advanced AI systems, combat mechanics, and cinematic environment design.</p>
+    <div class="hero-tags">
+      <span class="htag">Unreal Engine 5</span>
+      <span class="htag">Open World</span>
+      <span class="htag">Level Design</span>
+      <span class="htag">Blueprints</span>
+      <span class="htag">NavMesh AI</span>
+      <span class="htag">Professional</span>
+    </div>
+  </div>
+</div>
+
+<!-- OVERVIEW STRIP -->
+<div class="overview-strip">
+  <div class="container">
+    <div class="overview-grid">
+      <div class="ov-item"><div class="ov-label">Engine</div><div class="ov-val">Unreal Engine 5</div></div>
+      <div class="ov-item"><div class="ov-label">Studio</div><div class="ov-val">Akiyam Solutions</div></div>
+      <div class="ov-item"><div class="ov-label">Type</div><div class="ov-val">Level Design</div></div>
+      <div class="ov-item"><div class="ov-label">Platform</div><div class="ov-val">PC · Prototype</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="section" id="section-about">
+  <div class="container">
+
+    <div class="note-banner">
+      <div class="note-icon">⚠</div>
+      <div class="note-text">This is a <strong>professional work project</strong> undertaken during my internship at Akiyam Solutions Pvt. Ltd. The game title remains undisclosed. This is an evolving prototype and serves as a foundation for further development.</div>
+    </div>
+
+    <div class="sec-tag">The World</div>
+    <div class="sec-title">About This Project</div>
+    <div class="sec-divider"></div>
+    <p class="body-text">Step into a <strong>hauntingly immersive post-apocalyptic world</strong> built in Unreal Engine 5. Set in an abandoned city overtaken by nature, players must navigate the eerie remains of a once-thriving metropolis — now reduced to decaying skyscrapers, overgrown streets, and shattered buildings. The world is silent, except for the unknown dangers lurking in the shadows.</p>
+    <p class="body-text">This prototype focuses on <strong>environmental storytelling, atmosphere, and level design</strong>, offering a glimpse into a larger vision. Players explore a vast open-world setting where the remnants of civilization tell stories of what was lost. The overgrown cityscape, detailed with broken-down vehicles, crumbling structures, and nature reclaiming its territory, sets the stage for an intense survival experience.</p>
+
+    <!-- KEY FEATURES -->
+    <div class="sec-tag" style="margin-top:2rem;">Features</div>
+    <div class="sec-title">Key Features</div>
+    <div class="sec-divider"></div>
+    <div class="feat-grid">
+      <div class="feat-item">Open-world abandoned city environment</div>
+      <div class="feat-item">Realistic lighting, post-processing & atmospheric effects</div>
+      <div class="feat-item">Large-scale urban decay with overgrown vegetation</div>
+      <div class="feat-item">Dynamic level design for player immersion</div>
+      <div class="feat-item">Advanced character movement and combat systems</div>
+      <div class="feat-item">Zombie encounters and dynamic AI behavior</div>
+    </div>
+
+    <!-- MECHANICS -->
+    <div class="sec-tag" style="margin-top:2rem;">Systems</div>
+    <div class="sec-title">Game Mechanics Implemented</div>
+    <div class="sec-divider"></div>
+    <div class="mech-grid">
+      <div class="mech-card">
+        <div class="mech-icon">🏃</div>
+        <div class="mech-title">Advanced Locomotion</div>
+        <div class="mech-desc">Smooth and realistic character movement mechanics with enhanced player control for immersive navigation.</div>
+      </div>
+      <div class="mech-card">
+        <div class="mech-icon">🔫</div>
+        <div class="mech-title">Firearms & Melee Combat</div>
+        <div class="mech-desc">Fully integrated firearms and melee combat system with ammunition management and weapon switching for tactical gameplay.</div>
+      </div>
+      <div class="mech-card">
+        <div class="mech-icon">❤️</div>
+        <div class="mech-title">Healing System</div>
+        <div class="mech-desc">Health recovery mechanics through various in-game methods, enhancing the survival aspect of the experience.</div>
+      </div>
+      <div class="mech-card">
+        <div class="mech-icon">🧟</div>
+        <div class="mech-title">Zombie System</div>
+        <div class="mech-desc">Dynamic zombie encounter system for combat challenges, creating a thrilling survival experience for the player.</div>
+      </div>
+      <div class="mech-card">
+        <div class="mech-icon">🧭</div>
+        <div class="mech-title">NavMesh AI</div>
+        <div class="mech-desc">NavMesh-driven intelligent NPC and enemy movement ensuring smooth pathfinding within the open-world environment.</div>
+      </div>
+      <div class="mech-card">
+        <div class="mech-icon">🌆</div>
+        <div class="mech-title">World Building</div>
+        <div class="mech-desc">Large-scale environmental design conveying desolation, atmosphere, and the beauty of a lost post-apocalyptic world.</div>
+      </div>
+    </div>
+
+    <!-- MY ROLE -->
+    <div class="sec-tag" style="margin-top:2rem;">Contribution</div>
+    <div class="sec-title">My Role</div>
+    <div class="sec-divider"></div>
+    <p class="body-text">I was responsible for the <strong>level prototyping, world-building, implementing mechanisms, lighting, post-processing</strong>, and designing an immersive environment that conveys the desolation and beauty of a lost world.</p>
+    <p class="body-text">The project also serves as a <strong>technical showcase of large-scale world creation in Unreal Engine 5</strong>, demonstrating the full pipeline from initial layout through blockout to final asset placement.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════
+     SECTION 1 — LAYOUT
+════════════════════════════ -->
+<div class="gallery-section alt" id="section-layout">
+  <div class="container">
+    <div class="gallery-header">
+      <div class="gallery-number">Section 01</div>
+      <div class="gallery-tag">Planning Phase</div>
+      <div class="gallery-title">Level Layout</div>
+      <div class="gallery-divider"></div>
+      <div class="gallery-desc">The initial level layout — defining the overall space, player flow paths, key landmarks, and zone structure of the open-world city before any geometry was placed.</div>
+    </div>
+
+    <div class="img-full">
+      <img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774113337/Level_Layout_q56y7m.png" alt="Level Layout"/>
+    </div>
+    <div class="img-caption">Level Layout — full city map showing zones, pathways, and structural planning</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════
+     SECTION 2 — BLOCKOUT
+════════════════════════════ -->
+<div class="gallery-section" id="section-blockout">
+  <div class="container">
+    <div class="gallery-header">
+      <div class="gallery-number">Section 02</div>
+      <div class="gallery-tag">Blockout Phase</div>
+      <div class="gallery-title">Blockout</div>
+      <div class="gallery-divider"></div>
+      <div class="gallery-desc">Raw geometry blockout — establishing building volumes, street widths, open spaces, and player sightlines before any final assets were placed. Pure level design in its earliest form.</div>
+    </div>
+
+    <!-- Blockout 1 full width -->
+    <div class="img-full">
+      <img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774113264/Blockout_1_e9t2kh.png" alt="Blockout 1"/>
+    </div>
+    <div class="img-caption">Blockout overview — city street structure and building volumes</div>
+
+    <!-- Blockout 2 + 3 -->
+    <div class="img-2col">
+      <div class="img-box" style="height:260px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774113295/Blockout_2_uubyzz.png" alt="Blockout 2"/></div>
+      <div class="img-box" style="height:260px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774113296/Blockout_3_f8zcac.png" alt="Blockout 3"/></div>
+    </div>
+    <div class="img-caption">Street-level blockout — player pathways and open areas</div>
+
+    <!-- Blockout 4 + 5 + 6 -->
+    <div class="img-3col">
+      <div class="img-box" style="height:210px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774113299/Blockout_4_p6yx8u.png" alt="Blockout 4"/></div>
+      <div class="img-box" style="height:210px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774113302/Blockout_5_aqsrhu.png" alt="Blockout 5"/></div>
+      <div class="img-box" style="height:210px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774113298/Blockout_6_f4gm01.png" alt="Blockout 6"/></div>
+    </div>
+    <div class="img-caption">Building interiors and key structural zones</div>
+
+    <!-- Blockout 7 + 8 -->
+    <div class="img-2col">
+      <div class="img-box" style="height:260px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774113299/Blockout_7_fsaecp.png" alt="Blockout 7"/></div>
+      <div class="img-box" style="height:260px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774113300/Blockout_8_y8t7ym.png" alt="Blockout 8"/></div>
+    </div>
+
+    <!-- Blockout 9 + 10 -->
+    <div class="img-2col">
+      <div class="img-box" style="height:260px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774113301/Blockout_9_wwmwio.png" alt="Blockout 9"/></div>
+      <div class="img-box" style="height:260px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774113329/Blockout_10_xtccnv.png" alt="Blockout 10"/></div>
+    </div>
+    <div class="img-caption">Secondary zones and encounter areas</div>
+
+    <!-- Blockout 11 + 12 + 13 -->
+    <div class="img-3col">
+      <div class="img-box" style="height:210px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774113324/Blockout_11_fxg2hx.png" alt="Blockout 11"/></div>
+      <div class="img-box" style="height:210px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774113326/Blockout_12_q2qojn.png" alt="Blockout 12"/></div>
+      <div class="img-box" style="height:210px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774113327/Blockout_13_w448tw.png" alt="Blockout 13"/></div>
+    </div>
+
+    <!-- Blockout 14 + 15 -->
+    <div class="img-2col">
+      <div class="img-box" style="height:260px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774113327/Blockout_14_xphujq.png" alt="Blockout 14"/></div>
+      <div class="img-box" style="height:260px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774113325/Blockout_15_ls7reu.png" alt="Blockout 15"/></div>
+    </div>
+    <div class="img-caption">Final blockout details — rooftops, alleys, and structural complexity</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════
+     SECTION 3 — FINAL ASSET PLACEMENT
+════════════════════════════ -->
+<div class="gallery-section alt" id="section-assets">
+  <div class="container">
+    <div class="gallery-header">
+      <div class="gallery-number">Section 03</div>
+      <div class="gallery-tag">Final Build</div>
+      <div class="gallery-title">Final Asset Placement</div>
+      <div class="gallery-divider"></div>
+      <div class="gallery-desc">The finished environment — blockout replaced with final high-quality assets, full lighting, post-processing, vegetation, debris, and atmospheric effects applied to bring the post-apocalyptic world to life.</div>
+    </div>
+
+    <!-- Asset 1 full width -->
+    <div class="img-full">
+      <img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774113261/1_ss60gg.png" alt="Final Asset 1"/>
+    </div>
+    <div class="img-caption">Final build — city overview with full asset placement and lighting</div>
+
+    <!-- Asset 6 + 9 -->
+    <div class="img-2col">
+      <div class="img-box" style="height:270px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774113257/6_mtp4t8.png" alt="Final Asset 6"/></div>
+      <div class="img-box" style="height:270px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774113244/9_rnehmz.png" alt="Final Asset 9"/></div>
+    </div>
+    <div class="img-caption">Street level — overgrown vegetation reclaiming the city</div>
+
+    <!-- Asset 14 + 15 + 17 -->
+    <div class="img-3col">
+      <div class="img-box" style="height:220px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774113248/14_avaj4n.png" alt="Final Asset 14"/></div>
+      <div class="img-box" style="height:220px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774113246/15_lnymr5.png" alt="Final Asset 15"/></div>
+      <div class="img-box" style="height:220px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774113253/17_w2jlyr.png" alt="Final Asset 17"/></div>
+    </div>
+    <div class="img-caption">Urban decay details — crumbling structures and debris placement</div>
+
+    <!-- Asset 19 full width -->
+    <div class="img-full">
+      <img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774113256/19_haoz9e.png" alt="Final Asset 19"/>
+    </div>
+    <div class="img-caption">Atmospheric shot — post-processing and lighting in the final build</div>
+
+    <!-- Asset 20 + 21 -->
+    <div class="img-2col">
+      <div class="img-box" style="height:270px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774113261/20_kivkqg.png" alt="Final Asset 20"/></div>
+      <div class="img-box" style="height:270px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774113258/21_jzvlhw.png" alt="Final Asset 21"/></div>
+    </div>
+
+    <!-- Asset 22 + 26 + 29 -->
+    <div class="img-3col">
+      <div class="img-box" style="height:220px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774113262/22_klkiz1.png" alt="Final Asset 22"/></div>
+      <div class="img-box" style="height:220px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774113266/26_djx7qp.png" alt="Final Asset 26"/></div>
+      <div class="img-box" style="height:220px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774113268/29_ilwd9k.png" alt="Final Asset 29"/></div>
+    </div>
+    <div class="img-caption">Final environmental details — vehicles, structures, and nature reclaiming the city</div>
+  </div>
+</div>
+
+<!-- VIDEO -->
+<div class="section" id="section-video">
+  <div class="container">
+    <div class="sec-tag">Walkthrough</div>
+    <div class="sec-title">Video Demo</div>
+    <div class="sec-divider"></div>
+    <p class="body-text" style="margin-bottom:1.5rem;">A full video walkthrough of the Post-Apocalyptic prototype — showcasing the open-world environment, combat systems, AI behavior, and the complete level design from layout to final build.</p>
+    <div class="video-wrap">
+      <iframe src="https://www.youtube.com/embed/PU6zv5QxVYM" title="Post-Apocalyptic — Level Design Prototype" allowfullscreen></iframe>
+    </div>
+    <div class="img-caption">Post-Apocalyptic Prototype — Full Walkthrough</div>
+  </div>
+</div>
+
+<!-- CLOSING -->
+<div class="section alt">
+  <div class="container">
+    <div class="closing-box">
+      <div class="closing-icon">🌆</div>
+      <div class="closing-title">Professional Level Design at Scale</div>
+      <p class="closing-text">This project represents my first large-scale professional level design work — taking a post-apocalyptic city from initial layout through full blockout to final asset placement, while implementing complex game mechanics in Unreal Engine 5.</p>
+      <a href="https://youtu.be/PU6zv5QxVYM?si=VXb6j3kYsbg9QAU1" target="_blank" class="yt-btn">▶ Watch Full Walkthrough</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-left">© Viraj Joshi · Level Designer & Game Designer</div>
+  <div class="footer-right">
+    <a href="index.html" class="footer-link">← Back to Portfolio</a>
+    <a href="https://www.linkedin.com/in/viraj-joshi-a92b80202/" target="_blank" class="footer-link">LinkedIn</a>
+    <a href="https://virajtheleveldesigner.itch.io/" target="_blank" class="footer-link">itch.io</a>
+  </div>
+</footer>
+
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+window.addEventListener('scroll',()=>{
+  document.getElementById('scrollTop').style.opacity=window.scrollY>300?'1':'0';
+});
+const gnavBtns=document.querySelectorAll('.gnav-btn');
+const galSecs=document.querySelectorAll('[id^="section-"]');
+window.addEventListener('scroll',()=>{
+  let current='';
+  galSecs.forEach(s=>{if(window.scrollY>=s.offsetTop-120)current=s.id;});
+  gnavBtns.forEach(b=>b.classList.toggle('active',b.getAttribute('href')==='#'+current));
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Level Design — Viraj Joshi</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Nunito',sans-serif;background:#080a06;color:#d0d8c0;overflow-x:hidden;}
+
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 3rem;background:rgba(8,10,6,0.95);backdrop-filter:blur(14px);border-bottom:1px solid rgba(100,180,80,0.15);}
+.nav-back{display:flex;align-items:center;gap:.6rem;color:#d0d8c0;text-decoration:none;font-weight:700;font-size:.9rem;transition:color .2s;}
+.nav-back:hover{color:#7abf58;}
+.nav-title{font-weight:800;font-size:1rem;color:#556;}
+
+.gallery-nav{position:sticky;top:57px;z-index:99;display:flex;justify-content:center;gap:.5rem;padding:.65rem 2rem;background:rgba(8,10,6,0.92);backdrop-filter:blur(10px);border-bottom:1px solid #101408;flex-wrap:wrap;}
+.gnav-btn{padding:.4rem 1rem;border-radius:20px;border:1px solid #1a2010;background:transparent;color:#666;cursor:pointer;font-family:'Nunito',sans-serif;font-size:.75rem;font-weight:700;transition:all .2s;text-decoration:none;white-space:nowrap;}
+.gnav-btn:hover{background:rgba(122,191,88,.15);color:#7abf58;border-color:rgba(122,191,88,.3);}
+.gnav-btn.active{background:#7abf58;color:#080a06;border-color:#7abf58;}
+
+.container{max-width:1000px;margin:0 auto;padding:0 2.5rem;}
+
+/* PAGE HERO */
+.page-hero{padding:5rem 0 3rem;text-align:center;border-bottom:1px solid #101408;}
+.page-tag{font-size:.7rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#7abf58;margin-bottom:.7rem;}
+.page-title{font-size:clamp(2.5rem,5vw,4rem);font-weight:800;color:#e8f0d8;margin-bottom:1rem;line-height:1;}
+.page-desc{font-size:.93rem;color:#778;line-height:1.75;max-width:600px;margin:0 auto;}
+
+/* PROJECT BLOCKS */
+.project-block{padding:5rem 0;border-bottom:1px solid #101408;}
+.project-block.alt{background:#060806;}
+
+.proj-header{margin-bottom:2.5rem;}
+.proj-tag{font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin-bottom:.5rem;}
+.proj-title{font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:800;line-height:1;margin-bottom:1rem;}
+.proj-divider{width:36px;height:3px;border-radius:2px;margin-bottom:1.5rem;}
+
+.proj-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:3rem;align-items:start;margin-bottom:2.5rem;}
+.proj-desc{font-size:.9rem;color:#778;line-height:1.82;margin-bottom:1rem;}
+.proj-desc strong{color:#b0c0a0;font-weight:700;}
+.proj-pills{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem;}
+.proj-pill{padding:.25rem .65rem;border-radius:6px;font-size:.72rem;font-weight:700;}
+
+.info-col{display:flex;flex-direction:column;gap:.9rem;}
+.info-box{background:rgba(255,255,255,.03);border-radius:10px;padding:1rem 1.2rem;border:1px solid #1a2010;}
+.info-label{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.3rem;}
+.info-val{font-size:.88rem;font-weight:700;color:#d0d8c0;}
+
+/* SECTIONS within project */
+.sec-label{font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin-bottom:.3rem;}
+.sec-title{font-size:1.4rem;font-weight:800;margin-bottom:.5rem;}
+.sec-divider{width:30px;height:2px;border-radius:2px;margin-bottom:1.5rem;}
+.sec-desc{font-size:.85rem;color:#668;line-height:1.7;margin-bottom:1.5rem;}
+
+/* VIDEO */
+.video-wrap{position:relative;width:100%;padding-bottom:56.25%;border-radius:12px;overflow:hidden;background:#0c1008;border:1px solid #1a2010;margin-bottom:1rem;}
+.video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:none;}
+
+/* IMAGES */
+.img-full{width:100%;border-radius:12px;overflow:hidden;margin-bottom:1rem;border:1px solid #1a2010;}
+.img-full img{width:100%;display:block;object-fit:cover;max-height:500px;}
+.img-2col{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+.img-3col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1rem;}
+.img-4col{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:.8rem;margin-bottom:1rem;}
+.img-box{border-radius:10px;overflow:hidden;background:#0c1008;border:1px solid #1a2010;}
+.img-box img{width:100%;height:100%;object-fit:cover;display:block;}
+.img-caption{font-size:.72rem;color:#2a3820;text-align:center;margin-bottom:2rem;font-style:italic;}
+
+.note-banner{background:rgba(122,191,88,.05);border:1px solid rgba(122,191,88,.18);border-radius:10px;padding:1rem 1.3rem;display:flex;align-items:flex-start;gap:.7rem;margin-bottom:2rem;}
+.note-text{font-size:.83rem;color:#778;line-height:1.6;}
+.note-text strong{color:#7abf58;}
+
+/* PROJECT COLORS */
+/* Post-Apoc — green */
+.c-green .proj-tag{color:#6abf4b;}
+.c-green .proj-title{color:#e8f8d8;}
+.c-green .proj-divider{background:#6abf4b;}
+.c-green .info-label{color:#6abf4b;}
+.c-green .proj-pill{background:rgba(106,191,75,.12);color:#6abf4b;border:1px solid rgba(106,191,75,.2);}
+.c-green .sec-label{color:#6abf4b;}
+.c-green .sec-title{color:#e8f8d8;}
+.c-green .sec-divider{background:#6abf4b;}
+
+/* Zombie — red */
+.c-red .proj-tag{color:#e05040;}
+.c-red .proj-title{color:#fff0ee;}
+.c-red .proj-divider{background:#e05040;}
+.c-red .info-label{color:#e05040;}
+.c-red .proj-pill{background:rgba(224,80,64,.12);color:#e05040;border:1px solid rgba(224,80,64,.2);}
+.c-red .sec-label{color:#e05040;}
+.c-red .sec-title{color:#fff0ee;}
+.c-red .sec-divider{background:#e05040;}
+
+footer{background:#060806;border-top:1px solid #101408;padding:2rem 3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.footer-left{font-size:.8rem;color:#2a3820;}
+.footer-right{display:flex;gap:1rem;}
+.footer-link{color:#3a4830;text-decoration:none;font-size:.8rem;font-weight:700;transition:color .2s;}
+.footer-link:hover{color:#7abf58;}
+
+#scrollTop{position:fixed;bottom:1.5rem;right:1.5rem;z-index:200;width:38px;height:38px;border-radius:50%;background:#7abf58;color:#080a06;border:none;font-size:.9rem;cursor:pointer;opacity:0;transition:opacity .3s,transform .2s;display:flex;align-items:center;justify-content:center;}
+#scrollTop:hover{transform:translateY(-2px);}
+
+@media(max-width:768px){
+  nav{padding:1rem 1.5rem;}.nav-title{display:none;}
+  .container{padding:0 1.5rem;}
+  .proj-grid{grid-template-columns:1fr;}
+  .img-2col,.img-3col,.img-4col{grid-template-columns:1fr 1fr;}
+  footer{padding:1.5rem;}
+}
+
+
+/* ── PULSE GLOW on role cards and overview ── */
+@keyframes cardPulse{
+  0%{box-shadow:0 0 0 0 rgba(108,99,255,.4),0 0 10px rgba(108,99,255,.1);}
+  50%{box-shadow:0 0 0 8px rgba(108,99,255,0),0 0 22px rgba(108,99,255,.25);}
+  100%{box-shadow:0 0 0 0 rgba(108,99,255,.4),0 0 10px rgba(108,99,255,.1);}
+}
+@keyframes ovPulse{
+  0%{box-shadow:0 0 0 0 rgba(108,99,255,.3);}
+  50%{box-shadow:0 0 0 6px rgba(108,99,255,0);}
+  100%{box-shadow:0 0 0 0 rgba(108,99,255,.3);}
+}
+.role-card{animation:cardPulse 3s ease-in-out infinite;}
+.role-card:nth-child(2){animation-delay:.5s;}
+.role-card:nth-child(3){animation-delay:1s;}
+.ov-item{animation:ovPulse 3s ease-in-out infinite;}
+.ov-item:nth-child(2){animation-delay:.4s;}
+.ov-item:nth-child(3){animation-delay:.8s;}
+.ov-item:nth-child(4){animation-delay:1.2s;}
+.mech-card{animation:cardPulse 3s ease-in-out infinite;}
+.mech-card:nth-child(2){animation-delay:.3s;}
+.mech-card:nth-child(3){animation-delay:.6s;}
+.mech-card:nth-child(4){animation-delay:.9s;}
+.mech-card:nth-child(5){animation-delay:1.2s;}
+.mech-card:nth-child(6){animation-delay:1.5s;}
+.credit-card.highlight{animation:cardPulse 2s ease-in-out infinite;}
+
+/* ── GLOW EFFECTS ── */
+.role-card{transition:box-shadow .3s,transform .3s !important;}
+.role-card:hover{box-shadow:0 0 28px rgba(108,99,255,.3) !important;transform:translateY(-3px) !important;}
+.nav-yt,.nav-play,.nav-btn,.hbtn,.yt-btn,.avail-btn,.action-card-btn{transition:box-shadow .3s,transform .2s !important;}
+.nav-yt:hover,.nav-play:hover{box-shadow:0 0 22px rgba(192,57,43,.6) !important;transform:translateY(-2px) !important;}
+.hbtn-play:hover,.yt-btn:hover,.avail-btn:hover,.action-card.play .action-card-btn:hover{box-shadow:0 0 22px rgba(232,100,80,.6) !important;}
+.hbtn-gdd:hover,.action-card.gdd .action-card-btn:hover{box-shadow:0 0 22px rgba(108,99,255,.5) !important;}
+.mech-card,.tech-card,.role-card,.credit-card,.feat-item{transition:box-shadow .3s,transform .3s;}
+.mech-card:hover,.tech-card:hover,.credit-card:hover{box-shadow:0 0 22px rgba(108,99,255,.25);transform:translateY(-3px);}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-back">← Back to Portfolio</a>
+  <span class="nav-title">Level Design</span>
+</nav>
+
+<div class="gallery-nav">
+  <a href="#postapoc" class="gnav-btn active">🌆 Post-Apocalyptic</a>
+  <a href="#zombie" class="gnav-btn">🧟 Zombie Shooter</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="container">
+    <div class="page-tag">Level Design Projects</div>
+    <div class="page-title">Level<br/>Design</div>
+    <p class="page-desc">Level design projects showcasing the full pipeline — from initial layout and blockout through to final asset placement, lighting, and gameplay integration in Unreal Engine 5.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════
+     1 — POST-APOCALYPTIC
+════════════════════════════ -->
+<div class="project-block c-green" id="postapoc">
+  <div class="container">
+
+    <div class="proj-header">
+      <div class="proj-tag">Professional · Internship · Akiyam Solutions Pvt. Ltd.</div>
+      <div class="proj-title">Post-Apocalyptic<br/>(Name Undisclosed)</div>
+      <div class="proj-divider"></div>
+    </div>
+
+    <div class="note-banner">
+      <span style="font-size:1rem;">⚠</span>
+      <div class="note-text">This is a <strong>professional work project</strong> from my internship at Akiyam Solutions Pvt. Ltd. The game title remains undisclosed. Full details available on the <a href="postapoc.html" style="color:#6abf4b;">dedicated project page</a>.</div>
+    </div>
+
+    <div class="proj-grid">
+      <div>
+        <p class="proj-desc">An immersive post-apocalyptic world prototype built in Unreal Engine 5 — an abandoned city overtaken by nature, with <strong>advanced AI systems, combat mechanics</strong>, and cinematic environment design.</p>
+        <p class="proj-desc">Full level design pipeline from <strong>initial layout → blockout → final asset placement</strong>, plus implementation of locomotion, combat, healing, zombie AI, and NavMesh systems.</p>
+        <div class="proj-pills">
+          <span class="proj-pill">Unreal Engine 5</span>
+          <span class="proj-pill">Open World</span>
+          <span class="proj-pill">Blueprints</span>
+          <span class="proj-pill">NavMesh AI</span>
+          <span class="proj-pill">Professional</span>
+        </div>
+      </div>
+      <div class="info-col">
+        <div class="info-box"><div class="info-label">Engine</div><div class="info-val">Unreal Engine 5</div></div>
+        <div class="info-box"><div class="info-label">Studio</div><div class="info-val">Akiyam Solutions Pvt. Ltd.</div></div>
+        <div class="info-box"><div class="info-label">Type</div><div class="info-val">PC · Open World Prototype</div></div>
+        <div class="info-box"><div class="info-label">Pipeline</div><div class="info-val">Layout → Blockout → Asset Placement</div></div>
+      </div>
+    </div>
+
+    <!-- SECTION: LAYOUT -->
+    <div class="sec-label">Section 01</div>
+    <div class="sec-title">Level Layout</div>
+    <div class="sec-divider"></div>
+    <div class="sec-desc">Initial city map — zones, pathways, and structural planning before any geometry was placed.</div>
+    <div class="img-full">
+      <img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774113337/Level_Layout_q56y7m.png" alt="Level Layout"/>
+    </div>
+    <div class="img-caption">Full level layout map — city zones and player flow planning</div>
+
+    <!-- SECTION: BLOCKOUT -->
+    <div class="sec-label">Section 02</div>
+    <div class="sec-title">Blockout</div>
+    <div class="sec-divider"></div>
+    <div class="sec-desc">Raw geometry establishing building volumes, street widths, and sightlines before final assets.</div>
+    <div class="img-2col">
+      <div class="img-box" style="height:240px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774113264/Blockout_1_e9t2kh.png" alt="Blockout 1"/></div>
+      <div class="img-box" style="height:240px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774113295/Blockout_2_uubyzz.png" alt="Blockout 2"/></div>
+    </div>
+    <div class="img-3col">
+      <div class="img-box" style="height:190px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774113296/Blockout_3_f8zcac.png" alt="Blockout 3"/></div>
+      <div class="img-box" style="height:190px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774113299/Blockout_4_p6yx8u.png" alt="Blockout 4"/></div>
+      <div class="img-box" style="height:190px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774113302/Blockout_5_aqsrhu.png" alt="Blockout 5"/></div>
+    </div>
+    <div class="img-caption">Blockout — city structure and building volumes</div>
+
+    <!-- SECTION: FINAL ASSETS -->
+    <div class="sec-label">Section 03</div>
+    <div class="sec-title">Final Asset Placement</div>
+    <div class="sec-divider"></div>
+    <div class="sec-desc">The finished environment with full lighting, post-processing, vegetation, and debris placement.</div>
+    <div class="img-full">
+      <img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774113261/1_ss60gg.png" alt="Final 1"/>
+    </div>
+    <div class="img-2col">
+      <div class="img-box" style="height:240px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774113257/6_mtp4t8.png" alt="Final 6"/></div>
+      <div class="img-box" style="height:240px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774113244/9_rnehmz.png" alt="Final 9"/></div>
+    </div>
+    <div class="img-3col">
+      <div class="img-box" style="height:185px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774113248/14_avaj4n.png" alt="Final 14"/></div>
+      <div class="img-box" style="height:185px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774113256/19_haoz9e.png" alt="Final 19"/></div>
+      <div class="img-box" style="height:185px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774113268/29_ilwd9k.png" alt="Final 29"/></div>
+    </div>
+    <div class="img-caption">Final asset placement — post-apocalyptic city in full</div>
+
+    <a href="postapoc.html" style="display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 1.8rem;border-radius:10px;background:#6abf4b;color:#080a06;font-weight:700;font-size:.88rem;text-decoration:none;margin-top:.5rem;">View Full Project Page ↗</a>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════
+     2 — ZOMBIE SHOOTER
+════════════════════════════ -->
+<div class="project-block alt c-red" id="zombie">
+  <div class="container">
+
+    <div class="proj-header">
+      <div class="proj-tag">Personal Project · Unreal Engine 5 · Prototype</div>
+      <div class="proj-title">Zombie Shooter<br/>Prototype</div>
+      <div class="proj-divider"></div>
+    </div>
+
+    <div class="proj-grid">
+      <div>
+        <p class="proj-desc">An intense zombie-survival prototype built in Unreal Engine 5. Set within a <strong>confined cell</strong>, the player faces relentless waves of zombies multiplying with each round. Armed with an auto-gun with unlimited ammo — defend the gate separating you from the undead horde.</p>
+        <p class="proj-desc">The <strong>gate serves as the final barrier</strong>, constantly under attack. While mowing down threats, you must repair the gate to delay the onslaught. Once breached, the zombies swarm and end the game — how long can you survive?</p>
+        <div class="proj-pills">
+          <span class="proj-pill">Unreal Engine 5</span>
+          <span class="proj-pill">Wave-Based</span>
+          <span class="proj-pill">Zombie AI</span>
+          <span class="proj-pill">Gate Mechanics</span>
+          <span class="proj-pill">Solo Prototype</span>
+        </div>
+      </div>
+      <div class="info-col">
+        <div class="info-box"><div class="info-label">Engine</div><div class="info-val">Unreal Engine 5</div></div>
+        <div class="info-box"><div class="info-label">Genre</div><div class="info-val">Zombie Survival · Wave Defense</div></div>
+        <div class="info-box"><div class="info-label">Key Features</div><div class="info-val">Wave spawns · Gate repair · Auto-gun · Dynamic UI</div></div>
+        <div class="info-box"><div class="info-label">My Role</div><div class="info-val">Level · Mechanics · Lighting · Post-Processing · UI</div></div>
+      </div>
+    </div>
+
+    <!-- VIDEO -->
+    <div class="sec-label">Walkthrough</div>
+    <div class="sec-title">Video Demo</div>
+    <div class="sec-divider"></div>
+    <div class="video-wrap">
+      <iframe src="https://www.youtube.com/embed/xdS5Do_q7rc" title="Zombie Shooter Prototype" allowfullscreen></iframe>
+    </div>
+    <div class="img-caption">Zombie Shooter Prototype — Full Gameplay Walkthrough</div>
+
+    <!-- SCREENSHOTS -->
+    <div class="sec-label">Gallery</div>
+    <div class="sec-title">Screenshots</div>
+    <div class="sec-divider"></div>
+
+    <div class="img-full">
+      <img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774118398/Zombie_1_r62iti.png" alt="Zombie 1"/>
+    </div>
+    <div class="img-caption">Cell environment — the last line of defense</div>
+
+    <div class="img-2col">
+      <div class="img-box" style="height:255px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774118380/Zombie_2_e6mawm.png" alt="Zombie 2"/></div>
+      <div class="img-box" style="height:255px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774118380/Zombie_3_vbxn4f.png" alt="Zombie 3"/></div>
+    </div>
+
+    <div class="img-3col">
+      <div class="img-box" style="height:195px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774118382/Zombie_4_ojrnww.png" alt="Zombie 4"/></div>
+      <div class="img-box" style="height:195px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774118383/Zombie_5_mbrkxj.png" alt="Zombie 5"/></div>
+      <div class="img-box" style="height:195px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774118391/Zombie_6_b3tfwl.png" alt="Zombie 6"/></div>
+    </div>
+    <div class="img-caption">Wave encounters and gate defense gameplay</div>
+
+    <div class="img-full">
+      <img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774118397/Zombie_7_fc3muo.png" alt="Zombie 7"/>
+    </div>
+
+    <div class="img-4col">
+      <div class="img-box" style="height:160px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774118404/Zombie_8_ecxqkh.png" alt="Zombie 8"/></div>
+      <div class="img-box" style="height:160px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774118382/Zombie_9_yks9qn.png" alt="Zombie 9"/></div>
+      <div class="img-box" style="height:160px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774118407/Zombie_10_dxnjxf.png" alt="Zombie 10"/></div>
+      <div class="img-box" style="height:160px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774118404/Zombie_11_bwltkc.png" alt="Zombie 11"/></div>
+    </div>
+
+    <div class="img-3col">
+      <div class="img-box" style="height:195px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774118382/Zombie_12_z7wuqq.png" alt="Zombie 12"/></div>
+      <div class="img-box" style="height:195px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774118399/Zombie_13_oz7jbe.png" alt="Zombie 13"/></div>
+      <div class="img-box" style="height:195px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774118402/Zombie_14_icuwsr.png" alt="Zombie 14"/></div>
+    </div>
+
+    <div class="img-2col">
+      <div class="img-box" style="height:255px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774118392/Zombie_15_oexk2c.png" alt="Zombie 15"/></div>
+      <div class="img-box" style="height:255px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774118392/Zombie_16_xpkblt.png" alt="Zombie 16"/></div>
+    </div>
+    <div class="img-caption">Lighting, post-processing, UI elements, and zombie wave escalation</div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="footer-left">© Viraj Joshi · Level Designer & Game Designer</div>
+  <div class="footer-right">
+    <a href="index.html" class="footer-link">← Back to Portfolio</a>
+    <a href="https://www.linkedin.com/in/viraj-joshi-a92b80202/" target="_blank" class="footer-link">LinkedIn</a>
+    <a href="https://virajtheleveldesigner.itch.io/" target="_blank" class="footer-link">itch.io</a>
+  </div>
+</footer>
+
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+window.addEventListener('scroll',()=>{document.getElementById('scrollTop').style.opacity=window.scrollY>300?'1':'0';});
+const gnavBtns=document.querySelectorAll('.gnav-btn');
+window.addEventListener('scroll',()=>{
+  let current='';
+  ['postapoc','zombie'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el&&window.scrollY>=el.offsetTop-120)current=id;
+  });
+  gnavBtns.forEach(b=>b.classList.toggle('active',b.getAttribute('href')==='#'+current));
+});
+</script>
+</body>
+</html>

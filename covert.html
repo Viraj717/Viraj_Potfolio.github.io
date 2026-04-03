@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Covert Takedown — Viraj Joshi</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Nunito',sans-serif;background:#080a06;color:#d0d8c0;overflow-x:hidden;}
+
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 3rem;background:rgba(8,10,6,0.95);backdrop-filter:blur(14px);border-bottom:1px solid rgba(180,150,60,0.2);}
+.nav-back{display:flex;align-items:center;gap:.6rem;color:#d0d8c0;text-decoration:none;font-weight:700;font-size:.9rem;transition:color .2s;}
+.nav-back:hover{color:#c8a840;}
+.nav-title{font-weight:800;font-size:1rem;color:#556;}
+.nav-play{display:flex;align-items:center;gap:.5rem;padding:.55rem 1.2rem;border-radius:8px;background:#c8a840;color:#080a06;text-decoration:none;font-weight:700;font-size:.82rem;transition:background .2s;}
+.nav-play:hover{background:#d8b850;}
+
+.gallery-nav{position:sticky;top:57px;z-index:99;display:flex;justify-content:center;gap:.5rem;padding:.7rem 2rem;background:rgba(8,10,6,0.92);backdrop-filter:blur(10px);border-bottom:1px solid #121408;flex-wrap:wrap;}
+.gnav-btn{padding:.45rem 1.1rem;border-radius:20px;border:1px solid #1e2010;background:transparent;color:#666;cursor:pointer;font-family:'Nunito',sans-serif;font-size:.78rem;font-weight:700;transition:all .2s;text-decoration:none;}
+.gnav-btn:hover,.gnav-btn.active{background:#c8a840;color:#080a06;border-color:#c8a840;}
+
+.hero{position:relative;width:100%;min-height:85vh;display:flex;align-items:flex-end;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#141008,#080a06);}
+.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,10,6,1) 0%,rgba(8,10,6,.55) 40%,rgba(8,10,6,.05) 100%);}
+.hero-content{position:relative;z-index:2;padding:3rem;max-width:900px;}
+.hero-tag{font-size:.7rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#c8a840;margin-bottom:.8rem;}
+.hero-title{font-size:clamp(2.5rem,6vw,5.5rem);font-weight:800;line-height:.95;color:#f0e8c8;margin-bottom:1rem;text-shadow:0 2px 20px rgba(0,0,0,.9);}
+.hero-sub{font-size:.95rem;color:#889;line-height:1.7;max-width:580px;margin-bottom:2rem;}
+.hero-tags{display:flex;flex-wrap:wrap;gap:.5rem;}
+.htag{padding:.3rem .8rem;border-radius:6px;font-size:.73rem;font-weight:700;border:1px solid rgba(200,168,64,.4);color:#c8a840;background:rgba(200,168,64,.1);}
+.hero-cta{margin-top:2rem;}
+.hbtn{display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 1.8rem;border-radius:10px;font-family:'Nunito',sans-serif;font-weight:700;font-size:.9rem;text-decoration:none;background:#c8a840;color:#080a06;transition:all .2s;}
+.hbtn:hover{background:#d8b850;transform:translateY(-1px);}
+
+.container{max-width:1000px;margin:0 auto;padding:0 2.5rem;}
+
+.overview-strip{background:#0c0e08;border-top:1px solid #121408;border-bottom:1px solid #121408;padding:2rem 0;}
+.overview-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1.2rem;}
+.ov-item{text-align:center;}
+.ov-label{font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#2e3020;margin-bottom:.4rem;}
+.ov-val{font-size:.9rem;font-weight:800;color:#d0d8c0;}
+
+.section{padding:4rem 0;}
+.section.alt{background:#060806;}
+.sec-tag{font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#c8a840;margin-bottom:.5rem;}
+.sec-title{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:#f0e8c8;margin-bottom:1rem;}
+.sec-divider{width:40px;height:3px;background:#c8a840;margin-bottom:2rem;border-radius:2px;}
+.body-text{font-size:.93rem;color:#778;line-height:1.88;margin-bottom:1.2rem;}
+.body-text strong{color:#b8a888;font-weight:700;}
+
+.feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:1.5rem;}
+.feat-item{display:flex;align-items:flex-start;gap:.65rem;font-size:.87rem;color:#778;line-height:1.5;background:#0c0e08;border:1px solid #1e2010;border-radius:8px;padding:.7rem .9rem;}
+.feat-item::before{content:'▸';color:#c8a840;flex-shrink:0;margin-top:2px;}
+
+.challenge-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem;}
+.challenge-card{background:#0c0e08;border:1px solid #1e2010;border-radius:12px;padding:1.3rem;}
+.challenge-icon{font-size:1.4rem;margin-bottom:.6rem;}
+.challenge-title{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#c8a840;margin-bottom:.4rem;}
+.challenge-desc{font-size:.82rem;color:#668;line-height:1.6;}
+
+/* CREDITS */
+.credits-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1rem;}
+.credit-card{background:#0c0e08;border:1px solid #1e2010;border-radius:12px;padding:1.3rem;text-align:center;}
+.credit-avatar{width:48px;height:48px;border-radius:50%;background:rgba(200,168,64,.15);display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin:0 auto .7rem;}
+.credit-name{font-size:.95rem;font-weight:800;color:#f0e8c8;margin-bottom:.3rem;}
+.credit-role{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#c8a840;margin-bottom:.5rem;}
+.credit-tasks{font-size:.78rem;color:#668;line-height:1.5;}
+.credit-card.highlight{border-color:rgba(200,168,64,.4);background:rgba(200,168,64,.05);}
+
+/* GALLERY */
+.gallery-section{padding:4rem 0;}
+.gallery-section.alt{background:#060806;}
+.gallery-header{margin-bottom:2rem;}
+.gallery-number{font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#2a2c10;margin-bottom:.3rem;}
+.gallery-tag{font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#c8a840;margin-bottom:.4rem;}
+.gallery-title{font-size:1.6rem;font-weight:800;color:#f0e8c8;margin-bottom:.5rem;}
+.gallery-desc{font-size:.85rem;color:#445;line-height:1.7;}
+.gallery-divider{width:40px;height:3px;background:#c8a840;margin:1rem 0 2rem;border-radius:2px;}
+
+.img-full{width:100%;border-radius:12px;overflow:hidden;margin-bottom:1rem;background:#0c0e08;border:1px solid #1e2010;}
+.img-full img{width:100%;display:block;object-fit:cover;max-height:520px;}
+.img-2col{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+.img-3col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1rem;}
+.img-4col{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:.8rem;margin-bottom:1rem;}
+.img-box{border-radius:10px;overflow:hidden;background:#0c0e08;border:1px solid #1e2010;}
+.img-box img{width:100%;height:100%;object-fit:cover;display:block;}
+.img-caption{font-size:.73rem;color:#2e3020;text-align:center;margin-bottom:2rem;font-style:italic;}
+
+.tools-wrap{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.5rem;}
+.tool-pill{background:rgba(200,168,64,.12);color:#c8a840;padding:.3rem .75rem;border-radius:6px;font-size:.78rem;font-weight:700;border:1px solid rgba(200,168,64,.2);}
+
+.closing-box{background:#060806;border:1px solid #1e2010;border-radius:16px;padding:3rem;text-align:center;margin:2rem 0;}
+.closing-icon{font-size:2.5rem;margin-bottom:1rem;}
+.closing-title{font-size:1.6rem;font-weight:800;color:#f0e8c8;margin-bottom:1rem;}
+.closing-text{font-size:.92rem;color:#668;line-height:1.8;max-width:600px;margin:0 auto 1.5rem;}
+
+footer{background:#060806;border-top:1px solid #121408;padding:2rem 3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.footer-left{font-size:.8rem;color:#2e3020;}
+.footer-right{display:flex;gap:1rem;}
+.footer-link{color:#445;text-decoration:none;font-size:.8rem;font-weight:700;transition:color .2s;}
+.footer-link:hover{color:#c8a840;}
+
+#scrollTop{position:fixed;bottom:1.5rem;right:1.5rem;z-index:200;width:38px;height:38px;border-radius:50%;background:#c8a840;color:#080a06;border:none;font-size:.9rem;cursor:pointer;opacity:0;transition:opacity .3s,transform .2s;display:flex;align-items:center;justify-content:center;}
+#scrollTop:hover{transform:translateY(-2px);}
+
+@media(max-width:768px){
+  nav{padding:1rem 1.5rem;}.nav-title{display:none;}
+  .container{padding:0 1.5rem;}.hero-content{padding:2rem 1.5rem;}
+  .overview-grid{grid-template-columns:repeat(3,1fr);}
+  .feat-grid,.challenge-grid,.credits-grid{grid-template-columns:1fr 1fr;}
+  .img-2col,.img-3col,.img-4col{grid-template-columns:1fr 1fr;}
+  footer{padding:1.5rem;}
+}
+
+
+/* ── PULSE GLOW on role cards and overview ── */
+@keyframes cardPulse{
+  0%{box-shadow:0 0 0 0 rgba(108,99,255,.4),0 0 10px rgba(108,99,255,.1);}
+  50%{box-shadow:0 0 0 8px rgba(108,99,255,0),0 0 22px rgba(108,99,255,.25);}
+  100%{box-shadow:0 0 0 0 rgba(108,99,255,.4),0 0 10px rgba(108,99,255,.1);}
+}
+@keyframes ovPulse{
+  0%{box-shadow:0 0 0 0 rgba(108,99,255,.3);}
+  50%{box-shadow:0 0 0 6px rgba(108,99,255,0);}
+  100%{box-shadow:0 0 0 0 rgba(108,99,255,.3);}
+}
+.role-card{animation:cardPulse 3s ease-in-out infinite;}
+.role-card:nth-child(2){animation-delay:.5s;}
+.role-card:nth-child(3){animation-delay:1s;}
+.ov-item{animation:ovPulse 3s ease-in-out infinite;}
+.ov-item:nth-child(2){animation-delay:.4s;}
+.ov-item:nth-child(3){animation-delay:.8s;}
+.ov-item:nth-child(4){animation-delay:1.2s;}
+.mech-card{animation:cardPulse 3s ease-in-out infinite;}
+.mech-card:nth-child(2){animation-delay:.3s;}
+.mech-card:nth-child(3){animation-delay:.6s;}
+.mech-card:nth-child(4){animation-delay:.9s;}
+.mech-card:nth-child(5){animation-delay:1.2s;}
+.mech-card:nth-child(6){animation-delay:1.5s;}
+.credit-card.highlight{animation:cardPulse 2s ease-in-out infinite;}
+
+/* ── GLOW EFFECTS ── */
+.role-card{transition:box-shadow .3s,transform .3s !important;}
+.role-card:hover{box-shadow:0 0 28px rgba(108,99,255,.3) !important;transform:translateY(-3px) !important;}
+.nav-yt,.nav-play,.nav-btn,.hbtn,.yt-btn,.avail-btn,.action-card-btn{transition:box-shadow .3s,transform .2s !important;}
+.nav-yt:hover,.nav-play:hover{box-shadow:0 0 22px rgba(192,57,43,.6) !important;transform:translateY(-2px) !important;}
+.hbtn-play:hover,.yt-btn:hover,.avail-btn:hover,.action-card.play .action-card-btn:hover{box-shadow:0 0 22px rgba(232,100,80,.6) !important;}
+.hbtn-gdd:hover,.action-card.gdd .action-card-btn:hover{box-shadow:0 0 22px rgba(108,99,255,.5) !important;}
+.mech-card,.tech-card,.role-card,.credit-card,.feat-item{transition:box-shadow .3s,transform .3s;}
+.mech-card:hover,.tech-card:hover,.credit-card:hover{box-shadow:0 0 22px rgba(108,99,255,.25);transform:translateY(-3px);}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-back">← Back to Portfolio</a>
+  <span class="nav-title">Covert Takedown</span>
+  <a href="https://virajtheleveldesigner.itch.io/coverttakedown" target="_blank" class="nav-play">▶ Play on itch.io</a>
+</nav>
+
+<div class="gallery-nav">
+  <a href="#section-about" class="gnav-btn active">📋 About</a>
+  <a href="#section-blockout" class="gnav-btn">🧱 Blockout</a>
+  <a href="#section-assets" class="gnav-btn">✨ Asset Placement</a>
+  <a href="#section-gameplay" class="gnav-btn">🎮 Gameplay</a>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774116259/GamePlay_1_sefx9r.png" class="hero-img" alt="Covert Takedown"/>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Personal Project · Unreal Engine 5.4 · PC · Team of 3</div>
+    <div class="hero-title">Covert<br/>Takedown</div>
+    <p class="hero-sub">Terminate_VOID — A tactical third-person stealth shooter set in the semi-arid deserts of the Middle East. Infiltrate a fortified enemy compound and destroy three radar towers before it's too late.</p>
+    <div class="hero-tags">
+      <span class="htag">Unreal Engine 5.4</span>
+      <span class="htag">Tactical Shooter</span>
+      <span class="htag">Stealth</span>
+      <span class="htag">PC</span>
+      <span class="htag">Level Design</span>
+      <span class="htag">Optimization</span>
+    </div>
+    <div class="hero-cta">
+      <a href="https://virajtheleveldesigner.itch.io/coverttakedown" target="_blank" class="hbtn">▶ Play on itch.io</a>
+    </div>
+  </div>
+</div>
+
+<!-- OVERVIEW -->
+<div class="overview-strip">
+  <div class="container">
+    <div class="overview-grid">
+      <div class="ov-item"><div class="ov-label">Engine</div><div class="ov-val">UE 5.4</div></div>
+      <div class="ov-item"><div class="ov-label">Genre</div><div class="ov-val">Tactical · Stealth</div></div>
+      <div class="ov-item"><div class="ov-label">Platform</div><div class="ov-val">PC</div></div>
+      <div class="ov-item"><div class="ov-label">Team</div><div class="ov-val">3 Members</div></div>
+      <div class="ov-item"><div class="ov-label">Build Size</div><div class="ov-val">1.75 GB</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="section" id="section-about">
+  <div class="container">
+    <div class="sec-tag">The Mission</div>
+    <div class="sec-title">About This Project</div>
+    <div class="sec-divider"></div>
+    <p class="body-text">Step into the high-stakes world of <strong>Covert Takedown</strong> — an indie game prototype for a tactical third-person shooter built in Unreal Engine 5.4. Take control of <strong>Havoc</strong>, the hardened leader of a covert unit named <strong>Eleventh_Hour</strong>, on a mission deep in the semi-arid deserts of the Middle East.</p>
+    <p class="body-text">When the dormant terrorist organization <strong>VOID</strong> resurfaces and hijacks a satellite base, the global threat is imminent — they are turning satellites into kinetic weapons. Your mission, <strong>"Terminate_VOID"</strong>, is a dangerous infiltration into a fortified enemy compound. Players disable three radar towers in a semi-open world environment filled with tactical depth and intense infiltration gameplay.</p>
+
+    <!-- BACKSTORY -->
+    <div class="sec-tag" style="margin-top:2rem;">Lore</div>
+    <div class="sec-title">Backstory</div>
+    <div class="sec-divider"></div>
+    <p class="body-text">Following the execution of their feared leader <strong>Omar Taleb</strong>, the terrorist organization VOID went silent — until now. Intelligence reports confirm VOID has seized control of a decommissioned Satellite Surveillance Base in the Middle East. Using hijacked satellite systems as improvised kinetic weapons, they've begun targeting key military and civilian installations across the globe.</p>
+    <p class="body-text">With remote shutdown impossible, a last-ditch operation titled <strong>"Terminate_VOID"</strong> is launched. The classified special ops unit <strong>Eleventh_Hour</strong> is deployed behind enemy lines — infiltrate the base, destroy the radar towers, and stop the weaponization of orbital assets before it's too late.</p>
+
+    <!-- KEY FEATURES -->
+    <div class="sec-tag" style="margin-top:2rem;">Features</div>
+    <div class="sec-title">Key Features</div>
+    <div class="sec-divider"></div>
+    <div class="feat-grid">
+      <div class="feat-item">Semi-open world enemy compound environment</div>
+      <div class="feat-item">Stealth or combat approach — player choice</div>
+      <div class="feat-item">Three radar tower objectives with self-destruct systems</div>
+      <div class="feat-item">Tactical third-person shooter gameplay</div>
+      <div class="feat-item">Realistic semi-arid Middle Eastern environment</div>
+      <div class="feat-item">Optimized build — reduced from 3GB+ to 1.75GB</div>
+    </div>
+
+    <!-- TOOLS -->
+    <div class="sec-tag" style="margin-top:2rem;">Technical</div>
+    <div class="sec-title">Tools Used</div>
+    <div class="sec-divider"></div>
+    <div class="tools-wrap">
+      <span class="tool-pill">Unreal Engine 5.4</span>
+      <span class="tool-pill">Google Meet</span>
+      <span class="tool-pill">Discord</span>
+    </div>
+
+    <!-- MY ROLE -->
+    <div class="sec-tag" style="margin-top:2.5rem;">Contribution</div>
+    <div class="sec-title">My Role</div>
+    <div class="sec-divider"></div>
+    <div class="feat-grid">
+      <div class="feat-item">Asset Placement — final environment dressing</div>
+      <div class="feat-item">Optimization — build size from 3GB+ to 1.75GB</div>
+      <div class="feat-item">Post Processing — cinematic visual polish</div>
+      <div class="feat-item">Build Output — packaging and shipping the prototype</div>
+      <div class="feat-item">Lighting — atmosphere and mood crafting</div>
+      <div class="feat-item">QA — playtesting and bug reporting</div>
+    </div>
+
+    <!-- CHALLENGES -->
+    <div class="sec-tag" style="margin-top:2rem;">Learnings</div>
+    <div class="sec-title">Challenges & Learnings</div>
+    <div class="sec-divider"></div>
+    <div class="challenge-grid">
+      <div class="challenge-card">
+        <div class="challenge-icon">⚠️</div>
+        <div class="challenge-title">Build Packaging Issues</div>
+        <div class="challenge-desc">Persistent packaging failures due to multiple code dependencies and plugin conflicts. Resolved by packaging in Development Build, keeping the prototype functional for testing and presentation.</div>
+      </div>
+      <div class="challenge-card">
+        <div class="challenge-icon">📦</div>
+        <div class="challenge-title">Build Size Optimization</div>
+        <div class="challenge-desc">Initial build was over 3GB. Through careful optimization of build configurations and project settings, reduced to 1.75GB without sacrificing visual fidelity or core functionality.</div>
+      </div>
+    </div>
+
+    <!-- CREDITS -->
+    <div class="sec-tag" style="margin-top:2.5rem;">The Team</div>
+    <div class="sec-title">Credits</div>
+    <div class="sec-divider"></div>
+    <div class="credits-grid">
+      <div class="credit-card">
+        <div class="credit-avatar">🎯</div>
+        <div class="credit-name">Kartik Patil</div>
+        <div class="credit-role">Lead Designer</div>
+        <div class="credit-tasks">Main Concept · Level Layout · Greyboxing · GDD · UI/UX · QA</div>
+      </div>
+      <div class="credit-card">
+        <div class="credit-avatar">🎨</div>
+        <div class="credit-name">Atharva Bandal</div>
+        <div class="credit-role">3D Artist</div>
+        <div class="credit-tasks">Brainstorming · 3D Modeling · QA</div>
+      </div>
+      <div class="credit-card highlight">
+        <div class="credit-avatar">⚡</div>
+        <div class="credit-name">Viraj Joshi</div>
+        <div class="credit-role">Level Design · Tech</div>
+        <div class="credit-tasks">Asset Placement · Optimization · Post Processing · Build Output · QA</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ SECTION 1 — BLOCKOUT ═══ -->
+<div class="gallery-section alt" id="section-blockout">
+  <div class="container">
+    <div class="gallery-header">
+      <div class="gallery-number">Section 01</div>
+      <div class="gallery-tag">Early Stage</div>
+      <div class="gallery-title">Blockout</div>
+      <div class="gallery-divider"></div>
+      <div class="gallery-desc">Raw geometry blockout — establishing the compound layout, building volumes, patrol routes, and player sightlines before any final assets were placed.</div>
+    </div>
+
+    <!-- Blockout 1 full width -->
+    <div class="img-full">
+      <img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774116257/Blockout_1_l4sf8c.png" alt="Blockout 1"/>
+    </div>
+    <div class="img-caption">Compound overview — full blockout layout</div>
+
+    <!-- Blockout 2 + 3 -->
+    <div class="img-2col">
+      <div class="img-box" style="height:260px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774116259/Blockout_2_vlfjs5.png" alt="Blockout 2"/></div>
+      <div class="img-box" style="height:260px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774116257/Blockout_3_bxvnng.png" alt="Blockout 3"/></div>
+    </div>
+    <div class="img-caption">Entry points and patrol zone structure</div>
+
+    <!-- Blockout 4 + 5 + 6 -->
+    <div class="img-3col">
+      <div class="img-box" style="height:210px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774116257/Blockout_4_l2eauz.png" alt="Blockout 4"/></div>
+      <div class="img-box" style="height:210px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774116258/Blockout_5_y3gkqv.png" alt="Blockout 5"/></div>
+      <div class="img-box" style="height:210px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774116259/Blockout_6_t6ab40.png" alt="Blockout 6"/></div>
+    </div>
+
+    <!-- Blockout 7 -->
+    <div class="img-full">
+      <img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774116261/Blockout_7_jgowjs.png" alt="Blockout 7"/>
+    </div>
+    <div class="img-caption">Radar tower zones and objective areas in blockout</div>
+  </div>
+</div>
+
+<!-- ═══ SECTION 2 — ASSET PLACEMENT ═══ -->
+<div class="gallery-section" id="section-assets">
+  <div class="container">
+    <div class="gallery-header">
+      <div class="gallery-number">Section 02</div>
+      <div class="gallery-tag">My Contribution</div>
+      <div class="gallery-title">Asset Placement</div>
+      <div class="gallery-divider"></div>
+      <div class="gallery-desc">Final environment dressing — blockout replaced with high-quality assets, full lighting, post-processing, and atmospheric effects to bring the semi-arid compound to life.</div>
+    </div>
+
+    <!-- Asset 1 full width -->
+    <div class="img-full">
+      <img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774116238/Asset_Placment_1_bs3l0y.png" alt="Asset Placement 1"/>
+    </div>
+    <div class="img-caption">Compound — full asset placement with lighting and atmosphere</div>
+
+    <!-- Asset 2 + 3 -->
+    <div class="img-2col">
+      <div class="img-box" style="height:260px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774116241/Asset_Placment_2_rzbcp9.png" alt="Asset Placement 2"/></div>
+      <div class="img-box" style="height:260px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774116243/Asset_Placment_3_nv8p0z.png" alt="Asset Placement 3"/></div>
+    </div>
+
+    <!-- Asset 4 + 5 + 7 -->
+    <div class="img-3col">
+      <div class="img-box" style="height:210px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774116242/Asset_Placment_4_kszn7i.png" alt="Asset Placement 4"/></div>
+      <div class="img-box" style="height:210px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774116242/Asset_Placment_5_fppi8o.png" alt="Asset Placement 5"/></div>
+      <div class="img-box" style="height:210px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774116245/Asset_Placment_7_qujnrl.png" alt="Asset Placement 7"/></div>
+    </div>
+    <div class="img-caption">Environmental details — vehicles, barriers, and tactical cover placement</div>
+
+    <!-- Asset 8 full width -->
+    <div class="img-full">
+      <img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774116246/Asset_Placment_8_ns0ntq.png" alt="Asset Placement 8"/>
+    </div>
+    <div class="img-caption">Radar tower area — final asset dressing and post-processing</div>
+
+    <!-- Asset 10 + 11 -->
+    <div class="img-2col">
+      <div class="img-box" style="height:260px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774116244/Asset_Placment_10_n6nlvf.png" alt="Asset Placement 10"/></div>
+      <div class="img-box" style="height:260px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774116245/Asset_Placment_11_zee4nv.png" alt="Asset Placement 11"/></div>
+    </div>
+
+    <!-- Asset 12 + 13 + 14 -->
+    <div class="img-3col">
+      <div class="img-box" style="height:210px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774116247/Asset_Placment_12_arrbtp.png" alt="Asset Placement 12"/></div>
+      <div class="img-box" style="height:210px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774116248/Asset_Placment_13_qpgkeb.png" alt="Asset Placement 13"/></div>
+      <div class="img-box" style="height:210px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774116256/Asset_Placment_14_pvasop.png" alt="Asset Placement 14"/></div>
+    </div>
+    <div class="img-caption">Final compound details — full environment composition complete</div>
+  </div>
+</div>
+
+<!-- ═══ SECTION 3 — GAMEPLAY ═══ -->
+<div class="gallery-section alt" id="section-gameplay">
+  <div class="container">
+    <div class="gallery-header">
+      <div class="gallery-number">Section 03</div>
+      <div class="gallery-tag">In Action</div>
+      <div class="gallery-title">Gameplay</div>
+      <div class="gallery-divider"></div>
+      <div class="gallery-desc">Screenshots from the final playable build — showing Havoc in action, the compound from the player's perspective, and the tactical gameplay experience.</div>
+    </div>
+
+    <!-- Gameplay 1 full width -->
+    <div class="img-full">
+      <img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774116259/GamePlay_1_sefx9r.png" alt="Gameplay 1"/>
+    </div>
+    <div class="img-caption">Havoc — tactical third-person view in the compound</div>
+
+    <!-- Gameplay 2 + 3 -->
+    <div class="img-2col">
+      <div class="img-box" style="height:265px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774116260/GamePlay_2_ogjjpl.png" alt="Gameplay 2"/></div>
+      <div class="img-box" style="height:265px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774116271/GamePlay_3_dvblaq.png" alt="Gameplay 3"/></div>
+    </div>
+
+    <!-- Gameplay 4 + 5 + 6 -->
+    <div class="img-3col">
+      <div class="img-box" style="height:210px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774116273/GamePlay_4_powliq.png" alt="Gameplay 4"/></div>
+      <div class="img-box" style="height:210px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774116274/GamePlay_5_idyamm.png" alt="Gameplay 5"/></div>
+      <div class="img-box" style="height:210px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774116275/GamePlay_6_c92pql.png" alt="Gameplay 6"/></div>
+    </div>
+    <div class="img-caption">Combat encounters and tactical decision-making</div>
+
+    <!-- Gameplay 7 + 8 -->
+    <div class="img-2col">
+      <div class="img-box" style="height:265px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774116272/GamePlay_7_o902g7.png" alt="Gameplay 7"/></div>
+      <div class="img-box" style="height:265px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774116274/GamePlay_8_nyrwyv.png" alt="Gameplay 8"/></div>
+    </div>
+    <div class="img-caption">Radar tower objectives — the mission in full swing</div>
+  </div>
+</div>
+
+<!-- CLOSING -->
+<div class="section">
+  <div class="container">
+    <div class="closing-box">
+      <div class="closing-icon">🎯</div>
+      <div class="closing-title">Terminate_VOID</div>
+      <p class="closing-text">Covert Takedown was a deep dive into large-scale tactical level design, build optimization, and environmental storytelling — taking a prototype from raw blockout through final asset placement to a polished, playable build. Download and play it now on itch.io.</p>
+      <a href="https://virajtheleveldesigner.itch.io/coverttakedown" target="_blank" class="hbtn">▶ Play on itch.io</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-left">© Viraj Joshi · Level Designer & Game Designer</div>
+  <div class="footer-right">
+    <a href="index.html" class="footer-link">← Back to Portfolio</a>
+    <a href="https://www.linkedin.com/in/viraj-joshi-a92b80202/" target="_blank" class="footer-link">LinkedIn</a>
+    <a href="https://virajtheleveldesigner.itch.io/" target="_blank" class="footer-link">itch.io</a>
+  </div>
+</footer>
+
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+window.addEventListener('scroll',()=>{document.getElementById('scrollTop').style.opacity=window.scrollY>300?'1':'0';});
+const gnavBtns=document.querySelectorAll('.gnav-btn');
+const galSecs=document.querySelectorAll('[id^="section-"]');
+window.addEventListener('scroll',()=>{
+  let current='';
+  galSecs.forEach(s=>{if(window.scrollY>=s.offsetTop-120)current=s.id;});
+  gnavBtns.forEach(b=>b.classList.toggle('active',b.getAttribute('href')==='#'+current));
+});
+</script>
+</body>
+</html>

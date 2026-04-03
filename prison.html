@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Prison Escape 3D — Viraj Joshi</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Nunito',sans-serif;background:#0a080c;color:#d0c8e0;overflow-x:hidden;}
+
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 3rem;background:rgba(10,8,12,0.95);backdrop-filter:blur(14px);border-bottom:1px solid rgba(140,80,200,0.2);}
+.nav-back{display:flex;align-items:center;gap:.6rem;color:#d0c8e0;text-decoration:none;font-weight:700;font-size:.9rem;transition:color .2s;}
+.nav-back:hover{color:#9b6fd4;}
+.nav-title{font-weight:800;font-size:1rem;color:#445;}
+.nav-btns{display:flex;gap:.6rem;}
+.nav-btn{display:flex;align-items:center;gap:.5rem;padding:.5rem 1rem;border-radius:8px;color:#fff;text-decoration:none;font-weight:700;font-size:.78rem;transition:background .2s;}
+.nav-btn-gdd{background:#9b6fd4;}
+.nav-btn-gdd:hover{background:#ab7fe4;}
+.nav-btn-play{background:#e84040;}
+.nav-btn-play:hover{background:#f05050;}
+
+.gallery-nav{position:sticky;top:57px;z-index:99;display:flex;justify-content:center;gap:.5rem;padding:.7rem 2rem;background:rgba(10,8,12,0.92);backdrop-filter:blur(10px);border-bottom:1px solid #14101a;flex-wrap:wrap;}
+.gnav-btn{padding:.45rem 1.1rem;border-radius:20px;border:1px solid #1e1828;background:transparent;color:#556;cursor:pointer;font-family:'Nunito',sans-serif;font-size:.78rem;font-weight:700;transition:all .2s;text-decoration:none;}
+.gnav-btn:hover,.gnav-btn.active{background:#9b6fd4;color:#fff;border-color:#9b6fd4;}
+
+.hero{position:relative;width:100%;min-height:85vh;display:flex;align-items:flex-end;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#120a18,#0a080c);}
+.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,8,12,1) 0%,rgba(10,8,12,.55) 40%,rgba(10,8,12,.05) 100%);}
+.hero-content{position:relative;z-index:2;padding:3rem;max-width:900px;}
+.hero-tag{font-size:.7rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#9b6fd4;margin-bottom:.8rem;}
+.hero-title{font-size:clamp(2.5rem,6vw,5.5rem);font-weight:800;line-height:.95;color:#f0e8ff;margin-bottom:1rem;text-shadow:0 2px 20px rgba(0,0,0,.9);}
+.hero-sub{font-size:.95rem;color:#889;line-height:1.7;max-width:580px;margin-bottom:2rem;}
+.hero-tags{display:flex;flex-wrap:wrap;gap:.5rem;}
+.htag{padding:.3rem .8rem;border-radius:6px;font-size:.73rem;font-weight:700;border:1px solid rgba(155,111,212,.4);color:#9b6fd4;background:rgba(155,111,212,.1);}
+.hero-cta{display:flex;gap:.8rem;margin-top:2rem;flex-wrap:wrap;}
+.hbtn{display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 1.8rem;border-radius:10px;font-family:'Nunito',sans-serif;font-weight:700;font-size:.9rem;text-decoration:none;transition:all .2s;}
+.hbtn-play{background:#9b6fd4;color:#fff;}
+.hbtn-play:hover{background:#ab7fe4;transform:translateY(-1px);}
+.hbtn-gdd{background:rgba(155,111,212,.15);color:#9b6fd4;border:1px solid rgba(155,111,212,.3);}
+.hbtn-gdd:hover{background:rgba(155,111,212,.25);}
+
+.container{max-width:1000px;margin:0 auto;padding:0 2.5rem;}
+
+.overview-strip{background:#0e0c14;border-top:1px solid #14101a;border-bottom:1px solid #14101a;padding:2rem 0;}
+.overview-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1.2rem;}
+.ov-item{text-align:center;}
+.ov-label{font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#2e2440;margin-bottom:.4rem;}
+.ov-val{font-size:.95rem;font-weight:800;color:#d0c8e0;}
+
+.section{padding:4rem 0;}
+.section.alt{background:#080610;}
+.sec-tag{font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#9b6fd4;margin-bottom:.5rem;}
+.sec-title{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:#f0e8ff;margin-bottom:1rem;}
+.sec-divider{width:40px;height:3px;background:#9b6fd4;margin-bottom:2rem;border-radius:2px;}
+.body-text{font-size:.93rem;color:#778;line-height:1.88;margin-bottom:1.2rem;}
+.body-text strong{color:#b8a8d0;font-weight:700;}
+
+.tools-wrap{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.5rem;}
+.tool-pill{background:rgba(155,111,212,.12);color:#9b6fd4;padding:.3rem .75rem;border-radius:6px;font-size:.78rem;font-weight:700;border:1px solid rgba(155,111,212,.2);}
+
+.role-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:1rem;}
+.role-card{background:#0e0c14;border:1px solid #1e1828;border-radius:12px;padding:1.3rem;}
+.role-icon{font-size:1.4rem;margin-bottom:.6rem;}
+.role-title{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#9b6fd4;margin-bottom:.4rem;}
+.role-desc{font-size:.82rem;color:#668;line-height:1.6;}
+
+/* GDD + PLAY BANNER */
+.action-banner{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin:2rem 0;}
+.action-card{border-radius:14px;padding:2rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;}
+.action-card.gdd{background:rgba(155,111,212,.08);border:1px solid rgba(155,111,212,.25);}
+.action-card.play{background:rgba(232,64,64,.08);border:1px solid rgba(232,64,64,.25);}
+.action-card-text{}
+.action-card-label{font-size:.65rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;margin-bottom:.3rem;}
+.action-card.gdd .action-card-label{color:#9b6fd4;}
+.action-card.play .action-card-label{color:#e84040;}
+.action-card-title{font-size:1.1rem;font-weight:800;color:#f0e8ff;margin-bottom:.2rem;}
+.action-card-sub{font-size:.78rem;color:#668;}
+.action-card-btn{display:inline-flex;align-items:center;gap:.5rem;padding:.7rem 1.4rem;border-radius:8px;font-family:'Nunito',sans-serif;font-weight:700;font-size:.8rem;text-decoration:none;white-space:nowrap;transition:all .2s;flex-shrink:0;}
+.action-card.gdd .action-card-btn{background:#9b6fd4;color:#fff;}
+.action-card.gdd .action-card-btn:hover{background:#ab7fe4;}
+.action-card.play .action-card-btn{background:#e84040;color:#fff;}
+.action-card.play .action-card-btn:hover{background:#f05050;}
+
+.gallery-section{padding:4rem 0;}
+.gallery-section.alt{background:#080610;}
+.gallery-header{margin-bottom:2rem;}
+.gallery-tag{font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#9b6fd4;margin-bottom:.4rem;}
+.gallery-title{font-size:1.6rem;font-weight:800;color:#f0e8ff;margin-bottom:.5rem;}
+.gallery-desc{font-size:.85rem;color:#3a2c50;line-height:1.7;}
+.gallery-divider{width:40px;height:3px;background:#9b6fd4;margin:1rem 0 2rem;border-radius:2px;}
+
+.img-full{width:100%;border-radius:12px;overflow:hidden;margin-bottom:1rem;background:#0e0c14;border:1px solid #1e1828;}
+.img-full img{width:100%;display:block;object-fit:cover;max-height:520px;}
+.img-2col{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+.img-3col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1rem;}
+.img-box{border-radius:10px;overflow:hidden;background:#0e0c14;border:1px solid #1e1828;}
+.img-box img{width:100%;height:100%;object-fit:cover;display:block;}
+.img-caption{font-size:.73rem;color:#2e2440;text-align:center;margin-bottom:2rem;font-style:italic;}
+
+.closing-box{background:#080610;border:1px solid #1e1828;border-radius:16px;padding:3rem;text-align:center;margin:2rem 0;}
+.closing-icon{font-size:2.5rem;margin-bottom:1rem;}
+.closing-title{font-size:1.6rem;font-weight:800;color:#f0e8ff;margin-bottom:1rem;}
+.closing-text{font-size:.92rem;color:#668;line-height:1.8;max-width:600px;margin:0 auto 1.5rem;}
+
+footer{background:#080610;border-top:1px solid #14101a;padding:2rem 3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.footer-left{font-size:.8rem;color:#2e2440;}
+.footer-right{display:flex;gap:1rem;}
+.footer-link{color:#3a2c50;text-decoration:none;font-size:.8rem;font-weight:700;transition:color .2s;}
+.footer-link:hover{color:#9b6fd4;}
+
+#scrollTop{position:fixed;bottom:1.5rem;right:1.5rem;z-index:200;width:38px;height:38px;border-radius:50%;background:#9b6fd4;color:#fff;border:none;font-size:.9rem;cursor:pointer;opacity:0;transition:opacity .3s,transform .2s;display:flex;align-items:center;justify-content:center;}
+#scrollTop:hover{transform:translateY(-2px);}
+
+@media(max-width:768px){
+  nav{padding:1rem 1.5rem;}.nav-title{display:none;}
+  .container{padding:0 1.5rem;}.hero-content{padding:2rem 1.5rem;}
+  .overview-grid{grid-template-columns:repeat(3,1fr);}
+  .role-grid{grid-template-columns:1fr 1fr;}
+  .action-banner{grid-template-columns:1fr;}
+  .img-2col,.img-3col{grid-template-columns:1fr 1fr;}
+  footer{padding:1.5rem;}
+}
+
+
+/* ── PULSE GLOW on role cards and overview ── */
+@keyframes cardPulse{
+  0%{box-shadow:0 0 0 0 rgba(108,99,255,.4),0 0 10px rgba(108,99,255,.1);}
+  50%{box-shadow:0 0 0 8px rgba(108,99,255,0),0 0 22px rgba(108,99,255,.25);}
+  100%{box-shadow:0 0 0 0 rgba(108,99,255,.4),0 0 10px rgba(108,99,255,.1);}
+}
+@keyframes ovPulse{
+  0%{box-shadow:0 0 0 0 rgba(108,99,255,.3);}
+  50%{box-shadow:0 0 0 6px rgba(108,99,255,0);}
+  100%{box-shadow:0 0 0 0 rgba(108,99,255,.3);}
+}
+.role-card{animation:cardPulse 3s ease-in-out infinite;}
+.role-card:nth-child(2){animation-delay:.5s;}
+.role-card:nth-child(3){animation-delay:1s;}
+.ov-item{animation:ovPulse 3s ease-in-out infinite;}
+.ov-item:nth-child(2){animation-delay:.4s;}
+.ov-item:nth-child(3){animation-delay:.8s;}
+.ov-item:nth-child(4){animation-delay:1.2s;}
+.mech-card{animation:cardPulse 3s ease-in-out infinite;}
+.mech-card:nth-child(2){animation-delay:.3s;}
+.mech-card:nth-child(3){animation-delay:.6s;}
+.mech-card:nth-child(4){animation-delay:.9s;}
+.mech-card:nth-child(5){animation-delay:1.2s;}
+.mech-card:nth-child(6){animation-delay:1.5s;}
+.credit-card.highlight{animation:cardPulse 2s ease-in-out infinite;}
+
+/* ── GLOW EFFECTS ── */
+.role-card{transition:box-shadow .3s,transform .3s !important;}
+.role-card:hover{box-shadow:0 0 28px rgba(108,99,255,.3) !important;transform:translateY(-3px) !important;}
+.nav-yt,.nav-play,.nav-btn,.hbtn,.yt-btn,.avail-btn,.action-card-btn{transition:box-shadow .3s,transform .2s !important;}
+.nav-yt:hover,.nav-play:hover{box-shadow:0 0 22px rgba(192,57,43,.6) !important;transform:translateY(-2px) !important;}
+.hbtn-play:hover,.yt-btn:hover,.avail-btn:hover,.action-card.play .action-card-btn:hover{box-shadow:0 0 22px rgba(232,100,80,.6) !important;}
+.hbtn-gdd:hover,.action-card.gdd .action-card-btn:hover{box-shadow:0 0 22px rgba(108,99,255,.5) !important;}
+.mech-card,.tech-card,.role-card,.credit-card,.feat-item{transition:box-shadow .3s,transform .3s;}
+.mech-card:hover,.tech-card:hover,.credit-card:hover{box-shadow:0 0 22px rgba(108,99,255,.25);transform:translateY(-3px);}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-back">← Back to Portfolio</a>
+  <span class="nav-title">Prison Escape 3D</span>
+  <div class="nav-btns">
+    <a href="https://drive.google.com/file/d/1EEbfQeh4TE_a_wGnyiYVC188TLLg8eeZ/view?usp=drive_link" target="_blank" class="nav-btn nav-btn-gdd">📄 View GDD</a>
+    <a href="https://virajtheleveldesigner.itch.io/prison-escape-3d" target="_blank" class="nav-btn nav-btn-play">▶ Play Game</a>
+  </div>
+</nav>
+
+<div class="gallery-nav">
+  <a href="#section-about" class="gnav-btn active">📋 About</a>
+  <a href="#section-gallery" class="gnav-btn">🎮 Screenshots</a>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774115118/1_ggocf7.png" class="hero-img" alt="Prison Escape 3D"/>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Personal Project · Unity · Windows · Team of 2</div>
+    <div class="hero-title">Prison<br/>Escape 3D</div>
+    <p class="hero-sub">A thrilling 3D stealth-escape game — navigate dark dungeons, evade guards, collect badges, and unlock gates to secure your freedom.</p>
+    <div class="hero-tags">
+      <span class="htag">Unity Engine</span>
+      <span class="htag">Stealth</span>
+      <span class="htag">Escape</span>
+      <span class="htag">Windows</span>
+      <span class="htag">Game Design</span>
+      <span class="htag">Level Design</span>
+    </div>
+    <div class="hero-cta">
+      <a href="https://virajtheleveldesigner.itch.io/prison-escape-3d" target="_blank" class="hbtn hbtn-play">▶ Play on itch.io</a>
+      <a href="https://drive.google.com/file/d/1EEbfQeh4TE_a_wGnyiYVC188TLLg8eeZ/view?usp=drive_link" target="_blank" class="hbtn hbtn-gdd">📄 View GDD</a>
+    </div>
+  </div>
+</div>
+
+<!-- OVERVIEW -->
+<div class="overview-strip">
+  <div class="container">
+    <div class="overview-grid">
+      <div class="ov-item"><div class="ov-label">Engine</div><div class="ov-val">Unity</div></div>
+      <div class="ov-item"><div class="ov-label">Genre</div><div class="ov-val">Stealth · Escape</div></div>
+      <div class="ov-item"><div class="ov-label">Platform</div><div class="ov-val">Windows</div></div>
+      <div class="ov-item"><div class="ov-label">Team</div><div class="ov-val">2 Members</div></div>
+      <div class="ov-item"><div class="ov-label">Role</div><div class="ov-val">Design · Level · Art</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="section" id="section-about">
+  <div class="container">
+    <div class="sec-tag">The Game</div>
+    <div class="sec-title">About This Project</div>
+    <div class="sec-divider"></div>
+    <p class="body-text">Immerse yourself in the gripping world of <strong>Prison Escape 3D</strong> — a thrilling stealth game meticulously crafted in the Unity Engine. Navigate through treacherous dark dungeons as a captive, utilizing stealth and strategy to evade capture and secure your freedom.</p>
+    <p class="body-text">Forge alliances with cunning infiltrator guards, trading valuable resources for vital assistance in your quest for liberation. Every decision matters as you plan your escape route through the prison's maze-like corridors.</p>
+
+    <!-- GDD + PLAY BANNERS -->
+    <div class="action-banner">
+      <div class="action-card gdd">
+        <div class="action-card-text">
+          <div class="action-card-label">Game Design Document</div>
+          <div class="action-card-title">Prison Escape 3D — GDD</div>
+          <div class="action-card-sub">Full design documentation — mechanics, level structure, AI behaviour</div>
+        </div>
+        <a href="https://drive.google.com/file/d/1EEbfQeh4TE_a_wGnyiYVC188TLLg8eeZ/view?usp=drive_link" target="_blank" class="action-card-btn">Open GDD ↗</a>
+      </div>
+      <div class="action-card play">
+        <div class="action-card-text">
+          <div class="action-card-label">Game Build · Free to Play</div>
+          <div class="action-card-title">Prison Escape 3D</div>
+          <div class="action-card-sub">Download and play on Windows — available on itch.io</div>
+        </div>
+        <!-- UPDATE THIS LINK with the direct Prison Escape itch.io URL -->
+        <a href="https://virajtheleveldesigner.itch.io/prison-escape-3d" target="_blank" class="action-card-btn">Play Now ↗</a>
+      </div>
+    </div>
+
+    <div class="sec-tag" style="margin-top:2rem;">Technical</div>
+    <div class="sec-title">Tools Used</div>
+    <div class="sec-divider"></div>
+    <div class="tools-wrap">
+      <span class="tool-pill">Unity Engine</span>
+      <span class="tool-pill">Autodesk Maya</span>
+      <span class="tool-pill">Adobe Substance Painter</span>
+      <span class="tool-pill">Adobe Photoshop</span>
+      <span class="tool-pill">Google Docs</span>
+      <span class="tool-pill">Google Meet</span>
+    </div>
+
+    <div class="sec-tag" style="margin-top:2.5rem;">Contribution</div>
+    <div class="sec-title">My Role</div>
+    <div class="sec-divider"></div>
+    <div class="role-grid">
+      <div class="role-card">
+        <div class="role-icon">🧠</div>
+        <div class="role-title">Game Design</div>
+        <div class="role-desc">Created the full GDD — core mechanics, stealth systems, guard AI behaviour, key/badge progression, and overall game feel.</div>
+      </div>
+      <div class="role-card">
+        <div class="role-icon">🗺️</div>
+        <div class="role-title">Level Design</div>
+        <div class="role-desc">Full level design pipeline — layout, blockout, asset placement, lighting, and environment composition for all dungeon areas.</div>
+      </div>
+      <div class="role-card">
+        <div class="role-icon">🎨</div>
+        <div class="role-title">Asset Creation</div>
+        <div class="role-desc">3D asset creation in Autodesk Maya, texturing in Substance Painter, and post-processing in Photoshop for the game's visual style.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GALLERY -->
+<div class="gallery-section alt" id="section-gallery">
+  <div class="container">
+    <div class="gallery-header">
+      <div class="gallery-tag">Screenshots</div>
+      <div class="gallery-title">Game Screenshots</div>
+      <div class="gallery-divider"></div>
+      <div class="gallery-desc">In-game and editor screenshots showcasing the dungeon environments, lighting, level design, and overall visual style of Prison Escape 3D.</div>
+    </div>
+
+    <!-- 1 full width -->
+    <div class="img-full">
+      <img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774115118/1_ggocf7.png" alt="Prison Escape 3D 1"/>
+    </div>
+    <div class="img-caption">Main dungeon area — establishing shot</div>
+
+    <!-- 2 + 3 -->
+    <div class="img-2col">
+      <div class="img-box" style="height:270px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774115117/2_nibr1s.png" alt="Prison Escape 3D 2"/></div>
+      <div class="img-box" style="height:270px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774115116/3_vgwbfx.png" alt="Prison Escape 3D 3"/></div>
+    </div>
+    <div class="img-caption">Corridor design and lighting composition</div>
+
+    <!-- 4 + 5 + 6 -->
+    <div class="img-3col">
+      <div class="img-box" style="height:210px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774115117/4_e8e7q7.png" alt="Prison Escape 3D 4"/></div>
+      <div class="img-box" style="height:210px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774115120/5_dxk3ie.png" alt="Prison Escape 3D 5"/></div>
+      <div class="img-box" style="height:210px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774115124/6_z0pdze.png" alt="Prison Escape 3D 6"/></div>
+    </div>
+    <div class="img-caption">Cell blocks, guard areas, and key gameplay zones</div>
+
+    <!-- 7 full width -->
+    <div class="img-full">
+      <img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774115118/7_jrfasb.png" alt="Prison Escape 3D 7"/>
+    </div>
+    <div class="img-caption">Atmospheric dungeon lighting — dark, tense environment design</div>
+
+    <!-- 8 + 9 -->
+    <div class="img-2col">
+      <div class="img-box" style="height:270px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774115121/8_b6811p.png" alt="Prison Escape 3D 8"/></div>
+      <div class="img-box" style="height:270px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774115119/9_uastlv.png" alt="Prison Escape 3D 9"/></div>
+    </div>
+
+    <!-- 10 + 11 + 12 -->
+    <div class="img-3col">
+      <div class="img-box" style="height:210px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774115119/10_wwp5z4.png" alt="Prison Escape 3D 10"/></div>
+      <div class="img-box" style="height:210px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774115126/11_meokto.png" alt="Prison Escape 3D 11"/></div>
+      <div class="img-box" style="height:210px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774115131/12_s83ge5.png" alt="Prison Escape 3D 12"/></div>
+    </div>
+
+    <!-- 13 full width -->
+    <div class="img-full">
+      <img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774115135/13_jsyujd.png" alt="Prison Escape 3D 13"/>
+    </div>
+    <div class="img-caption">Final level design — escape route and environmental composition</div>
+
+  </div>
+</div>
+
+<!-- CLOSING -->
+<div class="section">
+  <div class="container">
+    <div class="closing-box">
+      <div class="closing-icon">🔓</div>
+      <div class="closing-title">A Full Game from Scratch</div>
+      <p class="closing-text">Prison Escape 3D was built end-to-end by a team of 2 — from GDD and level design through to 3D asset creation and final Unity build. A complete game design and development experience that sharpened every skill in the pipeline.</p>
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+        <a href="https://virajtheleveldesigner.itch.io/prison-escape-3d" target="_blank" class="hbtn hbtn-play">▶ Play on itch.io</a>
+        <a href="https://drive.google.com/file/d/1EEbfQeh4TE_a_wGnyiYVC188TLLg8eeZ/view?usp=drive_link" target="_blank" class="hbtn hbtn-gdd">📄 View GDD</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-left">© Viraj Joshi · Level Designer & Game Designer</div>
+  <div class="footer-right">
+    <a href="index.html" class="footer-link">← Back to Portfolio</a>
+    <a href="https://www.linkedin.com/in/viraj-joshi-a92b80202/" target="_blank" class="footer-link">LinkedIn</a>
+    <a href="https://virajtheleveldesigner.itch.io/prison-escape-3d" target="_blank" class="footer-link">itch.io</a>
+  </div>
+</footer>
+
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+window.addEventListener('scroll',()=>{document.getElementById('scrollTop').style.opacity=window.scrollY>300?'1':'0';});
+const gnavBtns=document.querySelectorAll('.gnav-btn');
+const galSecs=document.querySelectorAll('[id^="section-"]');
+window.addEventListener('scroll',()=>{
+  let current='';
+  galSecs.forEach(s=>{if(window.scrollY>=s.offsetTop-120)current=s.id;});
+  gnavBtns.forEach(b=>b.classList.toggle('active',b.getAttribute('href')==='#'+current));
+});
+</script>
+</body>
+</html>

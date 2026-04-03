@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Environment Design — Viraj Joshi</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Nunito',sans-serif;background:#080a0c;color:#d0d8e0;overflow-x:hidden;}
+
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 3rem;background:rgba(8,10,12,0.95);backdrop-filter:blur(14px);border-bottom:1px solid rgba(100,160,200,0.15);}
+.nav-back{display:flex;align-items:center;gap:.6rem;color:#d0d8e0;text-decoration:none;font-weight:700;font-size:.9rem;transition:color .2s;}
+.nav-back:hover{color:#7ab8d8;}
+.nav-title{font-weight:800;font-size:1rem;color:#556;}
+
+.gallery-nav{position:sticky;top:57px;z-index:99;display:flex;justify-content:center;gap:.4rem;padding:.65rem 2rem;background:rgba(8,10,12,0.92);backdrop-filter:blur(10px);border-bottom:1px solid #101418;flex-wrap:wrap;}
+.gnav-btn{padding:.4rem 1rem;border-radius:20px;border:1px solid #1a2028;background:transparent;color:#666;cursor:pointer;font-family:'Nunito',sans-serif;font-size:.75rem;font-weight:700;transition:all .2s;text-decoration:none;white-space:nowrap;}
+.gnav-btn:hover{background:rgba(122,184,216,.15);color:#7ab8d8;border-color:rgba(122,184,216,.3);}
+.gnav-btn.active{background:#7ab8d8;color:#080a0c;border-color:#7ab8d8;}
+
+.container{max-width:1000px;margin:0 auto;padding:0 2.5rem;}
+
+/* ── PAGE HERO ── */
+.page-hero{padding:5rem 0 3rem;text-align:center;border-bottom:1px solid #101418;}
+.page-tag{font-size:.7rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#7ab8d8;margin-bottom:.7rem;}
+.page-title{font-size:clamp(2.5rem,5vw,4rem);font-weight:800;color:#e8f0f8;margin-bottom:1rem;line-height:1;}
+.page-desc{font-size:.93rem;color:#778;line-height:1.75;max-width:600px;margin:0 auto;}
+
+/* ── PROJECT BLOCK ── */
+.project-block{padding:5rem 0;border-bottom:1px solid #101418;}
+.project-block.alt{background:#060809;}
+.proj-header{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;margin-bottom:3rem;}
+.proj-tag{font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin-bottom:.5rem;}
+.proj-title{font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:800;line-height:1;margin-bottom:1rem;}
+.proj-divider{width:36px;height:3px;border-radius:2px;margin-bottom:1.2rem;}
+.proj-desc{font-size:.9rem;color:#778;line-height:1.82;margin-bottom:1rem;}
+.proj-desc strong{color:#b0bcc8;font-weight:700;}
+.proj-pills{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem;}
+.proj-pill{padding:.25rem .65rem;border-radius:6px;font-size:.72rem;font-weight:700;}
+.proj-stats{display:flex;flex-direction:column;gap:1rem;}
+.proj-stat-box{background:rgba(255,255,255,.03);border-radius:10px;padding:1rem 1.2rem;border:1px solid #1a2028;}
+.proj-stat-label{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.3rem;}
+.proj-stat-val{font-size:.9rem;font-weight:700;color:#d0d8e0;}
+
+/* ── VIDEO ── */
+.video-wrap{position:relative;width:100%;padding-bottom:56.25%;border-radius:12px;overflow:hidden;background:#0c1014;border:1px solid #1a2028;margin-bottom:1rem;}
+.video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:none;}
+
+/* ── IMAGES ── */
+.img-full{width:100%;border-radius:12px;overflow:hidden;margin-bottom:1rem;border:1px solid #1a2028;}
+.img-full img{width:100%;display:block;object-fit:cover;max-height:480px;}
+.img-2col{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+.img-3col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1rem;}
+.img-box{border-radius:10px;overflow:hidden;background:#0c1014;border:1px solid #1a2028;}
+.img-box img{width:100%;height:100%;object-fit:cover;display:block;}
+.img-caption{font-size:.72rem;color:#2a3840;text-align:center;margin-bottom:1.5rem;font-style:italic;}
+
+/* PROJECT COLORS */
+/* Treasure Island — teal */
+.c-teal .proj-tag{color:#3dbfa0;}
+.c-teal .proj-title{color:#e0f8f0;}
+.c-teal .proj-divider{background:#3dbfa0;}
+.c-teal .proj-stat-label{color:#3dbfa0;}
+.c-teal .proj-pill{background:rgba(61,191,160,.12);color:#3dbfa0;border:1px solid rgba(61,191,160,.2);}
+.c-teal .gnav-ref{color:#3dbfa0;}
+
+/* Mystical Mountains — purple */
+.c-purple .proj-tag{color:#a87fd4;}
+.c-purple .proj-title{color:#f0e8ff;}
+.c-purple .proj-divider{background:#a87fd4;}
+.c-purple .proj-stat-label{color:#a87fd4;}
+.c-purple .proj-pill{background:rgba(168,127,212,.12);color:#a87fd4;border:1px solid rgba(168,127,212,.2);}
+
+/* Starry Night — blue */
+.c-blue .proj-tag{color:#5a9fd4;}
+.c-blue .proj-title{color:#e8f0ff;}
+.c-blue .proj-divider{background:#5a9fd4;}
+.c-blue .proj-stat-label{color:#5a9fd4;}
+.c-blue .proj-pill{background:rgba(90,159,212,.12);color:#5a9fd4;border:1px solid rgba(90,159,212,.2);}
+
+/* Semi Arid — amber */
+.c-amber .proj-tag{color:#c8a040;}
+.c-amber .proj-title{color:#f8f0d8;}
+.c-amber .proj-divider{background:#c8a040;}
+.c-amber .proj-stat-label{color:#c8a040;}
+.c-amber .proj-pill{background:rgba(200,160,64,.12);color:#c8a040;border:1px solid rgba(200,160,64,.2);}
+
+footer{background:#060809;border-top:1px solid #101418;padding:2rem 3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.footer-left{font-size:.8rem;color:#2a3840;}
+.footer-right{display:flex;gap:1rem;}
+.footer-link{color:#3a4850;text-decoration:none;font-size:.8rem;font-weight:700;transition:color .2s;}
+.footer-link:hover{color:#7ab8d8;}
+
+#scrollTop{position:fixed;bottom:1.5rem;right:1.5rem;z-index:200;width:38px;height:38px;border-radius:50%;background:#7ab8d8;color:#080a0c;border:none;font-size:.9rem;cursor:pointer;opacity:0;transition:opacity .3s,transform .2s;display:flex;align-items:center;justify-content:center;}
+#scrollTop:hover{transform:translateY(-2px);}
+
+@media(max-width:768px){
+  nav{padding:1rem 1.5rem;}.nav-title{display:none;}
+  .container{padding:0 1.5rem;}
+  .proj-header{grid-template-columns:1fr;}
+  .img-2col,.img-3col{grid-template-columns:1fr 1fr;}
+  footer{padding:1.5rem;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-back">← Back to Portfolio</a>
+  <span class="nav-title">Environment Design</span>
+</nav>
+
+<div class="gallery-nav">
+  <a href="#treasure" class="gnav-btn active">🏝 Treasure Island</a>
+  <a href="#mountains" class="gnav-btn">🏔 Mystical Mountains</a>
+  <a href="#motorway" class="gnav-btn">🌙 Starry Night Motorway</a>
+  <a href="#arid" class="gnav-btn">🏜 Semi Arid Landscape</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="container">
+    <div class="page-tag">Solo Projects · Environment Design</div>
+    <div class="page-title">Environment<br/>Design</div>
+    <p class="page-desc">A collection of solo environment design projects built across Unity and Unreal Engine — each exploring a different atmosphere, lighting technique, and world-building challenge.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════
+     1 — TREASURE ISLAND
+════════════════════════════ -->
+<div class="project-block c-teal" id="treasure">
+  <div class="container">
+    <div class="proj-header">
+      <div>
+        <div class="proj-tag">Unity · URP · Environment Design</div>
+        <div class="proj-title">Treasure Island:<br/>The Lost Sailor's Tale</div>
+        <div class="proj-divider"></div>
+        <p class="proj-desc">A suspenseful Unity creation — a sailor washes ashore on a strange, deserted island after a brutal storm. Disoriented and alone, he spots his damaged boat nearby. As he explores the eerie, silent beach, a <strong>mysterious flashing light</strong> catches his attention.</p>
+        <p class="proj-desc">Compelled to investigate, he discovers a haunting scene — a skeleton frozen in time, reaching toward an <strong>ancient treasure chest</strong>. Three ominous staffs stand upright, each topped with a skull whose eyes emit a sinister red glow. Dread fills him as he senses an unseen presence nearby.</p>
+        <div class="proj-pills">
+          <span class="proj-pill">Unity Engine</span>
+          <span class="proj-pill">URP</span>
+          <span class="proj-pill">Point Lighting</span>
+          <span class="proj-pill">Bloom Effects</span>
+          <span class="proj-pill">Solo</span>
+        </div>
+      </div>
+      <div class="proj-stats">
+        <div class="proj-stat-box">
+          <div class="proj-stat-label">Engine</div>
+          <div class="proj-stat-val">Unity — Universal Render Pipeline</div>
+        </div>
+        <div class="proj-stat-box">
+          <div class="proj-stat-label">Key Technique</div>
+          <div class="proj-stat-val">Point lights inside skulls for eerie red glow + URP bloom</div>
+        </div>
+        <div class="proj-stat-box">
+          <div class="proj-stat-label">Focus</div>
+          <div class="proj-stat-val">Atmospheric lighting · Environmental storytelling</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIDEO -->
+    <div class="video-wrap">
+      <iframe src="https://www.youtube.com/embed/STHOvobiAjA" title="Treasure Island" allowfullscreen></iframe>
+    </div>
+    <div class="img-caption">Treasure Island — Full Environment Walkthrough</div>
+
+    <!-- IMAGES -->
+    <div class="img-2col">
+      <div class="img-box" style="height:280px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774117187/1_vcrpy9.jpg" alt="Treasure Island 1"/></div>
+      <div class="img-box" style="height:280px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774117186/2_zmymy7.jpg" alt="Treasure Island 2"/></div>
+    </div>
+    <div class="img-caption">The haunting beach scene — skeleton, treasure chest, and glowing skulls</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════
+     2 — MYSTICAL MOUNTAINS
+════════════════════════════ -->
+<div class="project-block alt c-purple" id="mountains">
+  <div class="container">
+    <div class="proj-header">
+      <div>
+        <div class="proj-tag">Unity · Built-in Pipeline · Environment Design</div>
+        <div class="proj-title">Mystical<br/>Mountains</div>
+        <div class="proj-divider"></div>
+        <p class="proj-desc">A mystical mountain environment created in Unity as part of a <strong>larger world project</strong>. Built using Unity's Built-in Render Pipeline with a focus on detailed terrain creation, post-processing, and lighting to achieve the desired atmosphere.</p>
+        <p class="proj-desc">The <strong>glowing green rocks</strong> and vibrant landscape enhance the mystical feel of the environment. Every element — terrain, visual effects, and lighting — is carefully crafted to create a unique and immersive experience as part of a much bigger world.</p>
+        <div class="proj-pills">
+          <span class="proj-pill">Unity Engine</span>
+          <span class="proj-pill">Built-in Pipeline</span>
+          <span class="proj-pill">Terrain Sculpting</span>
+          <span class="proj-pill">Post Processing</span>
+          <span class="proj-pill">Solo</span>
+        </div>
+      </div>
+      <div class="proj-stats">
+        <div class="proj-stat-box">
+          <div class="proj-stat-label">Engine</div>
+          <div class="proj-stat-val">Unity — Built-in Render Pipeline</div>
+        </div>
+        <div class="proj-stat-box">
+          <div class="proj-stat-label">Key Technique</div>
+          <div class="proj-stat-val">Terrain sculpting + glowing rock effects + post-processing</div>
+        </div>
+        <div class="proj-stat-box">
+          <div class="proj-stat-label">Focus</div>
+          <div class="proj-stat-val">Fantasy atmosphere · World-building</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="img-2col">
+      <div class="img-box" style="height:280px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774117472/viraj-joshi-screenshot-849_ooqwk5.jpg" alt="Mystical Mountains 1"/></div>
+      <div class="img-box" style="height:280px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774117474/viraj-joshi-screenshot-847_meflrc.jpg" alt="Mystical Mountains 2"/></div>
+    </div>
+    <div class="img-2col">
+      <div class="img-box" style="height:280px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774117473/viraj-joshi-screenshot-848_qyonbl.jpg" alt="Mystical Mountains 3"/></div>
+      <div class="img-box" style="height:280px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774117472/viraj-joshi-screenshot-846_bwivii.jpg" alt="Mystical Mountains 4"/></div>
+    </div>
+    <div class="img-caption">Mystical Mountains — glowing rocks, terrain sculpting, and atmospheric post-processing</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════
+     3 — STARRY NIGHT MOTORWAY
+════════════════════════════ -->
+<div class="project-block c-blue" id="motorway">
+  <div class="container">
+    <div class="proj-header">
+      <div>
+        <div class="proj-tag">Unity · Environment Design · Lighting</div>
+        <div class="proj-title">Starry Night<br/>on Motorway</div>
+        <div class="proj-divider"></div>
+        <p class="proj-desc">A cinematic night view of a motorway created in <strong>Unity Engine</strong>. Assets sourced from the Unity Asset Store, with full <strong>level layout and lighting design</strong> handled personally to create a moody, atmospheric night scene.</p>
+        <p class="proj-desc">The scene focuses on the interplay between artificial road lighting, the night sky, and the stillness of an empty motorway — creating a quiet, cinematic atmosphere.</p>
+        <div class="proj-pills">
+          <span class="proj-pill">Unity Engine</span>
+          <span class="proj-pill">Night Lighting</span>
+          <span class="proj-pill">Level Design</span>
+          <span class="proj-pill">Asset Store</span>
+          <span class="proj-pill">Solo</span>
+        </div>
+      </div>
+      <div class="proj-stats">
+        <div class="proj-stat-box">
+          <div class="proj-stat-label">Engine</div>
+          <div class="proj-stat-val">Unity Engine</div>
+        </div>
+        <div class="proj-stat-box">
+          <div class="proj-stat-label">Key Technique</div>
+          <div class="proj-stat-val">Night lighting design · Road level layout</div>
+        </div>
+        <div class="proj-stat-box">
+          <div class="proj-stat-label">Focus</div>
+          <div class="proj-stat-val">Cinematic atmosphere · Night scene lighting</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="img-full">
+      <img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774117590/viraj-joshi-screenshot-283_eyi9cr.jpg" alt="Starry Night 1"/>
+    </div>
+    <div class="img-3col">
+      <div class="img-box" style="height:200px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774117591/viraj-joshi-screenshot-286_jbgobd.jpg" alt="Starry Night 2"/></div>
+      <div class="img-box" style="height:200px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774117591/viraj-joshi-screenshot-287_piw9dg.jpg" alt="Starry Night 3"/></div>
+      <div class="img-box" style="height:200px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774117602/viraj-joshi-screenshot-284_uol5wk.jpg" alt="Starry Night 4"/></div>
+    </div>
+    <div class="img-full">
+      <img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774117602/viraj-joshi-screenshot-289_ddh518.jpg" alt="Starry Night 5"/>
+    </div>
+    <div class="img-caption">Starry Night on Motorway — cinematic night lighting and road composition</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════
+     4 — SEMI ARID LANDSCAPE
+════════════════════════════ -->
+<div class="project-block alt c-amber" id="arid">
+  <div class="container">
+    <div class="proj-header">
+      <div>
+        <div class="proj-tag">Unreal Engine · Terrain Sculpting · Environment Design</div>
+        <div class="proj-title">Semi Arid<br/>Landscape</div>
+        <div class="proj-divider"></div>
+        <p class="proj-desc">A realistic semi-arid landscape created in <strong>Unreal Engine</strong> — the terrain is sculpted directly within Unreal's terrain tools to achieve natural contours and realistic ground variation.</p>
+        <p class="proj-desc">Lighting and <strong>atmospheric fog</strong> were carefully adjusted to give the scene a realistic, sun-baked feel. Sparse vegetation and detailed ground materials complete the immersive arid environment.</p>
+        <div class="proj-pills">
+          <span class="proj-pill">Unreal Engine</span>
+          <span class="proj-pill">Terrain Sculpting</span>
+          <span class="proj-pill">Atmospheric Fog</span>
+          <span class="proj-pill">Realistic Lighting</span>
+          <span class="proj-pill">Solo</span>
+        </div>
+      </div>
+      <div class="proj-stats">
+        <div class="proj-stat-box">
+          <div class="proj-stat-label">Engine</div>
+          <div class="proj-stat-val">Unreal Engine</div>
+        </div>
+        <div class="proj-stat-box">
+          <div class="proj-stat-label">Key Technique</div>
+          <div class="proj-stat-val">Terrain sculpting + fog + realistic lighting</div>
+        </div>
+        <div class="proj-stat-box">
+          <div class="proj-stat-label">Focus</div>
+          <div class="proj-stat-val">Realism · Terrain design · Atmospheric depth</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="img-2col">
+      <div class="img-box" style="height:270px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774117736/viraj-joshi-screenshot-271_r4pe5m.jpg" alt="Semi Arid 1"/></div>
+      <div class="img-box" style="height:270px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774117739/viraj-joshi-screenshot-20231101-131156-video-player_racv3s.jpg" alt="Semi Arid 2"/></div>
+    </div>
+    <div class="img-2col">
+      <div class="img-box" style="height:270px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774117740/viraj-joshi-screenshot-20231101-131210-video-player_qfnd4z.jpg" alt="Semi Arid 3"/></div>
+      <div class="img-box" style="height:270px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774117740/viraj-joshi-screenshot-20231101-131231-video-player_cjdyav.jpg" alt="Semi Arid 4"/></div>
+    </div>
+    <div class="img-caption">Semi Arid Landscape — sculpted terrain, atmospheric fog, and realistic lighting</div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-left">© Viraj Joshi · Level Designer & Game Designer</div>
+  <div class="footer-right">
+    <a href="index.html" class="footer-link">← Back to Portfolio</a>
+    <a href="https://www.linkedin.com/in/viraj-joshi-a92b80202/" target="_blank" class="footer-link">LinkedIn</a>
+    <a href="https://virajtheleveldesigner.itch.io/" target="_blank" class="footer-link">itch.io</a>
+  </div>
+</footer>
+
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+window.addEventListener('scroll',()=>{document.getElementById('scrollTop').style.opacity=window.scrollY>300?'1':'0';});
+const gnavBtns=document.querySelectorAll('.gnav-btn');
+const sections=[{id:'treasure'},{id:'mountains'},{id:'motorway'},{id:'arid'}];
+window.addEventListener('scroll',()=>{
+  let current='';
+  sections.forEach(s=>{
+    const el=document.getElementById(s.id);
+    if(el&&window.scrollY>=el.offsetTop-120)current=s.id;
+  });
+  gnavBtns.forEach(b=>{
+    const href=b.getAttribute('href');
+    b.classList.toggle('active',href==='#'+current);
+  });
+});
+</script>
+</body>
+</html>

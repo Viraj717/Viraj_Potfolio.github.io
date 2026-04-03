@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Have You Seen This Man? — Viraj Joshi</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Nunito',sans-serif;background:#0a0a0a;color:#e2e0d8;overflow-x:hidden;}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 3rem;background:rgba(10,10,10,0.95);backdrop-filter:blur(14px);border-bottom:1px solid rgba(180,30,30,0.2);}
+.nav-back{display:flex;align-items:center;gap:.6rem;color:#e2e0d8;text-decoration:none;font-weight:700;font-size:.9rem;transition:color .2s;}
+.nav-back:hover{color:#c0392b;}
+.nav-title{font-weight:800;font-size:1rem;color:#888;}
+.nav-itchio{display:flex;align-items:center;gap:.5rem;padding:.55rem 1.2rem;border-radius:8px;background:#c0392b;color:#fff;text-decoration:none;font-weight:700;font-size:.82rem;transition:background .2s;}
+.nav-itchio:hover{background:#a93226;}
+
+/* ── GALLERY NAV ── */
+.gallery-nav{position:sticky;top:57px;z-index:99;display:flex;justify-content:center;gap:.5rem;padding:.7rem 2rem;background:rgba(10,10,10,0.92);backdrop-filter:blur(10px);border-bottom:1px solid #1a1a1a;flex-wrap:wrap;}
+.gnav-btn{padding:.45rem 1.1rem;border-radius:20px;border:1px solid #222;background:transparent;color:#666;cursor:pointer;font-family:'Nunito',sans-serif;font-size:.78rem;font-weight:700;transition:all .2s;text-decoration:none;}
+.gnav-btn:hover,.gnav-btn.active{background:#c0392b;color:#fff;border-color:#c0392b;}
+
+/* ── HERO ── */
+.hero{position:relative;width:100%;min-height:80vh;display:flex;align-items:flex-end;overflow:hidden;}
+.hero-img-ph{position:absolute;inset:0;background:linear-gradient(135deg,#1a0505,#0a0a0a);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1rem;}
+.hero-img-ph span{font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#333;}
+.hero-img-ph svg{opacity:.3;}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,10,1) 0%,rgba(10,10,10,.5) 40%,rgba(10,10,10,.05) 100%);}
+.hero-content{position:relative;z-index:2;padding:3rem;max-width:900px;}
+.hero-studio{font-size:.7rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#c0392b;margin-bottom:.8rem;}
+.hero-title{font-size:clamp(2.5rem,6vw,5rem);font-weight:800;line-height:1;color:#fff;margin-bottom:1rem;text-shadow:0 2px 20px rgba(0,0,0,.8);}
+.hero-sub{font-size:.95rem;color:#aaa;line-height:1.7;max-width:580px;margin-bottom:2rem;}
+.hero-tags{display:flex;flex-wrap:wrap;gap:.5rem;}
+.htag{padding:.3rem .8rem;border-radius:6px;font-size:.73rem;font-weight:700;border:1px solid rgba(192,57,43,.4);color:#c0392b;background:rgba(192,57,43,.1);}
+
+/* ── CONTAINER ── */
+.container{max-width:1000px;margin:0 auto;padding:0 2.5rem;}
+
+/* ── OVERVIEW STRIP ── */
+.overview-strip{background:#111;border-top:1px solid #1a1a1a;border-bottom:1px solid #1a1a1a;padding:2rem 0;}
+.overview-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;}
+.ov-item{text-align:center;}
+.ov-label{font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#555;margin-bottom:.4rem;}
+.ov-val{font-size:1rem;font-weight:800;color:#e2e0d8;}
+
+/* ── SECTIONS ── */
+.section{padding:4rem 0;}
+.section.alt{background:#080808;}
+.sec-tag{font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#c0392b;margin-bottom:.5rem;}
+.sec-title{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:#e2e0d8;margin-bottom:1rem;}
+.sec-sub{font-size:.88rem;color:#555;margin-bottom:2rem;font-style:italic;}
+.sec-divider{width:40px;height:3px;background:#c0392b;margin-bottom:2rem;border-radius:2px;}
+.body-text{font-size:.93rem;color:#888;line-height:1.85;margin-bottom:1.2rem;}
+.body-text strong{color:#c8c4bc;font-weight:700;}
+.feature-list{list-style:none;display:flex;flex-direction:column;gap:.7rem;margin-bottom:1.5rem;}
+.feature-list li{display:flex;align-items:flex-start;gap:.75rem;font-size:.9rem;color:#888;line-height:1.6;}
+.feature-list li::before{content:'▸';color:#c0392b;flex-shrink:0;margin-top:2px;}
+
+/* ── ROLE CARDS ── */
+.role-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1rem;}
+.role-card{background:#111;border:1px solid #1e1e1e;border-radius:14px;padding:1.6rem;}
+.role-card-title{font-size:.7rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#c0392b;margin-bottom:1rem;padding-bottom:.6rem;border-bottom:1px solid #1e1e1e;}
+.role-card ul{list-style:none;display:flex;flex-direction:column;gap:.6rem;}
+.role-card ul li{display:flex;align-items:flex-start;gap:.65rem;font-size:.87rem;color:#777;line-height:1.55;}
+.role-card ul li::before{content:'→';color:#c0392b;flex-shrink:0;}
+
+/* ── GALLERY SECTION ── */
+.gallery-section{padding:4rem 0;}
+.gallery-section.alt{background:#060606;}
+.gallery-section-header{margin-bottom:2rem;}
+.gallery-section-number{font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#444;margin-bottom:.3rem;}
+.gallery-section-tag{font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#c0392b;margin-bottom:.4rem;}
+.gallery-section-title{font-size:1.6rem;font-weight:800;color:#e2e0d8;margin-bottom:.5rem;}
+.gallery-section-desc{font-size:.85rem;color:#555;line-height:1.7;}
+.gallery-divider{width:40px;height:3px;background:#c0392b;margin:1rem 0 2rem;border-radius:2px;}
+
+/* ── IMAGE LAYOUTS ── */
+.img-full{width:100%;border-radius:12px;overflow:hidden;margin-bottom:1rem;background:#111;border:1px solid #1e1e1e;}
+.img-full img{width:100%;display:block;object-fit:cover;max-height:480px;}
+.img-ph{width:100%;display:flex;align-items:center;justify-content:center;background:#111;color:#2a2a2a;font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4rem 1rem;text-align:center;border:2px dashed #1a1a1a;border-radius:12px;flex-direction:column;gap:.6rem;}
+.img-ph svg{opacity:.3;}
+.img-2col{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+.img-3col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1rem;}
+.img-4col{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:.8rem;margin-bottom:1rem;}
+.img-box{border-radius:10px;overflow:hidden;background:#111;border:1px solid #1e1e1e;}
+.img-box img{width:100%;height:100%;object-fit:cover;display:block;}
+.img-box .img-ph{padding:2.5rem .5rem;border-radius:10px;}
+.img-caption{font-size:.73rem;color:#333;text-align:center;margin-bottom:2rem;font-style:italic;padding:0 1rem;}
+
+/* ── CREDITS ── */
+.credits-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2rem;}
+.credit-card{background:#111;border:1px solid #1a1a1a;border-radius:12px;padding:1.2rem;text-align:center;}
+.credit-role{font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#c0392b;margin-bottom:.4rem;}
+.credit-name{font-size:.9rem;font-weight:700;color:#e2e0d8;}
+.credit-studio{font-size:.78rem;color:#555;margin-top:.2rem;}
+.credit-img{width:56px;height:56px;border-radius:50%;background:#1a1a1a;margin:0 auto .8rem;overflow:hidden;border:2px solid #2a2a2a;}
+.credit-img img{width:100%;height:100%;object-fit:cover;}
+.credit-img-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:1.4rem;}
+
+/* ── AVAIL BANNER ── */
+.avail-banner{background:linear-gradient(135deg,#1a0505,#150000);border:1px solid rgba(192,57,43,.3);border-radius:16px;padding:2.5rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;margin:2rem 0;flex-wrap:wrap;}
+.avail-tag{font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#c0392b;margin-bottom:.5rem;}
+.avail-title{font-size:1.4rem;font-weight:800;color:#e2e0d8;margin-bottom:.4rem;}
+.avail-sub{font-size:.83rem;color:#666;}
+.avail-btn{display:inline-flex;align-items:center;gap:.5rem;padding:.9rem 2rem;border-radius:10px;background:#c0392b;color:#fff;font-family:'Nunito',sans-serif;font-weight:700;font-size:.88rem;text-decoration:none;white-space:nowrap;transition:background .2s,transform .2s;flex-shrink:0;}
+.avail-btn:hover{background:#a93226;transform:translateY(-1px);}
+
+/* ── MILESTONE ── */
+.milestone-box{background:#080808;border:1px solid #1a1a1a;border-radius:16px;padding:3rem;text-align:center;margin:2rem 0;}
+.milestone-icon{font-size:2.5rem;margin-bottom:1rem;}
+.milestone-title{font-size:1.6rem;font-weight:800;color:#e2e0d8;margin-bottom:1rem;}
+.milestone-text{font-size:.92rem;color:#666;line-height:1.8;max-width:600px;margin:0 auto;}
+
+/* ── FOOTER ── */
+footer{background:#0a0a0a;border-top:1px solid #151515;padding:2rem 3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.footer-left{font-size:.8rem;color:#444;}
+.footer-right{display:flex;gap:1rem;}
+.footer-link{color:#555;text-decoration:none;font-size:.8rem;font-weight:700;transition:color .2s;}
+.footer-link:hover{color:#c0392b;}
+
+/* ── SCROLL TOP ── */
+#scrollTop{position:fixed;bottom:1.5rem;right:1.5rem;z-index:200;width:38px;height:38px;border-radius:50%;background:#c0392b;color:#fff;border:none;font-size:.9rem;cursor:pointer;opacity:0;transition:opacity .3s,transform .2s;display:flex;align-items:center;justify-content:center;}
+#scrollTop:hover{transform:translateY(-2px);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  nav{padding:1rem 1.5rem;}
+  .nav-title{display:none;}
+  .container{padding:0 1.5rem;}
+  .hero-content{padding:2rem 1.5rem;}
+  .overview-grid{grid-template-columns:repeat(2,1fr);}
+  .role-grid{grid-template-columns:1fr;}
+  .img-2col,.img-3col,.img-4col{grid-template-columns:1fr 1fr;}
+  .credits-grid{grid-template-columns:repeat(2,1fr);}
+  footer{padding:1.5rem;}
+}
+
+
+/* ── PULSE GLOW on role cards and overview ── */
+@keyframes cardPulse{
+  0%{box-shadow:0 0 0 0 rgba(108,99,255,.4),0 0 10px rgba(108,99,255,.1);}
+  50%{box-shadow:0 0 0 8px rgba(108,99,255,0),0 0 22px rgba(108,99,255,.25);}
+  100%{box-shadow:0 0 0 0 rgba(108,99,255,.4),0 0 10px rgba(108,99,255,.1);}
+}
+@keyframes ovPulse{
+  0%{box-shadow:0 0 0 0 rgba(108,99,255,.3);}
+  50%{box-shadow:0 0 0 6px rgba(108,99,255,0);}
+  100%{box-shadow:0 0 0 0 rgba(108,99,255,.3);}
+}
+.role-card{animation:cardPulse 3s ease-in-out infinite;}
+.role-card:nth-child(2){animation-delay:.5s;}
+.role-card:nth-child(3){animation-delay:1s;}
+.ov-item{animation:ovPulse 3s ease-in-out infinite;}
+.ov-item:nth-child(2){animation-delay:.4s;}
+.ov-item:nth-child(3){animation-delay:.8s;}
+.ov-item:nth-child(4){animation-delay:1.2s;}
+.mech-card{animation:cardPulse 3s ease-in-out infinite;}
+.mech-card:nth-child(2){animation-delay:.3s;}
+.mech-card:nth-child(3){animation-delay:.6s;}
+.mech-card:nth-child(4){animation-delay:.9s;}
+.mech-card:nth-child(5){animation-delay:1.2s;}
+.mech-card:nth-child(6){animation-delay:1.5s;}
+.credit-card.highlight{animation:cardPulse 2s ease-in-out infinite;}
+
+/* ── GLOW EFFECTS ── */
+.role-card{transition:box-shadow .3s,transform .3s !important;}
+.role-card:hover{box-shadow:0 0 28px rgba(108,99,255,.3) !important;transform:translateY(-3px) !important;}
+.nav-yt,.nav-play,.nav-btn,.hbtn,.yt-btn,.avail-btn,.action-card-btn{transition:box-shadow .3s,transform .2s !important;}
+.nav-yt:hover,.nav-play:hover{box-shadow:0 0 22px rgba(192,57,43,.6) !important;transform:translateY(-2px) !important;}
+.hbtn-play:hover,.yt-btn:hover,.avail-btn:hover,.action-card.play .action-card-btn:hover{box-shadow:0 0 22px rgba(232,100,80,.6) !important;}
+.hbtn-gdd:hover,.action-card.gdd .action-card-btn:hover{box-shadow:0 0 22px rgba(108,99,255,.5) !important;}
+.mech-card,.tech-card,.role-card,.credit-card,.feat-item{transition:box-shadow .3s,transform .3s;}
+.mech-card:hover,.tech-card:hover,.credit-card:hover{box-shadow:0 0 22px rgba(108,99,255,.25);transform:translateY(-3px);}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-back">← Back to Portfolio</a>
+  <span class="nav-title">Have You Seen This Man?</span>
+  <a href="https://cosmic-sabbath.itch.io/have-you-seen-this-man" target="_blank" class="nav-itchio">Play on itch.io ↗</a>
+</nav>
+
+<!-- GALLERY NAV -->
+<div class="gallery-nav">
+  <a href="#section-engine" class="gnav-btn active">🔧 My Work (In Engine)</a>
+  <a href="#section-ingame" class="gnav-btn">🎮 My Work (In Game)</a>
+  <a href="#section-overall" class="gnav-btn">🌍 Overall Game</a>
+  <a href="#section-credits" class="gnav-btn">🎬 Credits</a>
+</div>
+
+<!-- HERO BANNER -->
+<div class="hero">
+  <!--
+    ADD HERO BANNER IMAGE:
+    1. Upload banner image to GitHub (e.g. hysm-banner.jpg)
+    2. Delete .hero-img-ph div
+    3. Add: <img src="hysm-banner.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" alt="Have You Seen This Man?"/>
+  -->
+  <div class="hero-img-ph">
+    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9l4-4 4 4 4-6 4 6"/><circle cx="7.5" cy="13.5" r="1.5"/></svg>
+    <span>Upload banner / key art image here</span>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-studio">Cosmic Sabbath · U.K. Indie Studio · Shipped Title</div>
+    <div class="hero-title">Have You Seen<br/>This Man?</div>
+    <p class="hero-sub">A narrative-driven psychological horror game set in 1970s Texas. My first professionally shipped title — Level Designer & QA Game Tester.</p>
+    <div class="hero-tags">
+      <span class="htag">Unity Engine</span>
+      <span class="htag">PC</span>
+      <span class="htag">Psychological Horror</span>
+      <span class="htag">Narrative</span>
+      <span class="htag">Level Design</span>
+      <span class="htag">QA Testing</span>
+    </div>
+  </div>
+</div>
+
+<!-- OVERVIEW STRIP -->
+<div class="overview-strip">
+  <div class="container">
+    <div class="overview-grid">
+      <div class="ov-item"><div class="ov-label">Engine</div><div class="ov-val">Unity</div></div>
+      <div class="ov-item"><div class="ov-label">Team Size</div><div class="ov-val">12 Members</div></div>
+      <div class="ov-item"><div class="ov-label">Duration</div><div class="ov-val">6 Months</div></div>
+      <div class="ov-item"><div class="ov-label">Platform</div><div class="ov-val">PC · itch.io</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT THE PROJECT -->
+<div class="section">
+  <div class="container">
+    <div class="sec-tag">The Project</div>
+    <div class="sec-title">About the Game</div>
+    <div class="sec-divider"></div>
+    <p class="body-text">This project was developed in collaboration with <strong>Cosmic Sabbath</strong>, a U.K.-based independent game studio. It marks the studio's first full release and my <strong>first shipped title</strong> as part of a professional team.</p>
+    <p class="body-text"><strong>Have You Seen This Man?</strong> is a narrative-driven psychological horror game set in <strong>1970s Texas</strong>. Players step into Emsdorf County, a quiet rural town hiding unspeakable secrets, as they uncover a chilling story of paranoia, fear, and survival. The game is the <strong>first chapter in Cosmic Sabbath's American Hell anthology series</strong>.</p>
+    <ul class="feature-list">
+      <li>First-person narrative horror gameplay</li>
+      <li>Immersive environmental storytelling</li>
+      <li>Dynamic lighting and atmospheric tone</li>
+      <li>Exploration and dialogue-driven interactions</li>
+      <li>Psychological horror narrative grounded in realism</li>
+    </ul>
+    <div class="avail-banner">
+      <div>
+        <div class="avail-tag">Now Available</div>
+        <div class="avail-title">Have You Seen This Man?</div>
+        <div class="avail-sub">Play the first chapter of the American Hell anthology — free on itch.io</div>
+      </div>
+      <a href="https://cosmic-sabbath.itch.io/have-you-seen-this-man" target="_blank" class="avail-btn">Play on itch.io ↗</a>
+    </div>
+  </div>
+</div>
+
+<!-- MY ROLE -->
+<div class="section alt">
+  <div class="container">
+    <div class="sec-tag">Contribution</div>
+    <div class="sec-title">My Role</div>
+    <div class="sec-divider"></div>
+    <div class="role-grid">
+      <div class="role-card">
+        <div class="role-card-title">🗺️ Level Designer</div>
+        <ul>
+          <li>Designed the <strong style="color:#c8c4bc;">Forest Area</strong> — mood, composition, and player direction</li>
+          <li>Created the <strong style="color:#c8c4bc;">Bathroom Area</strong> — confined tension and visual storytelling</li>
+          <li>Developed an Initial House Area (cut before final build)</li>
+          <li>Worked closely with artists and programmers to ensure cohesive scene flow and ambience</li>
+        </ul>
+      </div>
+      <div class="role-card">
+        <div class="role-card-title">🔍 QA Game Tester</div>
+        <ul>
+          <li>Conducted extensive gameplay testing across multiple builds</li>
+          <li>Identified and reported level-based bugs, lighting issues, and pathing problems</li>
+          <li>Assisted in iterative polish passes through continuous feedback and internal playtests</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     GALLERY SECTION 1 — IN ENGINE
+════════════════════════════════════════ -->
+<div class="gallery-section" id="section-engine">
+  <div class="container">
+    <div class="gallery-section-header">
+      <div class="gallery-section-number">Section 01</div>
+      <div class="gallery-section-tag">Behind the Scenes</div>
+      <div class="gallery-section-title">My Contribution — In Engine</div>
+      <div class="gallery-divider"></div>
+      <div class="gallery-section-desc">Raw Unity Editor screenshots showing blockouts, geometry construction, asset placement, and environment composition — the work before the final polish.</div>
+    </div>
+
+    <!-- TOWN / STREET BLOCKOUT — 2 col -->
+    <div class="img-2col">
+      <div class="img-box" style="height:260px;">
+        <img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774108546/My_work_1_kfqubq.png" alt="Town blockout — building and silo"/>
+      </div>
+      <div class="img-box" style="height:260px;">
+        <img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774108547/My_work_2_u0tiiw.png" alt="Town blockout — street view"/>
+      </div>
+    </div>
+    <div class="img-caption">Town area blockout — early geometry and street layout in Unity Editor</div>
+
+    <!-- FOREST OVERHEAD — full width -->
+    <div class="img-full">
+      <img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774108553/My_work_5_jdrbsk.png" alt="Forest area — overhead overview"/>
+    </div>
+    <div class="img-caption">Forest Area — overhead perspective showing full level composition and layout</div>
+
+    <!-- FOREST DETAIL — 2 col (only 2 forest detail images provided) -->
+    <div class="img-2col">
+      <div class="img-box" style="height:260px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774108548/My_work_3_lb8nyj.png" alt="Forest — structure in trees"/></div>
+      <div class="img-box" style="height:260px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774108554/My_work_4_xc0xmf.png" alt="Forest — tree canopy and path"/></div>
+    </div>
+    <div class="img-caption">Forest Area — in-engine detail views: structure placement and tree canopy composition</div>
+
+    <!-- BATHROOM — placeholder until links provided -->
+    <div class="img-2col">
+      <div class="img-box" style="height:290px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774108556/My_work_7_n0msdq.png" alt="Bathroom — top-down view"/></div>
+      <div class="img-box" style="height:290px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774108558/My_work_8_fwosav.png" alt="Bathroom — eye level with bathtub"/></div>
+    </div>
+    <div class="img-caption">Bathroom Area — confined horror space: prop placement, blood detailing, and spatial storytelling in Unity Editor</div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     GALLERY SECTION 2 — IN GAME
+════════════════════════════════════════ -->
+<div class="gallery-section alt" id="section-ingame">
+  <div class="container">
+    <div class="gallery-section-header">
+      <div class="gallery-section-number">Section 02</div>
+      <div class="gallery-section-tag">Final Build</div>
+      <div class="gallery-section-title">My Contribution — In Game</div>
+      <div class="gallery-divider"></div>
+      <div class="gallery-section-desc">Screenshots taken from the final shipped build — showing how my level design areas look in the actual playable game with full lighting, assets, and atmosphere applied.</div>
+    </div>
+
+    <!-- FULL WIDTH HERO SHOT -->
+    <div class="img-full">
+      <img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774108561/My_work_Part_two_1_aukgdb.png" alt="In game — forest area"/>
+    </div>
+    <div class="img-caption">Forest Area — final in-game look</div>
+
+    <div class="img-2col">
+      <div class="img-box" style="height:260px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774108566/My_work_Part_two_2_zdn1c3.png" alt="In-game screenshot 2"/></div>
+      <div class="img-box" style="height:260px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774108564/My_work_Part_two_3_lbcahm.png" alt="In-game screenshot 3"/></div>
+    </div>
+    <div class="img-caption">My areas — as seen in the final shipped build</div>
+
+    <div class="img-2col">
+      <div class="img-box" style="height:260px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774108567/My_work_Part_two_5_ydccjl.png" alt="In-game screenshot 4"/></div>
+      <div class="img-box" style="height:260px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774108567/My_work_Part_two_6_qtt143.png" alt="In-game screenshot 5"/></div>
+    </div>
+    <div class="img-caption">Bathroom Area and additional details — final build</div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     GALLERY SECTION 3 — OVERALL GAME
+════════════════════════════════════════ -->
+<div class="gallery-section" id="section-overall">
+  <div class="container">
+    <div class="gallery-section-header">
+      <div class="gallery-section-number">Section 03</div>
+      <div class="gallery-section-tag">Full Game</div>
+      <div class="gallery-section-title">Overall Game</div>
+      <div class="gallery-divider"></div>
+      <div class="gallery-section-desc">A look at the complete game — all areas, environments, and moments that make up the full Have You Seen This Man? experience, beyond just my contribution.</div>
+    </div>
+
+    <div class="img-full">
+      <img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774108548/Actual_Game_1_vz9wdl.png" alt="Overall game — opening shot"/>
+    </div>
+    <div class="img-caption">Emsdorf County — the world of Have You Seen This Man?</div>
+
+    <div class="img-3col">
+      <div class="img-box" style="height:200px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774108551/Actual_Game_2_otgz4e.png" alt="Game shot 2"/></div>
+      <div class="img-box" style="height:200px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774108551/Actual_Game_3_x1pxsk.png" alt="Game shot 3"/></div>
+      <div class="img-box" style="height:200px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774108550/Actual_Game_4_wgbq4s.png" alt="Game shot 4"/></div>
+    </div>
+
+    <div class="img-3col">
+      <div class="img-box" style="height:200px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774108554/Actual_Game_5_jygj2l.png" alt="Game shot 5"/></div>
+      <div class="img-box" style="height:200px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774108551/Actual_Game_7_beh6vx.png" alt="Game shot 7"/></div>
+      <div class="img-box" style="height:200px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774108553/Actual_Game_8_rkcgsy.png" alt="Game shot 8"/></div>
+    </div>
+
+    <div class="img-2col">
+      <div class="img-box" style="height:260px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774108556/Actual_Game_9_n8gj3x.png" alt="Game shot 9"/></div>
+      <div class="img-box" style="height:260px;"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774108558/Cosmic_Logo_gukyjb.png" alt="Cosmic Sabbath Logo" style="object-fit:contain;background:#000;padding:1rem;"/></div>
+    </div>
+    <div class="img-caption">The full game experience — Emsdorf County and its dark secrets</div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     GALLERY SECTION 4 — CREDITS
+════════════════════════════════════════ -->
+<div class="gallery-section alt" id="section-credits">
+  <div class="container">
+    <div class="gallery-section-header">
+      <div class="gallery-section-number">Section 04</div>
+      <div class="gallery-section-tag">The Team</div>
+      <div class="gallery-section-title">Credits</div>
+      <div class="gallery-divider"></div>
+      <div class="gallery-section-desc">Have You Seen This Man? was built by a team of 12 across the U.K. and India. Here's who made it happen.</div>
+    </div>
+
+    <!--
+      CREDITS GRID — add or remove .credit-card blocks as needed
+      To add a photo: upload image, replace .credit-img-ph with <img src="name.jpg" alt="..."/>
+    -->
+    <div class="credits-grid">
+
+      <div class="credit-card">
+        <div class="credit-img"><div class="credit-img-ph">🎬</div></div>
+        <div class="credit-role">Creative Director · Game Designer</div>
+        <div class="credit-name">Jordan Dunlop</div>
+        <div class="credit-studio">Cosmic Sabbath</div>
+      </div>
+
+      <div class="credit-card">
+        <div class="credit-img"><div class="credit-img-ph">💻</div></div>
+        <div class="credit-role">Lead Programmer</div>
+        <div class="credit-name">Jack Morgan</div>
+        <div class="credit-studio">Cosmic Sabbath</div>
+      </div>
+
+      <div class="credit-card">
+        <div class="credit-img"><div class="credit-img-ph">🎨</div></div>
+        <div class="credit-role">Concept Art</div>
+        <div class="credit-name">Rosie Conti</div>
+        <div class="credit-studio">Cosmic Sabbath</div>
+      </div>
+
+      <div class="credit-card">
+        <div class="credit-img"><div class="credit-img-ph">🎨</div></div>
+        <div class="credit-role">Concept Art</div>
+        <div class="credit-name">Callum Mallford</div>
+        <div class="credit-studio">Cosmic Sabbath</div>
+      </div>
+
+      <div class="credit-card">
+        <div class="credit-img"><div class="credit-img-ph">🗺️</div></div>
+        <div class="credit-role">Level Designer · QA Tester</div>
+        <div class="credit-name">Viraj Joshi</div>
+        <div class="credit-studio">Forest & Bathroom Area</div>
+      </div>
+
+      <div class="credit-card">
+        <div class="credit-img"><div class="credit-img-ph">🎮</div></div>
+        <div class="credit-role">Studio · Publisher</div>
+        <div class="credit-name">Cosmic Sabbath</div>
+        <div class="credit-studio">U.K. Indie Studio</div>
+      </div>
+
+    </div>
+
+    <!-- CREDITS SCREENSHOT / POSTER -->
+    <div class="img-full">
+      <img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774108557/Credits_1_srhguc.png" alt="Game credits 1"/>
+    </div>
+    <div class="img-full">
+      <img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774108562/Credits_2_sqnc7v.png" alt="Game credits 2"/>
+    </div>
+    <div class="img-caption">Official game credits</div>
+
+  </div>
+</div>
+
+<!-- CLOSING NOTE -->
+<div class="section">
+  <div class="container">
+    <div class="milestone-box">
+      <div class="milestone-icon">🏆</div>
+      <div class="milestone-title">A Proud Milestone</div>
+      <p class="milestone-text">This project was built through continuous collaboration, team reviews, and iteration — resulting in a tightly crafted horror experience and a major milestone for both the studio and my professional journey.<br/><br/><strong style="color:#e2e0d8;">This marks my first fully released game — a proud milestone as both a designer and tester.</strong></p>
+      <br/>
+      <a href="https://cosmic-sabbath.itch.io/have-you-seen-this-man" target="_blank" class="avail-btn" style="display:inline-flex;margin-top:.5rem;">Play the Game ↗</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">© Viraj Joshi · Level Designer & Game Designer</div>
+  <div class="footer-right">
+    <a href="index.html" class="footer-link">← Back to Portfolio</a>
+    <a href="https://www.linkedin.com/in/viraj-joshi-a92b80202/" target="_blank" class="footer-link">LinkedIn</a>
+    <a href="https://virajtheleveldesigner.itch.io/" target="_blank" class="footer-link">itch.io</a>
+  </div>
+</footer>
+
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// Scroll top
+window.addEventListener('scroll',()=>{
+  document.getElementById('scrollTop').style.opacity=window.scrollY>300?'1':'0';
+});
+
+// Gallery nav active state
+const gnavBtns = document.querySelectorAll('.gnav-btn');
+const gallerySections = document.querySelectorAll('[id^="section-"]');
+window.addEventListener('scroll',()=>{
+  let current='';
+  gallerySections.forEach(s=>{if(window.scrollY>=s.offsetTop-120)current=s.id;});
+  gnavBtns.forEach(b=>{b.classList.toggle('active',b.getAttribute('href')==='#'+current);});
+});
+</script>
+</body>
+</html>

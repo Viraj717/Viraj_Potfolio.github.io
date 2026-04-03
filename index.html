@@ -154,21 +154,173 @@ footer{background:#6c63ff;color:#fff;padding:2.5rem;position:relative;z-index:1;
 .footer-copy{width:100%;text-align:center;font-size:.78rem;opacity:.65;}
 
 /* ── RESPONSIVE ── */
+/* ── HAMBURGER ── */
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:.3rem;background:none;border:none;}
+.hamburger span{display:block;width:24px;height:2px;background:#e2e0d8;border-radius:2px;transition:all .3s;}
+.mobile-menu{display:none;position:fixed;inset:0;background:rgba(13,13,24,0.98);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:2rem;}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{color:#e2e0d8;text-decoration:none;font-size:1.6rem;font-weight:800;transition:color .2s;}
+.mobile-menu a:hover{color:#8b7ff0;}
+.mobile-close{position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;color:#e2e0d8;font-size:2rem;cursor:pointer;}
+
 @media(max-width:768px){
+  /* NAV */
   nav{padding:1rem 1.5rem;}
   .nav-links{display:none;}
-  .hero-grid{grid-template-columns:1fr;text-align:center;}
-  .hero-social{display:none;}
+  .hamburger{display:flex;}
+
+  /* HERO */
+  .hero-grid{grid-template-columns:1fr;text-align:center;gap:2rem;}
+  .hero-social{position:static;transform:none;flex-direction:row;justify-content:center;margin-bottom:1rem;}
+  .hero-photo-box{width:180px;height:180px;margin:0 auto;}
   .hero-desc{margin:0 auto 2rem;}
+  .hero-name{font-size:2.5rem;}
+  .hero-btn{margin:0 auto;}
+
+  /* ABOUT */
   .about-grid{grid-template-columns:1fr;}
-  .about-photo-box{aspect-ratio:1/1;}
+  .about-photo-box{aspect-ratio:1/1;max-width:280px;margin:0 auto;}
+
+  /* CONTAINER */
+  .container{padding:0 1.2rem;}
+  section{padding:3rem 0;}
+
+  /* CAROUSEL */
+  .carousel-row{padding:0;gap:.3rem;}
+  .carousel-btn{width:26px;height:26px;font-size:.85rem;flex-shrink:0;padding:0;}
+  .carousel-wrap{padding:0 .5rem;}
+  .slide{flex-direction:column;gap:0;width:100%;}
+  .slide-img{width:100%;height:220px;flex-shrink:0;border-radius:10px 10px 0 0;}
+  .slide-content{padding:1rem;}
+  .slide-type{font-size:.63rem;line-height:1.4;margin-bottom:.4rem;}
+  .slide-name{font-size:1.05rem;margin-bottom:.4rem;}
+  .slide-desc{font-size:.8rem;line-height:1.55;margin-bottom:.8rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+  .slide-btn{font-size:.76rem;padding:.5rem 1rem;}
+  .carousel-section{margin-bottom:3rem;}
+
+  /* SKILLS */
+  .skills-accordion{gap:.8rem;}
+  .acc-title{font-size:.95rem;}
+
+  /* STATS */
+  .stats-row{grid-template-columns:1fr 1fr;}
+
+  /* CONTACT */
   .contact-grid{grid-template-columns:1fr;}
   .form-row{grid-template-columns:1fr;}
-  .carousel-row{padding:0 2.5rem;}
-  .slide{flex-direction:column;}
-  .slide-img{width:100%;height:180px;}
-  section{padding:3.5rem 0;}
+  .contact-item-val{font-size:.9rem;}
+
+  /* TIMELINE */
+  .tl-item{padding:1rem 1.2rem;}
+
+  /* FOOTER */
+  .footer-inner{flex-direction:column;text-align:center;gap:1rem;}
+  .footer-nav{justify-content:center;}
+  .footer-icons{justify-content:center;}
+  .footer-copy{text-align:center;}
 }
+
+@media(max-width:480px){
+  .hero-name{font-size:2rem;}
+  .section-title{font-size:1.6rem;}
+  .slide-img{height:190px;}
+  .stats-row{grid-template-columns:1fr 1fr;}
+  .stat-box .num{font-size:1.8rem;}
+  .carousel-row{padding:0 .5rem;}
+}
+
+
+
+/* ── PULSE GLOW on stats and role highlights ── */
+@keyframes statPulse{
+  0%{box-shadow:0 0 0 0 rgba(108,99,255,.5),0 0 12px rgba(108,99,255,.15);}
+  50%{box-shadow:0 0 0 8px rgba(108,99,255,0),0 0 25px rgba(108,99,255,.3);}
+  100%{box-shadow:0 0 0 0 rgba(108,99,255,.5),0 0 12px rgba(108,99,255,.15);}
+}
+.stat-box{animation:statPulse 3s ease-in-out infinite;}
+.stat-box:nth-child(2){animation-delay:.4s;}
+.stat-box:nth-child(3){animation-delay:.8s;}
+.stat-box:nth-child(4){animation-delay:1.2s;}
+
+/* ── GLOW EFFECTS ── */
+.role-card-glow{
+  border:1px solid rgba(108,99,255,.3) !important;
+  box-shadow:0 0 18px rgba(108,99,255,.15),inset 0 0 12px rgba(108,99,255,.05);
+  transition:box-shadow .3s,border .3s,transform .3s;
+}
+.role-card-glow:hover{
+  box-shadow:0 0 30px rgba(108,99,255,.35),inset 0 0 18px rgba(108,99,255,.1);
+  transform:translateY(-3px);
+}
+.glow-btn{
+  box-shadow:0 0 14px rgba(108,99,255,.4);
+  transition:box-shadow .3s,transform .2s;
+}
+.glow-btn:hover{
+  box-shadow:0 0 28px rgba(108,99,255,.7);
+  transform:translateY(-2px);
+}
+.glow-btn-red{
+  box-shadow:0 0 14px rgba(192,57,43,.4);
+  transition:box-shadow .3s,transform .2s;
+}
+.glow-btn-red:hover{
+  box-shadow:0 0 28px rgba(192,57,43,.7);
+  transform:translateY(-2px);
+}
+.acc-item{
+  transition:box-shadow .3s,transform .3s;
+}
+.acc-item:hover{
+  box-shadow:0 0 22px rgba(108,99,255,.2);
+  transform:translateY(-2px);
+}
+.stat-box{
+  transition:box-shadow .3s,transform .3s;
+}
+.stat-box:hover{
+  box-shadow:0 0 22px rgba(108,99,255,.3);
+  transform:translateY(-3px);
+}
+
+/* ── ANIMATIONS ── */
+
+/* Fade in on scroll */
+.fade-in{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+
+/* Slide in from left */
+.slide-left{opacity:0;transform:translateX(-50px);transition:opacity .7s ease,transform .7s ease;}
+.slide-left.visible{opacity:1;transform:translateX(0);}
+
+/* Slide in from right */
+.slide-right{opacity:0;transform:translateX(50px);transition:opacity .7s ease,transform .7s ease;}
+.slide-right.visible{opacity:1;transform:translateX(0);}
+
+/* Hero photo glow pulse */
+.hero-photo{
+  box-shadow:0 0 0 0 rgba(108,99,255,.6);
+  animation:heroPulse 2.5s ease-in-out infinite;
+}
+@keyframes heroPulse{
+  0%{box-shadow:0 0 0 0 rgba(108,99,255,.6),0 0 30px rgba(108,99,255,.2);}
+  50%{box-shadow:0 0 0 12px rgba(108,99,255,0),0 0 50px rgba(108,99,255,.35);}
+  100%{box-shadow:0 0 0 0 rgba(108,99,255,.6),0 0 30px rgba(108,99,255,.2);}
+}
+
+/* Skill bars */
+.skill-bar-wrap{margin:.4rem 0 .8rem;}
+.skill-bar-label{display:flex;justify-content:space-between;font-size:.75rem;color:#888;margin-bottom:.3rem;font-weight:700;}
+.skill-bar-bg{background:rgba(108,99,255,.12);border-radius:20px;height:6px;overflow:hidden;}
+.skill-bar-fill{height:100%;border-radius:20px;background:linear-gradient(90deg,#6c63ff,#a78bfa);width:0%;transition:width 1.2s ease;}
+
+/* Card hover glow */
+.slide:hover{box-shadow:0 8px 40px rgba(108,99,255,.25);transform:translateY(-3px);transition:box-shadow .3s,transform .3s;}
+.slide{transition:box-shadow .3s,transform .3s;}
+
+/* Typing cursor */
+.typing-cursor{display:inline-block;width:2px;height:1em;background:#8b7ff0;margin-left:2px;animation:blink .7s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
 </style>
 </head>
 <body>
@@ -210,7 +362,21 @@ footer{background:#6c63ff;color:#fff;padding:2.5rem;position:relative;z-index:1;
     <li><a href="#education">Education</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+  <button class="hamburger" onclick="document.getElementById('mobileMenu').classList.add('open')">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="document.getElementById('mobileMenu').classList.remove('open')">✕</button>
+  <a href="#home" onclick="document.getElementById('mobileMenu').classList.remove('open')">Home</a>
+  <a href="#about" onclick="document.getElementById('mobileMenu').classList.remove('open')">About</a>
+  <a href="#skills" onclick="document.getElementById('mobileMenu').classList.remove('open')">Skills</a>
+  <a href="#portfolio" onclick="document.getElementById('mobileMenu').classList.remove('open')">Portfolio</a>
+  <a href="#education" onclick="document.getElementById('mobileMenu').classList.remove('open')">Education</a>
+  <a href="#contact" onclick="document.getElementById('mobileMenu').classList.remove('open')">Contact</a>
+</div>
 
 <button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
@@ -222,13 +388,16 @@ footer{background:#6c63ff;color:#fff;padding:2.5rem;position:relative;z-index:1;
         <div class="hero-social">
           <a href="https://www.linkedin.com/in/viraj-joshi-a92b80202/" target="_blank" title="LinkedIn">in</a>
           <a href="https://virajtheleveldesigner.itch.io/" target="_blank" title="itch.io">🎮</a>
-          <a href="mailto:viraj.joshi717@gmail.com" title="Email">✉</a>
+          <a href="#contact" title="Email">✉</a>
         </div>
         <div class="hero-greeting">Hi, I'm</div>
         <div class="hero-name">Viraj Joshi</div>
-        <div class="hero-role">Level Designer · Game Designer</div>
+        <div class="hero-role"><span id="typed-role"></span><span class="typing-cursor"></span></div>
         <p class="hero-desc">Level & Game Designer with 1 year of professional experience across PC and Mobile titles using Unity and Unreal Engine. Contributed to a shipped Steam title and currently active across two indie studios.</p>
-        <a href="#contact" class="hero-btn">Hire Me ▶</a>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;align-items:center;">
+          <a href="#contact" class="hero-btn">Hire Me ▶</a>
+          <a href="https://res.cloudinary.com/doccvot6h/image/upload/VirajGameDesignerResume_uddyd6.pdf" download="VirajJoshi_Resume.pdf" class="hero-btn" style="background:#2563eb;box-shadow:0 6px 22px rgba(37,99,235,.35);">📄 Download Resume</a>
+        </div>
         <div class="hero-scroll" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">
           <div class="scroll-mouse"></div>
           Read About Me ↓
@@ -242,10 +411,7 @@ footer{background:#6c63ff;color:#fff;padding:2.5rem;position:relative;z-index:1;
             2. Delete the .hero-photo-ph div
             3. Add: <img src="photo.jpg" alt="Viraj Joshi"/>
           -->
-          <div class="hero-photo-ph">
-            <svg width="58" height="58" viewBox="0 0 24 24" fill="none" stroke="rgba(139,127,240,.3)" stroke-width="1.2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-            <span>Add your photo</span>
-          </div>
+          <img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774127737/Passport_Size_Photo_c7veyx.png" alt="Viraj Joshi" style="width:100%;height:100%;object-fit:cover;"/>
         </div>
       </div>
     </div>
@@ -253,35 +419,24 @@ footer{background:#6c63ff;color:#fff;padding:2.5rem;position:relative;z-index:1;
 </section>
 
 <!-- ═══ ABOUT ═══ -->
-<section id="about">
+<section id="about" class="fade-in">
   <div class="container">
-    <div class="about-grid">
-      <div class="about-photo-box">
-        <!--
-          ADD ABOUT PHOTO:
-          Replace .about-photo-ph with: <img src="photo.jpg" alt="Viraj Joshi"/>
-        -->
-        <div class="about-photo-ph">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(108,99,255,.25)" stroke-width="1.2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-          <span>Your photo here</span>
-        </div>
-      </div>
-      <div>
+    <div style="max-width:720px;margin:0 auto;text-align:center;">
         <div class="about-label">Who Am I?</div>
-        <div class="about-title">Viraj Joshi</div>
-        <p class="about-bio">
+        <div class="about-title" style="font-size:2rem;margin-bottom:1rem;">Viraj Joshi</div>
+        <p class="about-bio" style="margin:0 auto 2rem;max-width:600px;">
           Level & Game Designer with 1 year of professional experience across PC and Mobile titles using Unity and Unreal Engine.
           Contributed to a shipped Steam title and currently active across two indie studios as Lead Game Designer and Level Designer.
           Passionate about crafting immersive player experiences through strong level composition, gameplay systems, and cross-team collaboration.
         </p>
-        <div class="about-stats">
+        <div class="about-stats" style="justify-content:center;">
           <div class="stat-box"><div class="num">1+</div><div class="lbl">Yrs Experience</div></div>
           <div class="stat-box"><div class="num">1</div><div class="lbl">Shipped Title</div></div>
           <div class="stat-box"><div class="num">2</div><div class="lbl">Active Studios</div></div>
           <div class="stat-box"><div class="num">3+</div><div class="lbl">Projects</div></div>
         </div>
         <div class="about-label" style="margin-bottom:.7rem;">Tools I Use</div>
-        <div style="display:flex;flex-wrap:wrap;gap:.5rem;">
+        <div style="display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;">
           <span class="tag-pill">Unity 2D / 3D</span>
           <span class="tag-pill">Unreal Engine 5</span>
           <span class="tag-pill">Unreal Blueprints</span>
@@ -295,13 +450,12 @@ footer{background:#6c63ff;color:#fff;padding:2.5rem;position:relative;z-index:1;
           <span class="tag-pill">Notion</span>
           <span class="tag-pill">Trello</span>
         </div>
-      </div>
     </div>
   </div>
 </section>
 
 <!-- ═══ SKILLS ═══ -->
-<section id="skills">
+<section id="skills" class="fade-in">
   <div class="container">
     <div class="section-tag">What I Can Do</div>
     <div class="section-title">SKILLS</div>
@@ -365,13 +519,13 @@ footer{background:#6c63ff;color:#fff;padding:2.5rem;position:relative;z-index:1;
 </section>
 
 <!-- ═══ PORTFOLIO ═══ -->
-<section id="portfolio">
+<section id="portfolio" class="fade-in">
   <div class="container">
     <div class="section-tag">My Work</div>
     <div class="section-title">PORTFOLIO</div>
 
     <!-- PERSONAL PROJECTS -->
-    <div class="carousel-section">
+    <div class="carousel-section slide-left">
       <div class="carousel-label">Games I've Made</div>
       <div class="carousel-title">PERSONAL PROJECTS</div>
       <div class="carousel-wrap">
@@ -381,22 +535,22 @@ footer{background:#6c63ff;color:#fff;padding:2.5rem;position:relative;z-index:1;
 
             <!-- To add image: upload file to GitHub, replace slide-img-ph with <img src="filename.jpg" alt="..."/> -->
             <div class="slide">
-              <div class="slide-img"><div class="slide-img-ph">PRISON ESCAPE 3D</div></div>
+              <div class="slide-img"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774115118/1_ggocf7.png" alt="Prison Escape 3D" style="width:100%;height:100%;object-fit:cover;border-radius:12px;"/></div>
               <div class="slide-content">
                 <div class="slide-type">Unity · Windows · Stealth / Escape · Team of 2</div>
                 <div class="slide-name">Prison Escape 3D</div>
-                <p class="slide-desc">3D stealth-escape game — players navigate dark dungeons, evade guards, collect badges, and unlock gates. Full level design pipeline: layout, blockout, asset placement, lighting, and environment composition. Created the GDD and led all game design decisions.</p>
-                <a href="#" class="slide-btn">View Details ↗</a>
+                <p class="slide-desc">3D stealth-escape game — navigate dark dungeons, evade guards, collect badges, and unlock gates. Full pipeline: GDD, level design, 3D asset creation, and complete Unity build.</p>
+                <a href="prison.html" class="slide-btn">View Full Project ↗</a>
               </div>
             </div>
 
             <div class="slide">
-              <div class="slide-img"><div class="slide-img-ph">COVERT TAKEDOWN</div></div>
+              <div class="slide-img"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774116259/GamePlay_1_sefx9r.png" alt="Covert Takedown" style="width:100%;height:100%;object-fit:cover;border-radius:12px;"/></div>
               <div class="slide-content">
                 <div class="slide-type">Unreal Engine 5.4 · PC · Tactical Stealth Shooter · Team of 3</div>
                 <div class="slide-name">Covert Takedown</div>
-                <p class="slide-desc">Tactical third-person stealth shooter set in a semi-arid Middle Eastern environment. Designed level layouts and blockouts for a fortified enemy compound. Reduced build size from 3GB+ to 1.75GB through careful optimization without sacrificing visual quality.</p>
-                <a href="#" class="slide-btn">View Details ↗</a>
+                <p class="slide-desc">Tactical third-person stealth shooter — infiltrate a fortified Middle Eastern compound, disable three radar towers, and stop VOID. Reduced build size from 3GB+ to 1.75GB through careful optimization.</p>
+                <a href="covert.html" class="slide-btn">View Full Project ↗</a>
               </div>
             </div>
 
@@ -408,7 +562,7 @@ footer{background:#6c63ff;color:#fff;padding:2.5rem;position:relative;z-index:1;
     </div>
 
     <!-- PROFESSIONAL WORK -->
-    <div class="carousel-section">
+    <div class="carousel-section slide-right">
       <div class="carousel-label">Studio Work</div>
       <div class="carousel-title">PROFESSIONAL PROJECTS</div>
       <div class="carousel-wrap">
@@ -417,22 +571,45 @@ footer{background:#6c63ff;color:#fff;padding:2.5rem;position:relative;z-index:1;
           <div class="carousel-track" id="pro-track">
 
             <div class="slide">
-              <div class="slide-img"><div class="slide-img-ph">HAVE YOU SEEN THIS MAN?</div></div>
+              <div class="slide-img"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774114335/1_w9wyro.png" alt="The Hollow Streets" style="width:100%;height:100%;object-fit:cover;border-radius:12px;"/></div>
               <div class="slide-content">
-                <div class="slide-type">Shipped Steam Title · Unity · PC · Cosmic Sabbath (U.K.)</div>
-                <div class="slide-name">Have You Seen This Man?</div>
-                <p class="slide-desc">Designed the Forest Area and Bathroom Area — environmental composition, lighting and spatial design to direct player flow and create tension. Ran multi-build QA testing and documented level bugs, lighting issues, and pathing problems that shipped clean.</p>
-                <a href="https://virajtheleveldesigner.itch.io/" target="_blank" class="slide-btn">View on itch.io ↗</a>
+                <div class="slide-type">Internship · Akiyam Solutions · Unreal Engine 5 · PC</div>
+                <div class="slide-name">The Hollow Streets (Name Undisclosed)</div>
+                <p class="slide-desc">Hauntingly abandoned city environment in UE5 — road spline system, optimized large-scale asset placement, atmospheric lighting, and environmental storytelling through world-building.</p>
+                <a href="hollow.html" class="slide-btn">View Full Project ↗</a>
               </div>
             </div>
 
             <div class="slide">
-              <div class="slide-img"><div class="slide-img-ph">TOASTED STUDIO</div></div>
+              <div class="slide-img"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774113261/1_ss60gg.png" alt="Post-Apocalyptic" style="width:100%;height:100%;object-fit:cover;border-radius:12px;"/></div>
+              <div class="slide-content">
+                <div class="slide-type">Internship · Akiyam Solutions · Unreal Engine 5 · PC</div>
+                <div class="slide-name">Post-Apocalyptic (Name Undisclosed)</div>
+                <p class="slide-desc">Large-scale open-world post-apocalyptic prototype — full level design pipeline from layout through blockout to final asset placement. Implemented combat, AI, healing and locomotion systems in Blueprints.</p>
+                <a href="postapoc.html" class="slide-btn">View Full Project ↗</a>
+              </div>
+            </div>
+
+            <div class="slide">
+              <div class="slide-img"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774108548/Actual_Game_1_vz9wdl.png" alt="Have You Seen This Man?" style="width:100%;height:100%;object-fit:cover;border-radius:12px;"/></div>
+              <div class="slide-content">
+                <div class="slide-type">Shipped Title · Unity · PC · Cosmic Sabbath (U.K.)</div>
+                <div class="slide-name">Have You Seen This Man?</div>
+                <p class="slide-desc">Designed the Forest Area and Bathroom Area — environmental composition, lighting and spatial design to direct player flow and create tension. Ran multi-build QA testing and documented level bugs, lighting issues, and pathing problems that shipped clean.</p>
+                <a href="hysm.html" class="slide-btn">View Full Project ↗</a>
+              </div>
+            </div>
+
+            <div class="slide">
+              <div class="slide-img" style="background:linear-gradient(135deg,rgba(108,99,255,.2),rgba(108,99,255,.05));display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.6rem;">
+                <div style="font-size:2rem;">🚧</div>
+                <div style="font-size:.7rem;font-weight:700;color:rgba(139,127,240,.6);letter-spacing:.1em;text-transform:uppercase;">Coming Soon</div>
+              </div>
               <div class="slide-content">
                 <div class="slide-type">Lead Game Designer · Unity · PC · Jul 2025 – Present</div>
                 <div class="slide-name">Toasted Studio — Current Project</div>
                 <p class="slide-desc">Own the full level design pipeline — 2D layouts, blockouts, and final asset placement in Unity. Lead and coordinate the design team across milestones, keeping output aligned with the creative vision. Drive cross-department collaboration with Art, Dev, and QA.</p>
-                <a href="#contact" class="slide-btn">Get In Touch ↗</a>
+                <div style="display:inline-flex;align-items:center;gap:.5rem;padding:.65rem 1.4rem;border-radius:10px;background:rgba(108,99,255,.15);color:#8b7ff0;font-weight:700;font-size:.83rem;border:1px solid rgba(108,99,255,.25);">🚧 Work In Progress</div>
               </div>
             </div>
 
@@ -443,65 +620,150 @@ footer{background:#6c63ff;color:#fff;padding:2.5rem;position:relative;z-index:1;
       </div>
     </div>
 
+    <!-- GDD CAROUSEL -->
+    <div class="carousel-section slide-left">
+      <div class="carousel-label">Design Documents</div>
+      <div class="carousel-title">GAME DESIGN DOCUMENTS</div>
+      <div class="carousel-wrap">
+        <div class="carousel-row">
+          <button class="carousel-btn" onclick="moveCarousel('gdd',-1)">&#8249;</button>
+          <div class="carousel-track" id="gdd-track">
+
+            <div class="slide">
+              <div class="slide-img" style="background:linear-gradient(135deg,rgba(108,99,255,.2),rgba(108,99,255,.05));display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;">
+                <div style="font-size:2.5rem;">📄</div>
+                <div style="font-size:.7rem;font-weight:700;color:rgba(139,127,240,.6);letter-spacing:.1em;text-transform:uppercase;">GDD</div>
+              </div>
+              <div class="slide-content">
+                <div class="slide-type">Game Design Document · Mobile · Casual</div>
+                <div class="slide-name">Pet Bath</div>
+                <p class="slide-desc">GDD for a casual mobile ASMR-style game. Covers core loops, player engagement systems, and long-term retention mechanics. Designed from concept through to full system documentation.</p>
+                <a href="https://drive.google.com/file/d/1_xKTlctxNtjvm6ZlnjGh8JNWvW_I32qU/view?usp=drive_link" target="_blank" class="slide-btn">Open Document ↗</a>
+              </div>
+            </div>
+
+            <div class="slide">
+              <div class="slide-img" style="background:linear-gradient(135deg,rgba(108,99,255,.2),rgba(108,99,255,.05));display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;">
+                <div style="font-size:2.5rem;">📄</div>
+                <div style="font-size:.7rem;font-weight:700;color:rgba(139,127,240,.6);letter-spacing:.1em;text-transform:uppercase;">GDD</div>
+              </div>
+              <div class="slide-content">
+                <div class="slide-type">Game Design Document · Mobile · Idle</div>
+                <div class="slide-name">Idle Law Manager</div>
+                <p class="slide-desc">Full GDD for an idle management game set in a law firm. Covers core loops, progression systems, economy design, and monetization strategy from concept to final documentation.</p>
+                <a href="https://drive.google.com/file/d/1nfGSKkkEfKx4Hf704e6NNVbvCYDFxLbW/view?usp=drive_link" target="_blank" class="slide-btn">Open Document ↗</a>
+              </div>
+            </div>
+
+            <div class="slide">
+              <div class="slide-img" style="background:linear-gradient(135deg,rgba(108,99,255,.2),rgba(108,99,255,.05));display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;">
+                <div style="font-size:2.5rem;">📄</div>
+                <div style="font-size:.7rem;font-weight:700;color:rgba(139,127,240,.6);letter-spacing:.1em;text-transform:uppercase;">GDD</div>
+              </div>
+              <div class="slide-content">
+                <div class="slide-type">Game Design Document · PC · Stealth / Escape</div>
+                <div class="slide-name">Prison Escape 3D</div>
+                <p class="slide-desc">Complete design documentation for the 3D stealth-escape game. Covers level structure, puzzle design philosophy, stealth mechanics, guard AI behaviour, and overall pacing design.</p>
+                <a href="https://drive.google.com/file/d/1EEbfQeh4TE_a_wGnyiYVC188TLLg8eeZ/view?usp=drive_link" target="_blank" class="slide-btn">Open Document ↗</a>
+              </div>
+            </div>
+
+            <div class="slide">
+              <div class="slide-img" style="background:linear-gradient(135deg,rgba(108,99,255,.2),rgba(108,99,255,.05));display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;">
+                <div style="font-size:2.5rem;">📄</div>
+                <div style="font-size:.7rem;font-weight:700;color:rgba(139,127,240,.6);letter-spacing:.1em;text-transform:uppercase;">GDD</div>
+              </div>
+              <div class="slide-content">
+                <div class="slide-type">Game Design Document · PC · Adventure</div>
+                <div class="slide-name">Lost Relics</div>
+                <p class="slide-desc">Adventure game GDD featuring exploration mechanics, relic collection systems, environmental storytelling design, and player progression from discovery through to final encounter.</p>
+                <a href="https://drive.google.com/file/d/1oLCOe2jmbr1tW2OnEI68OWOFOoWYfWie/view?usp=drive_link" target="_blank" class="slide-btn">Open Document ↗</a>
+              </div>
+            </div>
+
+          </div>
+          <button class="carousel-btn" onclick="moveCarousel('gdd',1)">&#8250;</button>
+        </div>
+        <div class="carousel-dots" id="gdd-dots"></div>
+      </div>
+    </div>
+
+    <!-- LEVEL DESIGN -->
+    <div class="carousel-section slide-right">
+      <div class="carousel-label">Level Design Work</div>
+      <div class="carousel-title">LEVEL DESIGN</div>
+      <div class="carousel-wrap">
+        <div class="carousel-row">
+          <button class="carousel-btn" onclick="moveCarousel('level',-1)">&#8249;</button>
+          <div class="carousel-track" id="level-track">
+            <div class="slide">
+              <div class="slide-img"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774113261/1_ss60gg.png" alt="Post-Apocalyptic" style="width:100%;height:100%;object-fit:cover;border-radius:12px;"/></div>
+              <div class="slide-content">
+                <div class="slide-type">Professional · Akiyam Solutions · Unreal Engine 5</div>
+                <div class="slide-name">Post-Apocalyptic (Name Undisclosed)</div>
+                <p class="slide-desc">Large-scale open-world post-apocalyptic city — full pipeline from layout to blockout to final asset placement. Implemented combat, AI, healing and locomotion systems in Blueprints.</p>
+                <a href="leveldesign.html#postapoc" class="slide-btn">View Full Project ↗</a>
+              </div>
+            </div>
+            <div class="slide">
+              <div class="slide-img"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774118398/Zombie_1_r62iti.png" alt="Zombie Shooter" style="width:100%;height:100%;object-fit:cover;border-radius:12px;"/></div>
+              <div class="slide-content">
+                <div class="slide-type">Personal Prototype · Unreal Engine 5 · Solo</div>
+                <div class="slide-name">Zombie Shooter Prototype</div>
+                <p class="slide-desc">Intense zombie wave-defense prototype — confined cell environment, gate repair mechanics, auto-gun gameplay, dynamic UI, and atmospheric lighting all designed and implemented solo.</p>
+                <a href="leveldesign.html#zombie" class="slide-btn">View Full Project ↗</a>
+              </div>
+            </div>
+          </div>
+          <button class="carousel-btn" onclick="moveCarousel('level',1)">&#8250;</button>
+        </div>
+        <div class="carousel-dots" id="level-dots"></div>
+      </div>
+    </div>
     <!-- ENVIRONMENT DESIGN -->
-    <div class="carousel-section">
+    <div class="carousel-section slide-left">
       <div class="carousel-label">Visual Work</div>
       <div class="carousel-title">ENVIRONMENT DESIGN</div>
       <div class="carousel-wrap">
         <div class="carousel-row">
           <button class="carousel-btn" onclick="moveCarousel('env',-1)">&#8249;</button>
           <div class="carousel-track" id="env-track">
-
             <div class="slide">
-              <div class="slide-img"><div class="slide-img-ph">EGYPTIAN TOMB</div></div>
+              <div class="slide-img"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774117187/1_vcrpy9.jpg" alt="Treasure Island" style="width:100%;height:100%;object-fit:cover;border-radius:12px;"/></div>
               <div class="slide-content">
-                <div class="slide-type">Environment Design · Unreal Engine 5</div>
-                <div class="slide-name">Egyptian Tomb</div>
-                <p class="slide-desc">Atmospheric underground tomb — dramatic lighting, ancient architecture, and volumetric fog for deep immersion.</p>
-                <a href="#" class="slide-btn">View Details ↗</a>
-              </div>
-            </div>
-
-            <div class="slide">
-              <div class="slide-img"><div class="slide-img-ph">TREASURE ISLAND</div></div>
-              <div class="slide-content">
-                <div class="slide-type">Environment Design · Unreal Engine 5</div>
+                <div class="slide-type">Environment Design · Unity · URP · Solo</div>
                 <div class="slide-name">Treasure Island — The Lost Sailor's Tale</div>
-                <p class="slide-desc">Tropical island environment with ocean shaders, dynamic lighting, and dense foliage. Focused on environmental storytelling.</p>
-                <a href="#" class="slide-btn">View Details ↗</a>
+                <p class="slide-desc">Suspenseful beach environment with atmospheric lighting — glowing skulls, ancient treasure chest, and eerie URP bloom effects to create a haunting sailor's discovery scene.</p>
+                <a href="environments.html#treasure" class="slide-btn">View Project ↗</a>
               </div>
             </div>
-
             <div class="slide">
-              <div class="slide-img"><div class="slide-img-ph">MYSTICAL MOUNTAINS</div></div>
+              <div class="slide-img"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774117472/viraj-joshi-screenshot-849_ooqwk5.jpg" alt="Mystical Mountains" style="width:100%;height:100%;object-fit:cover;border-radius:12px;"/></div>
               <div class="slide-content">
-                <div class="slide-type">Environment Design · Unreal Engine 5</div>
+                <div class="slide-type">Environment Design · Unity · Built-in Pipeline · Solo</div>
                 <div class="slide-name">Mystical Mountains</div>
-                <p class="slide-desc">Fantasy mountain landscape — terrain sculpting, volumetric fog, and custom skybox for an otherworldly feel.</p>
-                <a href="#" class="slide-btn">View Details ↗</a>
+                <p class="slide-desc">Fantasy mountain landscape built in Unity — terrain sculpting, glowing green rocks, vibrant vegetation, and post-processing for a mystical, otherworldly atmosphere.</p>
+                <a href="environments.html#mountains" class="slide-btn">View Project ↗</a>
               </div>
             </div>
-
             <div class="slide">
-              <div class="slide-img"><div class="slide-img-ph">STARRY NIGHT ON MOTORWAY</div></div>
+              <div class="slide-img"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774117590/viraj-joshi-screenshot-283_eyi9cr.jpg" alt="Starry Night Motorway" style="width:100%;height:100%;object-fit:cover;border-radius:12px;"/></div>
               <div class="slide-content">
-                <div class="slide-type">Environment Design · Unreal Engine 5</div>
+                <div class="slide-type">Environment Design · Unity · Night Lighting · Solo</div>
                 <div class="slide-name">Starry Night on Motorway</div>
-                <p class="slide-desc">Cinematic night road scene — realistic materials, star-filled sky, and dramatic atmospheric post-processing.</p>
-                <a href="#" class="slide-btn">View Details ↗</a>
+                <p class="slide-desc">Cinematic night motorway scene in Unity — full level layout and lighting design, creating a moody atmospheric environment with road lighting and a starry sky.</p>
+                <a href="environments.html#motorway" class="slide-btn">View Project ↗</a>
               </div>
             </div>
-
             <div class="slide">
-              <div class="slide-img"><div class="slide-img-ph">SEMI ARID LANDSCAPE</div></div>
+              <div class="slide-img"><img src="https://res.cloudinary.com/doccvot6h/image/upload/v1774117736/viraj-joshi-screenshot-271_r4pe5m.jpg" alt="Semi Arid Landscape" style="width:100%;height:100%;object-fit:cover;border-radius:12px;"/></div>
               <div class="slide-content">
-                <div class="slide-type">Environment Design · Unreal Engine 5</div>
+                <div class="slide-type">Environment Design · Unreal Engine · Terrain · Solo</div>
                 <div class="slide-name">Semi Arid Landscape</div>
-                <p class="slide-desc">Realistic arid terrain — detailed ground materials, sparse vegetation, and heat haze post-processing effects.</p>
-                <a href="#" class="slide-btn">View Details ↗</a>
+                <p class="slide-desc">Realistic semi-arid terrain sculpted in Unreal Engine — atmospheric fog, detailed ground materials, sparse vegetation, and realistic sun lighting for an immersive arid world.</p>
+                <a href="environments.html#arid" class="slide-btn">View Project ↗</a>
               </div>
             </div>
-
           </div>
           <button class="carousel-btn" onclick="moveCarousel('env',1)">&#8250;</button>
         </div>
@@ -513,7 +775,7 @@ footer{background:#6c63ff;color:#fff;padding:2.5rem;position:relative;z-index:1;
 </section>
 
 <!-- ═══ EDUCATION ═══ -->
-<section id="education">
+<section id="education" class="fade-in">
   <div class="container">
     <div class="section-tag">Academic Background</div>
     <div class="section-title">EDUCATION</div>
@@ -540,7 +802,7 @@ footer{background:#6c63ff;color:#fff;padding:2.5rem;position:relative;z-index:1;
 </section>
 
 <!-- ═══ CONTACT ═══ -->
-<section id="contact">
+<section id="contact" class="fade-in">
   <div class="container">
     <div class="section-tag">Get In Touch</div>
     <div class="contact-headline">Let's Turn Your Awesome Game Ideas Into Awesome Games.</div>
@@ -557,7 +819,7 @@ footer{background:#6c63ff;color:#fff;padding:2.5rem;position:relative;z-index:1;
           <div class="contact-item-icon">✉</div>
           <div>
             <div class="contact-item-label">Email</div>
-            <div class="contact-item-val">viraj.joshi717@gmail.com</div>
+            <div class="contact-item-val"><a href="#contact" style="color:#8b7ff0;text-decoration:none;"><span class="__cf_email__" data-cfemail="ee98879c8f84c084819d8687d9dfd9ae89838f8782c08d8183">[email&#160;protected]</span></a></div>
           </div>
         </div>
         <div class="contact-item">
@@ -569,13 +831,22 @@ footer{background:#6c63ff;color:#fff;padding:2.5rem;position:relative;z-index:1;
         </div>
       </div>
       <div class="contact-form">
-        <div class="form-row">
-          <input class="form-input" type="text" placeholder="Full Name"/>
-          <input class="form-input" type="email" placeholder="Your Email Address"/>
+        <form id="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" style="display:flex;flex-direction:column;gap:1rem;">
+          <input type="hidden" name="form-name" value="contact"/>
+          <input type="hidden" name="bot-field"/>
+          <div class="form-row">
+            <input class="form-input" type="text" id="fname" name="name" placeholder="Full Name" required/>
+            <input class="form-input" type="email" id="femail" name="email" placeholder="Your Email Address" required/>
+          </div>
+          <input class="form-input" type="text" id="fsubject" name="subject" placeholder="Subject" required/>
+          <textarea class="form-textarea" id="fmessage" name="message" placeholder="Your message" required></textarea>
+          <button type="submit" class="form-btn">Send Message ▶</button>
+        </form>
+        <div id="form-success" style="display:none;text-align:center;padding:3rem 1rem;">
+          <div style="font-size:3rem;margin-bottom:1rem;">✅</div>
+          <div style="font-size:1.4rem;font-weight:800;color:#e2e0d8;margin-bottom:.8rem;">Message Sent!</div>
+          <p style="color:#888;font-size:.95rem;line-height:1.7;">Thanks for reaching out! I'll get back to you soon at <strong style="color:#8b7ff0;">viraj.joshi717[at]gmail.com</strong></p>
         </div>
-        <input class="form-input" type="text" placeholder="Subject"/>
-        <textarea class="form-textarea" placeholder="Your message"></textarea>
-        <button class="form-btn">Send Message ▶</button>
       </div>
     </div>
   </div>
@@ -597,7 +868,7 @@ footer{background:#6c63ff;color:#fff;padding:2.5rem;position:relative;z-index:1;
       <!-- Update these with your real links -->
       <a href="https://www.linkedin.com/in/viraj-joshi-a92b80202/" target="_blank" class="footer-icon">in</a>
       <a href="https://virajtheleveldesigner.itch.io/" target="_blank" class="footer-icon">🎮</a>
-      <a href="mailto:viraj.joshi717@gmail.com" class="footer-icon">✉</a>
+      <a href="#contact" class="footer-icon">✉</a>
     </div>
     <div class="footer-copy">© Viraj Joshi. All rights reserved.</div>
   </div>
@@ -624,15 +895,152 @@ function goSlide(id,n){
   const track=document.getElementById(id+'-track');
   const slides=track.querySelectorAll('.slide');
   const c=carousels[id];
-  slides[c.cur].style.display='none';
-  c.cur=(n+c.total)%c.total;
-  slides[c.cur].style.display='flex';
-  document.querySelectorAll('#'+id+'-dots .c-dot').forEach((d,i)=>d.classList.toggle('active',i===c.cur));
+  const current=slides[c.cur];
+  current.style.transition='opacity .3s ease';
+  current.style.opacity='0';
+  setTimeout(()=>{
+    current.style.display='none';
+    current.style.opacity='1';
+    c.cur=(n+c.total)%c.total;
+    const next=slides[c.cur];
+    next.style.opacity='0';
+    next.style.display='flex';
+    setTimeout(()=>{
+      next.style.transition='opacity .3s ease';
+      next.style.opacity='1';
+    },20);
+    document.querySelectorAll('#'+id+'-dots .c-dot').forEach((d,i)=>d.classList.toggle('active',i===c.cur));
+  },300);
 }
 function moveCarousel(id,dir){goSlide(id,carousels[id].cur+dir);}
 initCarousel('games');
+initCarousel('gdd');
 initCarousel('pro');
+initCarousel('level');
 initCarousel('env');
+
+/* FORM SUBMIT */
+const contactForm = document.getElementById('contact-form');
+if(contactForm){
+  contactForm.addEventListener('submit', async function(e){
+    e.preventDefault();
+    const data = new FormData(contactForm);
+    try{
+      await fetch('/', {method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body: new URLSearchParams(data).toString()});
+      contactForm.style.display='none';
+      document.getElementById('form-success').style.display='block';
+    } catch(err){
+      alert('Something went wrong. Please email me directly at viraj.joshi717@gmail.com');
+    }
+  });
+}
+
+
+
+/* DRAW EMAIL ON CANVAS */
+function drawEmail(canvasId, size, color){
+  const c = document.getElementById(canvasId);
+  if(!c) return;
+  const parts = ['viraj','.','joshi717','@','gmail','.','com'];
+  const email = parts.join('');
+  c.dataset.e = email;
+  c.width = Math.ceil(parts.join('').length * size * 0.6) + 10;
+  const ctx = c.getContext('2d');
+  ctx.fillStyle = color;
+  ctx.font = size + 'px Nunito, sans-serif';
+  ctx.fillText(email, 0, size - 2);
+}
+drawEmail('email-canvas', 15, '#8b7ff0');
+drawEmail('success-email-canvas', 14, '#8b7ff0');
+
+
+/* ═══ ANIMATIONS ═══ */
+
+/* 1. Scroll fade-in + slide-in */
+const animEls = document.querySelectorAll('.fade-in,.slide-left,.slide-right');
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}
+  });
+},{threshold:0.1});
+animEls.forEach(el=>observer.observe(el));
+
+/* 2. Typing animation */
+/* Type full role line once then stop */
+const fullRole = 'Game Designer  ·  Level Designer';
+let ci=0;
+function typeRole(){
+  const el=document.getElementById('typed-role');
+  if(!el) return;
+  el.textContent=fullRole.slice(0,ci+1);
+  ci++;
+  if(ci<fullRole.length) setTimeout(typeRole,80);
+}
+setTimeout(typeRole,600);
+
+/* 3. Number counter */
+function animateCounter(el, target, suffix){
+  let current=0;
+  const increment=Math.ceil(target/40);
+  const timer=setInterval(()=>{
+    current+=increment;
+    if(current>=target){current=target;clearInterval(timer);}
+    el.textContent=current+(suffix||'');
+  },40);
+}
+const counterObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.num').forEach(el=>{
+        const txt=el.textContent.trim();
+        const num=parseInt(txt);
+        const suffix=txt.replace(num,'');
+        el.textContent='0'+suffix;
+        animateCounter(el,num,suffix);
+      });
+      counterObserver.unobserve(e.target);
+    }
+  });
+},{threshold:0.3});
+const statsEl=document.querySelector('.about-stats');
+if(statsEl) counterObserver.observe(statsEl);
+
+/* 4. Skill bars - add them dynamically */
+const skillData = [
+  {label:'Level Design', pct:95},
+  {label:'Game Design', pct:90},
+  {label:'Unity Engine', pct:88},
+  {label:'Unreal Engine 5', pct:82},
+  {label:'Unreal Blueprints', pct:75},
+  {label:'Environment Art', pct:80},
+];
+const firstAcc = document.querySelector('.acc-body');
+if(firstAcc){
+  const barContainer = document.createElement('div');
+  barContainer.style.cssText='padding:0 1.5rem 1.5rem;';
+  skillData.forEach(s=>{
+    barContainer.innerHTML += `
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-label"><span>${s.label}</span><span>${s.pct}%</span></div>
+        <div class="skill-bar-bg"><div class="skill-bar-fill" data-pct="${s.pct}"></div></div>
+      </div>`;
+  });
+  firstAcc.parentElement.insertBefore(barContainer, firstAcc);
+}
+
+/* Animate skill bars on scroll */
+const barObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.skill-bar-fill').forEach(bar=>{
+        setTimeout(()=>{bar.style.width=bar.dataset.pct+'%';},200);
+      });
+      barObserver.unobserve(e.target);
+    }
+  });
+},{threshold:0.2});
+const barsSection = document.querySelector('#skills');
+if(barsSection) barObserver.observe(barsSection);
 
 /* ACCORDION */
 function toggleAcc(h){h.parentElement.classList.toggle('open');}
