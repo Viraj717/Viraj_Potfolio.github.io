@@ -174,6 +174,22 @@ footer{background:#0a0a0a;border-top:1px solid #151515;padding:2rem 3rem;display
 .hbtn-gdd:hover,.action-card.gdd .action-card-btn:hover{box-shadow:0 0 22px rgba(108,99,255,.5) !important;}
 .mech-card,.tech-card,.role-card,.credit-card,.feat-item{transition:box-shadow .3s,transform .3s;}
 .mech-card:hover,.tech-card:hover,.credit-card:hover{box-shadow:0 0 22px rgba(108,99,255,.25);transform:translateY(-3px);}
+
+/* ── ENHANCED GLOW ── */
+@keyframes pgCardPulse{
+  0%{box-shadow:0 0 0 0 rgba(192,57,43,.4),0 0 10px rgba(192,57,43,.1);}
+  50%{box-shadow:0 0 0 8px rgba(192,57,43,0),0 0 25px rgba(192,57,43,.25);}
+  100%{box-shadow:0 0 0 0 rgba(192,57,43,.4),0 0 10px rgba(192,57,43,.1);}
+}
+.role-card,.mech-card,.tech-card,.info-box,.proj-stat-box,.ov-item,.credit-card{
+  animation:pgCardPulse 3s ease-in-out infinite;
+  transition:transform .3s;
+}
+.role-card:nth-child(2),.mech-card:nth-child(2),.tech-card:nth-child(2),.ov-item:nth-child(2){animation-delay:.4s;}
+.role-card:nth-child(3),.mech-card:nth-child(3),.tech-card:nth-child(3),.ov-item:nth-child(3){animation-delay:.8s;}
+.role-card:nth-child(4),.mech-card:nth-child(4),.ov-item:nth-child(4){animation-delay:1.2s;}
+.role-card:hover,.mech-card:hover,.tech-card:hover{transform:translateY(-4px);}
+.credit-card.highlight{animation:pgCardPulse 1.8s ease-in-out infinite !important;}
 </style>
 </head>
 <body>

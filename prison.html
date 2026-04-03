@@ -160,6 +160,22 @@ footer{background:#080610;border-top:1px solid #14101a;padding:2rem 3rem;display
 .hbtn-gdd:hover,.action-card.gdd .action-card-btn:hover{box-shadow:0 0 22px rgba(108,99,255,.5) !important;}
 .mech-card,.tech-card,.role-card,.credit-card,.feat-item{transition:box-shadow .3s,transform .3s;}
 .mech-card:hover,.tech-card:hover,.credit-card:hover{box-shadow:0 0 22px rgba(108,99,255,.25);transform:translateY(-3px);}
+
+/* ── ENHANCED GLOW ── */
+@keyframes pgCardPulse{
+  0%{box-shadow:0 0 0 0 rgba(155,111,212,.4),0 0 10px rgba(155,111,212,.1);}
+  50%{box-shadow:0 0 0 8px rgba(155,111,212,0),0 0 25px rgba(155,111,212,.25);}
+  100%{box-shadow:0 0 0 0 rgba(155,111,212,.4),0 0 10px rgba(155,111,212,.1);}
+}
+.role-card,.mech-card,.tech-card,.info-box,.proj-stat-box,.ov-item,.credit-card{
+  animation:pgCardPulse 3s ease-in-out infinite;
+  transition:transform .3s;
+}
+.role-card:nth-child(2),.mech-card:nth-child(2),.tech-card:nth-child(2),.ov-item:nth-child(2){animation-delay:.4s;}
+.role-card:nth-child(3),.mech-card:nth-child(3),.tech-card:nth-child(3),.ov-item:nth-child(3){animation-delay:.8s;}
+.role-card:nth-child(4),.mech-card:nth-child(4),.ov-item:nth-child(4){animation-delay:1.2s;}
+.role-card:hover,.mech-card:hover,.tech-card:hover{transform:translateY(-4px);}
+.credit-card.highlight{animation:pgCardPulse 1.8s ease-in-out infinite !important;}
 </style>
 </head>
 <body>
@@ -168,7 +184,7 @@ footer{background:#080610;border-top:1px solid #14101a;padding:2rem 3rem;display
   <a href="index.html" class="nav-back">← Back to Portfolio</a>
   <span class="nav-title">Prison Escape 3D</span>
   <div class="nav-btns">
-    <a href="https://drive.google.com/file/d/1EEbfQeh4TE_a_wGnyiYVC188TLLg8eeZ/view?usp=drive_link" target="_blank" class="nav-btn nav-btn-gdd">📄 View GDD</a>
+    <a href="https://res.cloudinary.com/doccvot6h/image/upload/v1775188751/Prison_Escape_GDD_waqr7j.pdf" target="_blank" class="nav-btn nav-btn-gdd">📄 View GDD</a>
     <a href="https://virajtheleveldesigner.itch.io/prison-escape-3d" target="_blank" class="nav-btn nav-btn-play">▶ Play Game</a>
   </div>
 </nav>
@@ -197,7 +213,7 @@ footer{background:#080610;border-top:1px solid #14101a;padding:2rem 3rem;display
     </div>
     <div class="hero-cta">
       <a href="https://virajtheleveldesigner.itch.io/prison-escape-3d" target="_blank" class="hbtn hbtn-play">▶ Play on itch.io</a>
-      <a href="https://drive.google.com/file/d/1EEbfQeh4TE_a_wGnyiYVC188TLLg8eeZ/view?usp=drive_link" target="_blank" class="hbtn hbtn-gdd">📄 View GDD</a>
+      <a href="https://res.cloudinary.com/doccvot6h/image/upload/v1775188751/Prison_Escape_GDD_waqr7j.pdf" target="_blank" class="hbtn hbtn-gdd">📄 View GDD</a>
     </div>
   </div>
 </div>
@@ -232,7 +248,7 @@ footer{background:#080610;border-top:1px solid #14101a;padding:2rem 3rem;display
           <div class="action-card-title">Prison Escape 3D — GDD</div>
           <div class="action-card-sub">Full design documentation — mechanics, level structure, AI behaviour</div>
         </div>
-        <a href="https://drive.google.com/file/d/1EEbfQeh4TE_a_wGnyiYVC188TLLg8eeZ/view?usp=drive_link" target="_blank" class="action-card-btn">Open GDD ↗</a>
+        <a href="https://res.cloudinary.com/doccvot6h/image/upload/v1775188751/Prison_Escape_GDD_waqr7j.pdf" target="_blank" class="action-card-btn">Open GDD ↗</a>
       </div>
       <div class="action-card play">
         <div class="action-card-text">
@@ -348,7 +364,7 @@ footer{background:#080610;border-top:1px solid #14101a;padding:2rem 3rem;display
       <p class="closing-text">Prison Escape 3D was built end-to-end by a team of 2 — from GDD and level design through to 3D asset creation and final Unity build. A complete game design and development experience that sharpened every skill in the pipeline.</p>
       <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
         <a href="https://virajtheleveldesigner.itch.io/prison-escape-3d" target="_blank" class="hbtn hbtn-play">▶ Play on itch.io</a>
-        <a href="https://drive.google.com/file/d/1EEbfQeh4TE_a_wGnyiYVC188TLLg8eeZ/view?usp=drive_link" target="_blank" class="hbtn hbtn-gdd">📄 View GDD</a>
+        <a href="https://res.cloudinary.com/doccvot6h/image/upload/v1775188751/Prison_Escape_GDD_waqr7j.pdf" target="_blank" class="hbtn hbtn-gdd">📄 View GDD</a>
       </div>
     </div>
   </div>
